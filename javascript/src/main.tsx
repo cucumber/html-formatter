@@ -1,8 +1,9 @@
+import './styles.scss'
+
 import * as messages from '@cucumber/messages'
 import { components, searchFromURLParams } from '@cucumber/react'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './styles.scss'
 
 const { CucumberReact } = components
 const { FilteredResults, EnvelopesWrapper, SearchWrapper } = components.app

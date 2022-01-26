@@ -16,11 +16,20 @@
   "scripts": {
     "prepare": "cpy '**/*.scss' '../dist/src' --cwd='src' --parents",
     "test": "mocha",
-    "prepublishOnly": "tsc --build tsconfig.build.json"
+    "prepublishOnly": "tsc --build tsconfig.build.json",
+    "eslint:fix": "eslint --ext ts,tsx --max-warnings 0 --fix src test",
+    "eslint": "eslint --ext ts,tsx --max-warnings 0 src test"
   },
   "dependencies": {
     "@cucumber/messages": "^17.1.1",
+    "@typescript-eslint/eslint-plugin": "^5.10.1",
     "commander": "8.3.0",
+    "eslint": "^8.7.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "prettier": "^2.5.1",
     "source-map-support": "0.5.21"
   },
   "devDependencies": {
@@ -37,6 +46,9 @@
     "babel-loader": "8.2.3",
     "cpy-cli": "3.1.1",
     "css-loader": "6.5.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "mini-css-extract-plugin": "2.5.3",
     "mocha": "9.2.0",
     "puppeteer": "^13.1.2",
