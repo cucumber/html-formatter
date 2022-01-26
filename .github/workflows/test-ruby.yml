@@ -1,0 +1,33 @@
+name: test-ruby
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-ruby:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+        ruby: ['2.5', '2.6', '2.7', '3.0']
+        include:
+          - os: windows-latest
+            ruby: '3.0'
+          - os: macos-latest
+            ruby: '3.0'
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true
+        working-directory: ruby
+    - run: bundle exec rspec
+      working-directory: ruby

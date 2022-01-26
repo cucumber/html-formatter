@@ -79,6 +79,7 @@ export default class CucumberHtmlStream extends Transform {
   ) {
     this.readTemplate((err, template) => {
       if (err) return callback(err)
+      if (!template) return callback(new Error("template is required if error is missing"))
       const beginIndex = begin == null ? 0 : template.indexOf(begin) + begin.length
       const endIndex = end == null ? template.length : template.indexOf(end)
       this.push(template.substring(beginIndex, endIndex))
