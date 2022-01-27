@@ -2,6 +2,8 @@ name: test-ruby
 
 on:
   push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
@@ -35,10 +37,6 @@ jobs:
       with:
         name: javascript-dist
         path: javascript/dist
-
-    - name: Display structure of downloaded files
-      run: ls -R
-      working-directory: javascript/dist
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
