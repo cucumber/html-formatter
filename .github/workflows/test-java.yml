@@ -2,12 +2,20 @@ name: test-java
 
 on:
   push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
 
 jobs:
+
+  build-javascript:
+    uses: cucumber/html-formatter/.github/workflows/build-javascript.yml@github-ci
+
   test-java:
+    needs: [build-javascript]
+
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -23,14 +31,23 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Download javascript build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: javascript-dist
+
       - uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
           cache: 'maven'
+
       - run: mvn install
         working-directory: java
+
       - run: mvn test
         working-directory: java
+
       - run: ./scripts/check-jar.sh
         working-directory: java

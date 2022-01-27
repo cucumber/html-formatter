@@ -7,7 +7,13 @@ on:
       - main
 
 jobs:
+
+  build-javascript:
+    uses: cucumber/html-formatter/.github/workflows/build-javascript.yml@github-ci
+
   test-ruby:
+    needs: [build-javascript]
+
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -23,11 +29,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Download javascript build artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: javascript-dist
+
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: javascript/dist
+
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
         working-directory: ruby
+
     - run: bundle exec rspec
       working-directory: ruby

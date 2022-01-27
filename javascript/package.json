@@ -17,7 +17,7 @@
     "build:tsc": "tsc --build tsconfig.build.json",
     "build:webpack": "webpack",
     "build": "npm run build:tsc && npm run prepare && npm run build:webpack",
-    "prepare": "cpy '**/*.scss' '../dist/src' --cwd='src' --parents",
+    "prepare": "cpy '**/*.scss' '../dist/src' --cwd='src' --parents && cpy 'src/index.mustache.html' 'dist/src'",
     "test": "mocha",
     "prepublishOnly": "npm run build",
     "eslint:fix": "eslint --ext ts,tsx --max-warnings 0 --fix src test",
