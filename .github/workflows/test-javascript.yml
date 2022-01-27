@@ -44,3 +44,7 @@ jobs:
 
     - run: npm run eslint
       working-directory: javascript
+
+    - name: Acceptance tests
+      working-directory: javascript
+      run: npm run validate
