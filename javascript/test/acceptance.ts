@@ -34,7 +34,7 @@ describe('html-formatter', () => {
     it(`can render ${path.basename(ndjson, '.ndjson')}`, async () => {
       // const ndjsonData = fs.readFileSync(ndjson, { encoding: 'utf-8' })
       const { stdout: htmlData } = await run(
-        `cat ${ndjson} | ./bin/cucumber-html-formatter.js`,
+        `npx shx cat ${ndjson} | node ./bin/cucumber-html-formatter.js`,
         { maxBuffer: 4096 * 1024 }
       )
 
