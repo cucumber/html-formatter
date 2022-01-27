@@ -14,9 +14,12 @@
   "author": "Aslak Hellesøy",
   "license": "MIT",
   "scripts": {
+    "build:tsc": "tsc --build tsconfig.build.json",
+    "build:webpack": "webpack",
+    "build": "npm run build:tsc && npm run prepare && npm run build:webpack",
     "prepare": "cpy '**/*.scss' '../dist/src' --cwd='src' --parents",
     "test": "mocha",
-    "prepublishOnly": "tsc --build tsconfig.build.json",
+    "prepublishOnly": "npm run build",
     "eslint:fix": "eslint --ext ts,tsx --max-warnings 0 --fix src test",
     "eslint": "eslint --ext ts,tsx --max-warnings 0 src test"
   },
