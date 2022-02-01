@@ -48,10 +48,9 @@ jobs:
     - name: Copy javascript artifacts into assets folder
       working-directory: ruby
       run: |
-        mkdir -p assets
         cp ../javascript/dist/main.css assets/cucumber-html.css
         cp ../javascript/dist/main.js assets/cucumber-html.js
         cp ../javascript/dist/src/index.mustache.html assets/index.mustache.html
 
-    - run: bundle exec rspec
+    - run: bundle exec rake
       working-directory: ruby
