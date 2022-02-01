@@ -30,3 +30,9 @@ jobs:
       with:
         name: javascript-dist
         path: javascript/dist
+
+    - name: Archive JS CCK features artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: javascript-cck
+        path: javascript/node_modules/@cucumber/compatibility-kit/features
