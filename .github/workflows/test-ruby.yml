@@ -38,6 +38,13 @@ jobs:
         name: javascript-dist
         path: javascript/dist
 
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true
+        working-directory: ruby
+
     - name: Copy javascript artifacts into assets folder
       working-directory: ruby
       run: |
@@ -45,13 +52,6 @@ jobs:
         cp ../javascript/dist/main.css assets/cucumber-html.css
         cp ../javascript/dist/main.js assets/cucumber-html.js
         cp ../javascript/dist/src/index.mustache.html assets/index.mustache.html
-
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
-        bundler-cache: true
-        working-directory: ruby
 
     - run: bundle exec rspec
       working-directory: ruby
