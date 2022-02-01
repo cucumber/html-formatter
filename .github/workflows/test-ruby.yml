@@ -24,8 +24,6 @@ jobs:
           - ubuntu-latest
         ruby: ['2.5', '2.6', '2.7', '3.0']
         include:
-          - os: windows-latest
-            ruby: '3.0'
           - os: macos-latest
             ruby: '3.0'
 
