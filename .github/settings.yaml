@@ -1,0 +1,3 @@
+repository:
+  name: html-formatter
+  description: HTML formatter for Cucumber results
