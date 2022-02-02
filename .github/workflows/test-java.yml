@@ -38,6 +38,12 @@ jobs:
           name: javascript-dist
           path: javascript/dist
 
+      - name: Download javascript cck build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: javascript-cck
+          path: javascript/node_modules/@cucumber/compatibility-kit/features
+
       - uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
