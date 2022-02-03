@@ -1,4 +1,5 @@
 _extends: .github
+
 repository:
   name: html-formatter
   description: HTML formatter for reporting Cucumber results
