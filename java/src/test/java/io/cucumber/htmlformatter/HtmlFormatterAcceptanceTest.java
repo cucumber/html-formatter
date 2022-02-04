@@ -1,14 +1,17 @@
 import org.junit.jupiter.api.Test;
 
-import java.lang.InterruptedException;
-import java.lang.ProcessBuilder;
-import java.lang.ProcessBuilder.Redirect;
+import java.io.CharArrayWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.File;
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import io.cucumber.htmlformatter.MessagesToHtmlWriter;
+import io.cucumber.messages.NdjsonToMessageIterable;
+import io.cucumber.messages.types.Envelope;
+
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import static java.nio.file.Files.newDirectoryStream;
 
@@ -24,27 +27,34 @@ class HtmlFormatterAcceptanceTest {
 
                 newDirectoryStream(Paths.get(path.toString()), "*.ndjson").forEach((ndjsonFilePath) -> {
 
-                    try {
+                    int renderedLength = this.renderHtmlFileForGivenNdjson(ndjsonFilePath.toString());
 
-                        ProcessBuilder pb =
-                            new ProcessBuilder("mvn --quiet --batch-mode exec:java -Dexec.mainClass=io.cucumber.htmlformatter.Main")
-                                .redirectInput(new File(ndjsonFilePath.toString()))
-                                .redirectOutput(Redirect.INHERIT)
-                                .redirectError(Redirect.INHERIT);
-
-                        Process p = pb.start();
-                        int rc = p.waitFor();
-
-                        assertEquals(0, rc);
-
-                    } catch (IOException ioe) {
-                    } catch (InterruptedException ie) {
-                    }
+                    assertNotEquals(0, renderedLength);
 
                 });
 
             } catch (IOException ioe) {
+                fail();
             }
         });
     }
+
+    int renderHtmlFileForGivenNdjson(String ndjsonFilePath) {
+        try {
+            CharArrayWriter writer = new CharArrayWriter();
+            NdjsonToMessageIterable envelopes = new NdjsonToMessageIterable(new FileInputStream(ndjsonFilePath));
+            MessagesToHtmlWriter htmlWriter = new MessagesToHtmlWriter(writer);
+
+            for (Envelope envelope : envelopes) {
+                htmlWriter.write(envelope);
+            }
+
+            return writer.size();
+        } catch (FileNotFoundException fnfe) {
+            return 0;
+        } catch (IOException ioe) {
+            return 0;
+        }
+    }
+
 }
