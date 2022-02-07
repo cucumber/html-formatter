@@ -25,7 +25,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
       - uses: ./.github/actions/prepare
+
       - uses: actions/setup-java@v2
         with:
           distribution: "temurin"
