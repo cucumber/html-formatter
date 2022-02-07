@@ -9,12 +9,7 @@ on:
       - main
 
 jobs:
-  build-javascript:
-    uses: cucumber/html-formatter/.github/workflows/build-javascript.yml@main
-
   test-java:
-    needs: [build-javascript]
-
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -40,12 +35,6 @@ jobs:
 
       - name: build javascript assets
         run: make prepare
-
-      - name: Download javascript cck build artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: javascript-cck
-          path: javascript/node_modules/@cucumber/compatibility-kit/features
 
       - uses: actions/setup-java@v2
         with:
