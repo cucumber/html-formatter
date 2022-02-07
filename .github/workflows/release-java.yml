@@ -1,0 +1,49 @@
+name: Release maven package
+
+on:
+  push:
+    branches:
+      - release/*
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  pre-release-check:
+    uses: cucumber/html-formatter/.github/workflows/prerelease-checks.yml@add-release-workflows
+
+  test-java:
+    uses: cucumber/html-formatter/.github/workflows/test-java.yml@main
+
+  publish-mvn:
+    name: Publish Maven Package
+    needs: [pre-release-check, test-java]
+    runs-on: ubuntu-latest
+    # environment: Release
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+          cache: 'maven'
+
+
+      - name: Copy javascript artifacts into target classes
+        working-directory: java
+        run: |
+          mkdir -p target/classes/io/cucumber/htmlformatter
+          cp ../javascript/dist/main.css target/classes/io/cucumber/htmlformatter/cucumber-html.css
+          cp ../javascript/dist/main.js target/classes/io/cucumber/htmlformatter/cucumber-html.js
+          cp ../javascript/dist/src/index.mustache.html target/classes/io/cucumber/htmlformatter/index.mustache.html
+
+      # - uses: cucumber/action-publish-mvn@v1.0.0
+      #   with:
+      #     gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+      #     gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+      #     nexus-username: cukebot
+      #     nexus-password: ${{ secrets.SONATYPE_PASSWORD }}
+      #     working-directory: java

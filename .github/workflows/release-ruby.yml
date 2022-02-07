@@ -1,0 +1,45 @@
+name: Release ruby gem
+
+on:
+  push:
+    branches:
+      - release/*
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  pre-release-check:
+    uses: cucumber/html-formatter/.github/workflows/prerelease-checks.yml@add-release-workflows
+
+  test-ruby:
+    uses: cucumber/html-formatter/.github/workflows/test-ruby.yml@main
+
+  publish-rubygem:
+    name: Publish Ruby Gem
+    needs: [pre-release-check, test-ruby]
+    runs-on: ubuntu-latest
+    # environment: Release
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
+          working-directory: ruby
+
+      - name: Copy javascript artifacts into assets folder
+        working-directory: ruby
+        run: |
+          cp ../javascript/dist/main.css assets/cucumber-html.css
+          cp ../javascript/dist/main.js assets/cucumber-html.js
+          cp ../javascript/dist/src/index.mustache.html assets/index.mustache.html
+
+      # - name: Publish ruby gem
+      #   uses: cucumber/action-publish-rubygem@v1.0.0
+      #   with:
+      #     working_directory: ruby
+      #     rubygems_api_key: ${{ secrets.RUBYGEMS_API_KEY }}
