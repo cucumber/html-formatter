@@ -1,6 +1,6 @@
+import * as messages from '@cucumber/messages'
 import fs from 'fs'
 import { Readable, Transform, TransformCallback } from 'stream'
-import * as messages from '@cucumber/messages'
 
 export default class CucumberHtmlStream extends Transform {
   private template: string | null = null
@@ -11,7 +11,10 @@ export default class CucumberHtmlStream extends Transform {
    * @param cssPath
    * @param jsPath
    */
-  constructor(private readonly cssPath: string, private readonly jsPath: string) {
+  constructor(
+    private readonly cssPath: string,
+    private readonly jsPath: string
+  ) {
     super({ objectMode: true })
   }
 
@@ -79,22 +82,31 @@ export default class CucumberHtmlStream extends Transform {
   ) {
     this.readTemplate((err, template) => {
       if (err) return callback(err)
-      const beginIndex = begin == null ? 0 : template.indexOf(begin) + begin.length
+      if (!template)
+        return callback(new Error('template is required if error is missing'))
+      const beginIndex =
+        begin == null ? 0 : template.indexOf(begin) + begin.length
       const endIndex = end == null ? template.length : template.indexOf(end)
       this.push(template.substring(beginIndex, endIndex))
       callback()
     })
   }
 
-  private readTemplate(callback: (error?: Error | null, data?: string) => void) {
+  private readTemplate(
+    callback: (error?: Error | null, data?: string) => void
+  ) {
     if (this.template !== null) {
       return callback(null, this.template)
     }
-    fs.readFile(__dirname + '/index.mustache.html', { encoding: 'utf-8' }, (err, template) => {
-      if (err) return callback(err)
-      this.template = template
-      return callback(null, template)
-    })
+    fs.readFile(
+      __dirname + '/index.mustache.html',
+      { encoding: 'utf-8' },
+      (err, template) => {
+        if (err) return callback(err)
+        this.template = template
+        return callback(null, template)
+      }
+    )
   }
 
   private writeMessage(envelope: messages.Envelope) {
