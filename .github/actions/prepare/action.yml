@@ -12,3 +12,4 @@ runs:
 
     - name: build javascript assets
       run: make prepare
+      shell: bash
