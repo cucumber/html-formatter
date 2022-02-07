@@ -14,7 +14,7 @@ jobs:
     uses: cucumber/html-formatter/.github/workflows/prerelease-checks.yml@add-release-workflows
 
   test-ruby:
-    uses: cucumber/html-formatter/.github/workflows/test-ruby.yml@main
+    uses: cucumber/html-formatter/.github/workflows/test-ruby.yml@add-release-workflows
 
   publish-rubygem:
     name: Publish Ruby Gem

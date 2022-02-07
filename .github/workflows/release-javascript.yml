@@ -14,7 +14,7 @@ jobs:
     uses: cucumber/html-formatter/.github/workflows/prerelease-checks.yml@add-release-workflows
 
   test-javascript:
-    uses: cucumber/html-formatter/.github/workflows/test-javascript.yml@main
+    uses: cucumber/html-formatter/.github/workflows/test-javascript.yml@add-release-workflows
 
   publish-npm:
     name: Publish NPM module
