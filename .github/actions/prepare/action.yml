@@ -1,0 +1,14 @@
+name: Prepare javascript / HTML / CSS assets
+description: Builds and copies the assets into the Java and Ruby package folders
+runs:
+  using: "composite"
+  steps:
+    - name: with Node.js 16 on ubuntu-latest
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16.x
+        cache: "npm"
+        cache-dependency-path: javascript/package-lock.json
+
+    - name: build javascript assets
+      run: make prepare

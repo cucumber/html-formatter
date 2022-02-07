@@ -25,17 +25,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: with Node.js 16 on ubuntu-latest
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-          cache: "npm"
-          cache-dependency-path: javascript/package-lock.json
-
-      - name: build javascript assets
-        run: make prepare
-
+      - uses: ./.github/actions/prepare
       - uses: actions/setup-java@v2
         with:
           distribution: "temurin"
