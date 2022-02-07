@@ -1,9 +1,9 @@
-JAVASCRIPT_SRC = $(wildcard javascript/src/*)
-ASSETS = cucumber-html.css cucumber-html.js index.mustache.html
-RUBY_ASSETS = $(addprefix ruby/assets/,$(ASSETS))
-JAVA_ASSETS = $(addprefix java/target/classes/io/cucumber/htmlformatter/,$(ASSETS))
+javscript_source = $(wildcard javascript/src/*)
+assets = cucumber-html.css cucumber-html.js index.mustache.html
+ruby_assets = $(addprefix ruby/assets/,$(assets))
+java_assets = $(addprefix java/target/classes/io/cucumber/htmlformatter/,$(assets))
 
-prepare: $(RUBY_ASSETS) $(JAVA_ASSETS)
+prepare: $(ruby_assets) $(java_assets)
 
 ruby/assets/cucumber-html.css: javascript/dist/main.css
 	cp $< $@
@@ -27,8 +27,9 @@ javascript/dist/src/index.mustache.html: javascript/dist/main.js
 
 javascript/dist/main.css: javascript/dist/main.js
 
-javascript/dist/main.js: javascript/package.json $(JAVASCRIPT_SRC)
+javascript/dist/main.js: javascript/package.json $(javscript_source)
 	cd javascript && npm install-test && npm run build
 
+.PHONY: .clean
 clean:
-	rm -rf $(RUBY_ASSETS) $(JAVA_ASSETS) javascript/dist
+	rm -rf $(ruby_assets) $(java_assets) javascript/dist
