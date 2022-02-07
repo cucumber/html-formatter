@@ -11,7 +11,7 @@ on:
 jobs:
 
   build-javascript:
-    uses: cucumber/html-formatter/.github/workflows/build-javascript.yml@github-ci
+    uses: cucumber/html-formatter/.github/workflows/build-javascript.yml@main
 
   test-ruby:
     needs: [build-javascript]
