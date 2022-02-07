@@ -9,7 +9,6 @@ on:
       - main
 
 jobs:
-
   build-javascript:
     uses: cucumber/html-formatter/.github/workflows/build-javascript.yml@main
 
@@ -22,21 +21,25 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-        java: ['11', '16']
+        java: ["11", "16"]
         include:
           - os: windows-latest
-            java: '16'
+            java: "16"
           - os: macos-latest
-            java: '16'
+            java: "16"
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Download javascript build artifacts
-        uses: actions/download-artifact@v2
+      - name: with Node.js 16 on ubuntu-latest
+        uses: actions/setup-node@v2
         with:
-          name: javascript-dist
-          path: javascript/dist
+          node-version: 16.x
+          cache: "npm"
+          cache-dependency-path: javascript/package-lock.json
+
+      - name: build javascript assets
+        run: make prepare
 
       - name: Download javascript cck build artifacts
         uses: actions/download-artifact@v2
@@ -46,9 +49,9 @@ jobs:
 
       - uses: actions/setup-java@v2
         with:
-          distribution: 'temurin'
+          distribution: "temurin"
           java-version: ${{ matrix.java }}
-          cache: 'maven'
+          cache: "maven"
 
       - name: Copy javascript artifacts into target classes
         working-directory: java
