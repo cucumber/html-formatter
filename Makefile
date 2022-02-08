@@ -6,13 +6,7 @@ java_assets = $(addprefix java/target/classes/io/cucumber/htmlformatter/,$(asset
 .DEFAULT_GOAL = help
 
 help: ## Show this help
-	@echo ""
-	@echo "Please use 'make <target>' where <target> is one of:"
-	@echo ""
-	@grep '^[^.#]\+:\s\+.*##' Makefile | \
-	sed "s/\(.\+\):\s*\(.*\) ##\s*\(.*\)/`printf "\033[93m"`  \1`printf "\033[0m"`	\3 /" | \
-	expand -25
-	@echo ""
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m\033[0m\n"} /^[$$()% a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 prepare: $(ruby_assets) $(java_assets) ## Build javascript module and copy required artifacts to java and ruby projects
 
