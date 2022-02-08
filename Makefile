@@ -11,19 +11,19 @@ ruby/assets/cucumber-html.css: javascript/dist/main.css
 ruby/assets/cucumber-html.js: javascript/dist/main.js
 	cp $< $@
 
-ruby/assets/index.mustache.html: javascript/dist/src/index.mustache.html 
+ruby/assets/index.mustache.html: javascript/dist/src/index.mustache.html
 	cp $< $@
 
-java/target/classes/io/cucumber/htmlformatter: 
+java/target/classes/io/cucumber/htmlformatter:
 	mkdir -p $@
 
-java/target/classes/io/cucumber/htmlformatter/cucumber-html.css: javascript/dist/main.css java/target/classes/io/cucumber/htmlformatter 
+java/target/classes/io/cucumber/htmlformatter/cucumber-html.css: javascript/dist/main.css java/target/classes/io/cucumber/htmlformatter
 	cp $< $@
 
-java/target/classes/io/cucumber/htmlformatter/cucumber-html.js: javascript/dist/main.js java/target/classes/io/cucumber/htmlformatter 
+java/target/classes/io/cucumber/htmlformatter/cucumber-html.js: javascript/dist/main.js java/target/classes/io/cucumber/htmlformatter
 	cp $< $@
 
-java/target/classes/io/cucumber/htmlformatter/index.mustache.html: javascript/dist/src/index.mustache.html java/target/classes/io/cucumber/htmlformatter 
+java/target/classes/io/cucumber/htmlformatter/index.mustache.html: javascript/dist/src/index.mustache.html java/target/classes/io/cucumber/htmlformatter
 	cp $< $@
 
 javascript/dist/src/index.mustache.html: javascript/dist/main.js
