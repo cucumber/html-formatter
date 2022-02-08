@@ -1,4 +1,4 @@
-javscript_source = $(wildcard javascript/src/*)
+javascript_source = $(wildcard javascript/src/*)
 assets = cucumber-html.css cucumber-html.js index.mustache.html
 ruby_assets = $(addprefix ruby/assets/,$(assets))
 java_assets = $(addprefix java/target/classes/io/cucumber/htmlformatter/,$(assets))
@@ -30,7 +30,7 @@ javascript/dist/src/index.mustache.html: javascript/dist/main.js
 
 javascript/dist/main.css: javascript/dist/main.js
 
-javascript/dist/main.js: javascript/package.json $(javscript_source)
+javascript/dist/main.js: javascript/package.json $(javascript_source)
 	cd javascript && npm install-test && npm run build
 
 .PHONY: .clean
