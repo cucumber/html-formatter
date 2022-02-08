@@ -3,9 +3,20 @@ assets = cucumber-html.css cucumber-html.js index.mustache.html
 ruby_assets = $(addprefix ruby/assets/,$(assets))
 java_assets = $(addprefix java/target/classes/io/cucumber/htmlformatter/,$(assets))
 
-prepare: $(ruby_assets) $(java_assets)
+.DEFAULT_GOAL = help
 
-clean:
+help: ## Show this help
+	@echo ""
+	@echo "Please use 'make <target>' where <target> is one of:"
+	@echo ""
+	@grep '^[^.#]\+:\s\+.*##' Makefile | \
+	sed "s/\(.\+\):\s*\(.*\) ##\s*\(.*\)/`printf "\033[93m"`  \1`printf "\033[0m"`	\3 /" | \
+	expand -25
+	@echo ""
+
+prepare: $(ruby_assets) $(java_assets) ## Build javascript module and copy required artifacts to java and ruby projects
+
+clean: ## Remove javascript built module and related artifacts from java and ruby projects
 	rm -rf $(ruby_assets) $(java_assets) javascript/dist
 .PHONY: .clean
 
