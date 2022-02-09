@@ -4,7 +4,7 @@ import fs from 'fs'
 import glob from 'glob'
 import path from 'path'
 import puppeteer from 'puppeteer'
-import { pipeline } from 'stream'
+import { PassThrough, pipeline } from 'stream'
 
 import CucumberHtmlStream from '../src/CucumberHtmlStream'
 
@@ -36,8 +36,11 @@ describe('html-formatter', () => {
     it(`can render ${path.basename(ndjson, '.ndjson')}`, async () => {
       const ndjsonData = fs.readFileSync(ndjson, { encoding: 'utf-8' })
       const toMessageStream = new NdjsonToMessageStream()
-      let htmlData = Buffer.from('')
-      await new Promise((resolve, reject) => {
+      const htmlData = await new Promise<string>((resolve, reject) => {
+        const chunks: Buffer[] = []
+        const out = new PassThrough()
+          .on('data', (chunk) => chunks.push(Buffer.from(chunk)))
+          .on('end', () => resolve(Buffer.concat(chunks).toString()))
         pipeline(
           ndjsonData,
           toMessageStream,
@@ -45,18 +48,14 @@ describe('html-formatter', () => {
             __dirname + '/../dist/main.css',
             __dirname + '/../dist/main.js'
           ),
+          out,
           (err: Error) => {
             if (err) {
               reject(err)
             }
           }
         )
-          .on('data', (chunk) => {
-            htmlData = Buffer.concat([htmlData, Buffer.from(chunk)])
-          })
-          .on('end', resolve)
       })
-
       assert.ok(await canRenderHtml(htmlData.toString()))
     })
   }
