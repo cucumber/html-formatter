@@ -34,7 +34,7 @@ describe('html-formatter', () => {
   )
   for (const ndjson of files) {
     it(`can render ${path.basename(ndjson, '.ndjson')}`, async () => {
-      const ndjsonData = fs.readFileSync(ndjson, { encoding: 'utf-8' })
+      const ndjsonData = fs.createReadStream(ndjson, { encoding: 'utf-8' })
       const toMessageStream = new NdjsonToMessageStream()
       const htmlData = await new Promise<string>((resolve, reject) => {
         const chunks: Buffer[] = []
