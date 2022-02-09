@@ -1,11 +1,12 @@
+import { NdjsonToMessageStream } from '@cucumber/message-streams'
 import assert from 'assert'
-import { exec } from 'child_process'
+import fs from 'fs'
 import glob from 'glob'
 import path from 'path'
 import puppeteer from 'puppeteer'
-import util from 'util'
+import { pipeline } from 'stream'
 
-const run = util.promisify(exec)
+import CucumberHtmlStream from '../src/CucumberHtmlStream'
 
 async function canRenderHtml(html: string): Promise<boolean> {
   const browser = await puppeteer.launch({
@@ -28,17 +29,35 @@ async function canRenderHtml(html: string): Promise<boolean> {
 }
 
 describe('html-formatter', () => {
-  for (const ndjson of glob.sync(
+  const files = glob.sync(
     `./node_modules/@cucumber/compatibility-kit/features/**/*.ndjson`
-  )) {
+  )
+  for (const ndjson of files) {
     it(`can render ${path.basename(ndjson, '.ndjson')}`, async () => {
-      // const ndjsonData = fs.readFileSync(ndjson, { encoding: 'utf-8' })
-      const { stdout: htmlData } = await run(
-        `npx shx cat ${ndjson} | node ./bin/cucumber-html-formatter.js`,
-        { maxBuffer: 4096 * 1024 }
-      )
+      const ndjsonData = fs.readFileSync(ndjson, { encoding: 'utf-8' })
+      const toMessageStream = new NdjsonToMessageStream()
+      let htmlData = Buffer.from('')
+      await new Promise((resolve, reject) => {
+        pipeline(
+          ndjsonData,
+          toMessageStream,
+          new CucumberHtmlStream(
+            __dirname + '/../dist/main.css',
+            __dirname + '/../dist/main.js'
+          ),
+          (err: Error) => {
+            if (err) {
+              reject(err)
+            }
+          }
+        )
+          .on('data', (chunk) => {
+            htmlData = Buffer.concat([htmlData, Buffer.from(chunk)])
+          })
+          .on('end', resolve)
+      })
 
-      assert.ok(await canRenderHtml(htmlData))
+      assert.ok(await canRenderHtml(htmlData.toString()))
     })
   }
 })
