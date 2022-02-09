@@ -35,3 +35,11 @@ Using Docker:
 ## Obtaining `cucumber-messages.ndjson`
 
 If you're using a Cucumber version with a `message` formatter, pass `--format message:cucumber-messages.ndjson` to it.
+
+## Contributing
+
+Java and Ruby implementations depends on the Javascript one. To properly setup the repo you can use:
+
+    make prepare
+
+It will build the Javascript module and copy required artifacts to Java and Ruby implementations.
