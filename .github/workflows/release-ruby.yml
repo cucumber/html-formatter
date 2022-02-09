@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - release/*
-  pull_request:
-    branches:
-      - main
 
 jobs:
   pre-release-check:
@@ -19,7 +16,7 @@ jobs:
     name: Publish Ruby Gem
     needs: [pre-release-check, test-ruby]
     runs-on: ubuntu-latest
-    # environment: Release
+    environment: Release
 
     steps:
       - uses: actions/checkout@v2
@@ -33,8 +30,8 @@ jobs:
           bundler-cache: true
           working-directory: ruby
 
-      # - name: Publish ruby gem
-      #   uses: cucumber/action-publish-rubygem@v1.0.0
-      #   with:
-      #     working_directory: ruby
-      #     rubygems_api_key: ${{ secrets.RUBYGEMS_API_KEY }}
+      - name: Publish ruby gem
+        uses: cucumber/action-publish-rubygem@v1.0.0
+        with:
+          working_directory: ruby
+          rubygems_api_key: ${{ secrets.RUBYGEMS_API_KEY }}
