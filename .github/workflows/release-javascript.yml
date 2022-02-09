@@ -1,0 +1,37 @@
+name: Release npm module
+
+on:
+  push:
+    branches:
+      - release/*
+
+jobs:
+
+  pre-release-check:
+    uses: cucumber/html-formatter/.github/workflows/prerelease-checks.yml@add-release-workflows
+
+  test-javascript:
+    uses: cucumber/html-formatter/.github/workflows/test-javascript.yml@add-release-workflows
+
+  publish-npm:
+    name: Publish NPM module
+    needs: [pre-release-check, test-javascript]
+    runs-on: ubuntu-latest
+    environment: Release
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '17'
+          cache: 'npm'
+          cache-dependency-path: javascript/package-lock.json
+
+      - run: npm install-ci-test
+        working-directory: javascript
+
+      - uses: cucumber/action-publish-npm@v1.1.0
+        with:
+          npm-token: ${{ secrets.NPM_TOKEN }}
+          working-directory: javascript
