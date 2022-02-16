@@ -11,20 +11,6 @@ This formatter is built into the following Cucumber implementations:
 * cucumber-jvm
 * cucumber-js
 
-## Stand-alone (Command-line) Usage
-
-The `cucumber/html-formatter` can also be used as a standalone tool, receiving a stream of `ndjson` messages on STDIN, and writing HTML to STDOUT.
-
-Using NPM:
-
-    cat cucumber-messages.ndjson | npx @cucumber/html-formatter > index.html
-
-## Obtaining `cucumber-messages.ndjson`
-
-If you're using a Cucumber version with a `message` formatter, pass `--format message:cucumber-messages.ndjson` to it.
-
-There are also a bunch of example `.ndjson` files alongside their corresponding feature files in the [combatability kit](https://github.com/cucumber/common/tree/main/compatibility-kit) under the [`javascript/features`](https://github.com/cucumber/common/tree/main/compatibility-kit/javascript/features) directory.
-
 ## Contributing
 
 The Java and Ruby packages are wrappers that bundle the build artefacts from the Javascript package.
