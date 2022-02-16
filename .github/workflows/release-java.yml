@@ -7,10 +7,10 @@ on:
 
 jobs:
   pre-release-check:
-    uses: cucumber/html-formatter/.github/workflows/prerelease-checks.yml@add-release-workflows
+    uses: cucumber/.github/.github/workflows/prerelease-checks.yml@main
 
   test-java:
-    uses: cucumber/html-formatter/.github/workflows/test-java.yml@add-release-workflows
+    uses: ./.github/workflows/test-java.yml
 
   publish-mvn:
     name: Publish Maven Package
