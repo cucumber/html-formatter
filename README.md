@@ -1,45 +1,24 @@
 # Cucumber HTML Formatter
 
-This is a cross-platform formatter that produces a HTML report for Cucumber runs.
+This is a cross-platform formatter that produces a pretty HTML report for Cucumber runs.
+
 It is built on top of [@cucumber/react](https://github.com/cucumber/cucumber-react) and works with *any*
-Cucumber implementation with a `message` formatter that outputs [cucumber messages](../messages).
+Cucumber implementation with a `message` formatter that outputs [cucumber messages](https://github.com/cucumber/common/tree/main/messages).
 
 This formatter is built into the following Cucumber implementations:
 
-* cucumber-ruby
-* cucumber-jvm
-* cucumber-js
-
-For other Cucumber implementations that don't yet bundle this formatter, the `cucumber-html-formatter` can also be used as a standalone tool.
-
-## Installation
-
-Using NPM:
-
-    npm install -g @cucumber/html-formatter
-
-Using Docker:
-
-    docker pull cucumber/cucumber-html-formatter:latest
-
-## Usage
-
-Using NPM:
-
-    cat cucumber-messages.ndjson | cucumber-html-formatter > index.html
-
-Using Docker:
-
-    cat cucumber-messages.ndjson | docker run --interactive --rm cucumber/cucumber-html-formatter:latest > index.html
-
-## Obtaining `cucumber-messages.ndjson`
-
-If you're using a Cucumber version with a `message` formatter, pass `--format message:cucumber-messages.ndjson` to it.
+* [cucumber-ruby](https://github.com/cucumber/cucumber-ruby/blob/main/lib/cucumber/formatter/html.rb)
+* [cucumber-jvm](https://github.com/cucumber/cucumber-jvm/blob/main/core/src/main/java/io/cucumber/core/plugin/HtmlFormatter.java)
+* [cucumber-js](https://github.com/cucumber/cucumber-js/blob/main/src/formatter/html_formatter.ts)
 
 ## Contributing
 
-Java and Ruby implementations depends on the Javascript one. To properly setup the repo you can use:
+The Java and Ruby packages are wrappers that bundle the build artefacts from the Javascript package.
+
+Thus, to work on either the Java or Ruby packages, you will need to have installed Node.js first.
+
+Once you have Node.js installed, you can use:
 
     make prepare
 
-It will build the Javascript module and copy required artifacts to Java and Ruby implementations.
+This will build the Javascript package and copy the required artifacts to the Java and Ruby packages.
