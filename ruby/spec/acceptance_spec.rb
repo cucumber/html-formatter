@@ -1,12 +1,18 @@
 require 'cucumber-compatibility-kit'
+require 'cucumber/html_formatter'
 
-describe 'bin/cucumber-html-formatter' do
-  let(:html_formatter_bin) { 'bin/cucumber-html-formatter' }
-  let(:html_formatter_command) { "bundle exec #{html_formatter_bin}" }
+describe Cucumber::HTMLFormatter.name do
 
   Cucumber::CompatibilityKit.gherkin_examples.each do |example_name|
+    def run_formatter(messages)
+      out = StringIO.new
+      formatter = Cucumber::HTMLFormatter::Formatter.new(out)
+      formatter.process_messages(messages)
+      out.string
+    end
+
     describe "'#{example_name}' example" do
-      subject(:html_report) { `cat #{example_ndjson} | #{html_formatter_command}` }
+      subject(:html_report) { run_formatter(File.readlines(example_ndjson)) }
 
       let(:example_ndjson) { "#{Cucumber::CompatibilityKit.example_path(example_name)}/#{example_name}.feature.ndjson" }
 
@@ -18,7 +24,7 @@ describe 'bin/cucumber-html-formatter' do
   Cucumber::CompatibilityKit.markdown_examples.each do |example_name|
     describe "'#{example_name}' example" do
       let(:example_ndjson) { "#{Cucumber::CompatibilityKit.example_path(example_name)}/#{example_name}.feature.md.ndjson" }
-      subject(:html_report) { `cat #{example_ndjson} | #{html_formatter_command}` }
+      subject(:html_report) { run_formatter(File.readlines(example_ndjson)) }
 
       it { is_expected.to match(/\A<!DOCTYPE html>\s?<html/) }
       it { is_expected.to match(/<\/html>\Z/) }
