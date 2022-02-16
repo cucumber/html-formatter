@@ -7,9 +7,9 @@ Cucumber implementation with a `message` formatter that outputs [cucumber messag
 
 This formatter is built into the following Cucumber implementations:
 
-* cucumber-ruby
-* cucumber-jvm
-* cucumber-js
+* [cucumber-ruby](https://github.com/cucumber/cucumber-ruby/blob/main/lib/cucumber/formatter/html.rb)
+* [cucumber-jvm](https://github.com/cucumber/cucumber-jvm/blob/main/core/src/main/java/io/cucumber/core/plugin/HtmlFormatter.java)
+* [cucumber-js](https://github.com/cucumber/cucumber-js/blob/main/src/formatter/html_formatter.ts)
 
 ## Contributing
 
