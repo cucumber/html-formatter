@@ -25,7 +25,6 @@
   "dependencies": {
     "@cucumber/messages": "^17.1.1",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
-    "commander": "8.3.0",
     "eslint": "^8.7.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
