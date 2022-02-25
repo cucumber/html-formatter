@@ -4,7 +4,7 @@ runs:
   using: "composite"
   steps:
     - name: with Node.js 16 on ubuntu-latest
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: 16.x
         cache: "npm"
