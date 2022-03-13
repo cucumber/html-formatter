@@ -36,7 +36,7 @@
   "devDependencies": {
     "@babel/core": "7.17.5",
     "@cucumber/compatibility-kit": "^9.1.2",
-    "@cucumber/gherkin-streams": "^4.0.0",
+    "@cucumber/gherkin-streams": "^5.0.0",
     "@cucumber/gherkin-utils": "^7.0.0",
     "@cucumber/message-streams": "^3.0.0",
     "@cucumber/query": "^11.0.0",
