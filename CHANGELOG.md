@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 ### Changed
-- Upgrade to `@cucumber/react` `^19.1.0`
+- Upgrade to `@cucumber/react` `^19.1.1`
 
 ### Deprecated
 
