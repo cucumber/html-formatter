@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [19.0.0] - 2022-03-25
 ### Added
 
 ### Changed
@@ -262,7 +264,8 @@ even if there were no errors.
 
 ### Fixed
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v18.0.0...main
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v19.0.0...main
+[19.0.0]: https://github.com/cucumber/html-formatter/compare/v18.0.0...main
 [18.0.0]: https://github.com/cucumber/html-formatter/compare/v17.0.0...v18.0.0
 [17.0.0]: https://github.com/cucumber/html-formatter/compare/v16.0.1...v17.0.0
 [16.0.1]: https://github.com/cucumber/html-formatter/compare/v16.0.0...v16.0.1
@@ -307,9 +310,6 @@ even if there were no errors.
 [1.0.2]: https://github.com/cucumber/html-formatter/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/cucumber/html-formatter/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/cucumber/cucumber/releases/tag/v1.0.0
-cumber/cucumber/releases/tag/v1.0.0
-
-<!-- Contributors in alphabetical order -->
-[aslakhellesoy]:    https://github.com/aslakhellesoy
+ttps://github.com/aslakhellesoy
 [vincent-psarga]:   https://github.com/vincent-psarga
 [mpkorstanje]:      https://github.com/mpkorstanje
