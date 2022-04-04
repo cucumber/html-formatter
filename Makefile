@@ -47,7 +47,6 @@ JAVA_VERSION = $(shell cd java && make version)
 RUBY_VERSION = $(shell cd ruby && make version)
 JAVASCRIPT_VERSION = $(shell cd javascript && make version)
 CURRENT_BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
-LANGUAGE_VERSIONS=($(JAVA_VERSION) $(RUBY_VERSION) $(JAVASCRIPT_VERSION))
 
 language-versions-check:
 	@if [[ ($(JAVA_VERSION) != $(RUBY_VERSION)) || ($(JAVA_VERSION) != $(JAVASCRIPT_VERSION)) ]];\
