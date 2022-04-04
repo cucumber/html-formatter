@@ -90,3 +90,11 @@ version-set: ## Set the next version to be released (requires NEXT_VERSION envir
 	@cd java && make version-set
 	@cd javascript && make version-set
 	@cd ruby && make version-set
+
+release:
+	commit=$(shell git rev-parse head)
+	NEXT_VERSION=$(JAVA_VERSION)
+	@cd java && make release-prepare
+	@cd javascript && make release-prepare
+	@cd ruby && make release-prepare
+	git push origin $(commit):refs/heads/release/v$(NEXT_VERSION)

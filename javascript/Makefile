@@ -4,4 +4,11 @@ version:
 version-set:
 	@npm version $(NEW_VERSION)
 
+release-prepare: version-set
+	@git add package*.*
+	@git commit -m "Prepare to release v$(NEW_VERSION)"
+	@npm version patch
+	@git add package*.*
+	@git commit -m "prepare for the next development iteration"
+
 .PHONY: version

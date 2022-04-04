@@ -6,4 +6,7 @@ version:
 version-set:
 	@mvn versions:set -DnewVersion=$(NEW_VERSION)-SNAPSHOT
 
+release-prepare:
+	@mvn release:prepare
+
 .PHONY: version
