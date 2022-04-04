@@ -41,3 +41,53 @@ javascript/dist/main.css: javascript/dist/main.js
 
 javascript/dist/main.js: javascript/package.json $(javascript_source)
 	cd javascript && npm install-test && npm run build
+
+RELEASED_VERSION = $(shell changelog latest)
+JAVA_VERSION = $(shell cd java && make version)
+RUBY_VERSION = $(shell cd ruby && make version)
+JAVASCRIPT_VERSION = $(shell cd javascript && make version)
+CURRENT_BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
+LANGUAGE_VERSIONS=($(JAVA_VERSION) $(RUBY_VERSION) $(JAVASCRIPT_VERSION))
+
+language-versions-check:
+	@if [[ ($(JAVA_VERSION) != $(RUBY_VERSION)) || ($(JAVA_VERSION) != $(JAVASCRIPT_VERSION)) ]];\
+	then \
+	echo "Language are inconsistent!"; \
+	echo "Java: \t\t$(JAVA_VERSION)"; \
+	echo "JavaScript: \t$(JAVASCRIPT_VERSION)"; \
+	echo "Ruby: \t\t$(RUBY_VERSION)"; \
+	exit 1; \
+	fi
+.PHONY: language-versions-check
+
+release-version-check:
+	@if [[ "$(RELEASED_VERSION)" = "$(JAVA_VERSION)" ]]; \
+	then \
+		echo "Java version is same as last release version!"; \
+		exit 1; \
+	fi
+	@if [[ "$(RELEASED_VERSION)" = "$(JAVASCRIPT_VERSION)" ]]; \
+	then \
+		echo "JavaScript version is same as last release version!"; \
+		exit 1; \
+	fi
+	@if [[ "$(RELEASED_VERSION)" = "$(RUBY_VERSION)" ]]; \
+	then \
+		echo "Ruby version is same as last release version!"; \
+		exit 1; \
+	fi
+.PHONY: release-version-check
+
+version: language-versions-check release-version-check ## Show the next version to be released
+	@echo ""
+	@echo "The latest released version of html-formatter is $(RELEASED_VERSION)"
+	@echo
+	@echo "The next version of html-formatter will be $(RUBY_VERSION) and released from '$(CURRENT_BRANCH)'"
+	@echo ""
+.PHONY: version
+
+version-set: ## Set the next version to be released (requires NEXT_VERSION environment variable)
+	@([[ "$(NEXT_VERSION)" ]] || (echo "Please set NEXT_VERSION" && exit 1))
+	@cd java && make version-set
+	@cd javascript && make version-set
+	@cd ruby && make version-set
