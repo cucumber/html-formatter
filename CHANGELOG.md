@@ -10,14 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - JavaScript assets were not included in the Java package ([#65](https://github.com/cucumber/html-formatter/issues/65))
 
 ## [19.0.0] - 2022-03-25
-### Added
-
 ### Changed
 - Upgrade to `@cucumber/react` `^19.2.0`
-
-### Deprecated
-
-### Fixed
 
 ### Removed
 - binary command that accepted ndjson on stdin to create a report ([#4](https://github.com/cucumber/html-formatter/issues/4))
