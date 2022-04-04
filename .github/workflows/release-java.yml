@@ -36,3 +36,4 @@ jobs:
           nexus-username: cukebot
           nexus-password: ${{ secrets.SONATYPE_PASSWORD }}
           working-directory: java
+          maven-goals: deploy
