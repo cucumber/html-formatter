@@ -1,6 +1,6 @@
-SNAPSHOT_VERSION = $(shell mvn help:evaluate -Dexpression=project.version -q -DforceStdout 2> /dev/null)
 
 version:
+	SNAPSHOT_VERSION = $(shell mvn help:evaluate -Dexpression=project.version -q -DforceStdout 2> /dev/null)
 	@echo $(subst -SNAPSHOT,,$(SNAPSHOT_VERSION))
 
 version-set:
