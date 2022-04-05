@@ -1,5 +1,5 @@
 version:
-	@echo $(shell npm view . version)
+	@echo $(shell node --eval="process.stdout.write(require('./package.json').version)")
 
 version-set:
 	@([[ "$(NEW_VERSION)" ]] || (echo "Please set NEW_VERSION" && exit 1))
