@@ -82,16 +82,16 @@ version: language-versions-check release-version-check ## Show the next version 
 	@echo ""
 .PHONY: version
 
-version-set: ## Set the next version to be released (requires NEXT_VERSION environment variable)
-	@([[ "$(NEXT_VERSION)" ]] || (echo "Please set NEXT_VERSION" && exit 1))
+version-set: ## Set the next version to be released (requires NEW_VERSION environment variable)
+	@([[ "$(NEW_VERSION)" ]] || (echo "Please set NEW_VERSION" && exit 1))
 	@cd java && make version-set
 	@cd javascript && make version-set
 	@cd ruby && make version-set
 
-release:
+release: version
 	commit=$(shell git rev-parse head)
-	NEXT_VERSION=$(JAVA_VERSION)
+	NEW_VERSION=$(JAVA_VERSION)
 	@cd java && make release-prepare
 	@cd javascript && make release-prepare
 	@cd ruby && make release-prepare
-	git push origin $(commit):refs/heads/release/v$(NEXT_VERSION)
+	git push origin $(commit):refs/heads/release/v$(NEW_VERSION)

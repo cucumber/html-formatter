@@ -3,7 +3,7 @@ version:
 	@echo $(subst -SNAPSHOT,,$(SNAPSHOT_VERSION))
 
 version-set:
-	@([[ "$(NEXT_VERSION)" ]] || (echo "Please set NEXT_VERSION" && exit 1))
+	@([[ "$(NEW_VERSION)" ]] || (echo "Please set NEW_VERSION" && exit 1))
 	@mvn versions:set -DnewVersion=$(NEW_VERSION)-SNAPSHOT
 
 release-prepare:

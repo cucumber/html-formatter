@@ -2,7 +2,7 @@ version:
 	@cat VERSION
 
 version-set:
-	@([[ "$(NEXT_VERSION)" ]] || (echo "Please set NEXT_VERSION" && exit 1))
+	@([[ "$(NEW_VERSION)" ]] || (echo "Please set NEW_VERSION" && exit 1))
 	@echo $(NEW_VERSION) > VERSION
 
 release-prepare: version-set

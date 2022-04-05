@@ -2,7 +2,7 @@ version:
 	@echo $(shell npm view . version)
 
 version-set:
-	@([[ "$(NEXT_VERSION)" ]] || (echo "Please set NEXT_VERSION" && exit 1))
+	@([[ "$(NEW_VERSION)" ]] || (echo "Please set NEW_VERSION" && exit 1))
 	@npm version $(NEW_VERSION)
 
 release-prepare: version-set
