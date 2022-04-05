@@ -51,28 +51,25 @@ CURRENT_BRANCH = $(shell git rev-parse --abbrev-ref HEAD)
 language-versions-check:
 	@if [[ ($(JAVA_VERSION) != $(RUBY_VERSION)) || ($(JAVA_VERSION) != $(JAVASCRIPT_VERSION)) ]];\
 	then \
-	echo "Language are inconsistent!"; \
-	echo "Java: \t\t$(JAVA_VERSION)"; \
-	echo "JavaScript: \t$(JAVASCRIPT_VERSION)"; \
-	echo "Ruby: \t\t$(RUBY_VERSION)"; \
-	exit 1; \
+		echo "Language package versions are inconsistent!"; \
+		echo "Java: \t\t$(JAVA_VERSION)"; \
+		echo "JavaScript: \t$(JAVASCRIPT_VERSION)"; \
+		echo "Ruby: \t\t$(RUBY_VERSION)"; \
+		exit 1; \
 	fi
 .PHONY: language-versions-check
 
 release-version-check:
-	@if [[ "$(RELEASED_VERSION)" = "$(JAVA_VERSION)" ]]; \
+	@if [[ ($(RELEASED_VERSION) = $(JAVA_VERSION)) || ($(RELEASED_VERSION) = $(RUBY_VERSION) || ($(RELEASED_VERSION) = $(JAVASCRIPT_VERSION))) ]]; \
 	then \
-		echo "Java version is same as last release version!"; \
-		exit 1; \
-	fi
-	@if [[ "$(RELEASED_VERSION)" = "$(JAVASCRIPT_VERSION)" ]]; \
-	then \
-		echo "JavaScript version is same as last release version!"; \
-		exit 1; \
-	fi
-	@if [[ "$(RELEASED_VERSION)" = "$(RUBY_VERSION)" ]]; \
-	then \
-		echo "Ruby version is same as last release version!"; \
+		echo "Language package versions must be greater than last released version $(RELEASED_VERSION)!"; \
+		echo "Java: \t\t$(JAVA_VERSION)"; \
+		echo "JavaScript: \t$(JAVASCRIPT_VERSION)"; \
+		echo "Ruby: \t\t$(RUBY_VERSION)"; \
+		echo; \
+		echo "To specify a new version, use the command:"; \
+		echo "    NEW_VERSION=x.y.z make version-set"; \
+		echo; \
 		exit 1; \
 	fi
 .PHONY: release-version-check
