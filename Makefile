@@ -78,7 +78,7 @@ version: language-versions-check release-version-check ## Show the next version 
 	@echo ""
 	@echo "The latest released version of html-formatter is $(RELEASED_VERSION)"
 	@echo
-	@echo "The next version of html-formatter will be $(RUBY_VERSION) and released from '$(CURRENT_BRANCH)'"
+	@echo "The next version of html-formatter will be $(RUBY_VERSION) and released from '$(CURRENT_BRANCH)' branch"
 	@echo ""
 .PHONY: version
 
@@ -91,7 +91,4 @@ version-set: ## Set the next version to be released (requires NEW_VERSION enviro
 release: version
 	commit=$(shell git rev-parse head)
 	NEW_VERSION=$(JAVA_VERSION)
-	@cd java && make release-prepare
-	@cd javascript && make release-prepare
-	@cd ruby && make release-prepare
-	git push origin $(commit):refs/heads/release/v$(NEW_VERSION)
+	@echo releasing $(NEW_VERSION) ...
