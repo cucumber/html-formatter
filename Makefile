@@ -40,7 +40,7 @@ javascript/dist/src/index.mustache.html: javascript/dist/main.js
 javascript/dist/main.css: javascript/dist/main.js
 
 javascript/dist/main.js: javascript/package.json $(javascript_source)
-	cd javascript && npm install-test && npm run build
+	cd javascript && npm install-ci-test && npm run build
 
 RELEASED_VERSION = $(shell changelog latest)
 JAVA_VERSION = $(shell cd java && make version)
