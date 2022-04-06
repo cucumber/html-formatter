@@ -32,7 +32,7 @@
     "@cucumber/gherkin-streams": "^5.0.1",
     "@cucumber/gherkin-utils": "^7.0.0",
     "@cucumber/message-streams": "^4.0.1",
-    "@cucumber/messages": "^17.1.1",
+    "@cucumber/messages": "^18.0.0",
     "@cucumber/query": "^11.0.0",
     "@cucumber/react": "^19.2.0",
     "@types/glob": "^7.2.0",
