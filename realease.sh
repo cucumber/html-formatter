@@ -11,8 +11,6 @@ function showUsage() {
 # TODO:
 # Version2:
 # Validate input
-# Tag format must be digits.digits.digits
-# Check if tag exists?
 
 # Version3:
 # Present the user with the current version?
@@ -61,6 +59,17 @@ NEW_VERSION=$1
 if [[ ! "$NEW_VERSION" =~ ^[0-9]+.[0-9]+.[0-9]+$ ]]; then
   echo "Invalid MAJOR.MINOR.PATCH argument: $NEW_VERSION"
   showUsage
+  exit 1
+fi
+
+if [[ ! "$NEW_VERSION" =~ ^[0-9]+.[0-9]+.[0-9]+$ ]]; then
+  echo "Invalid MAJOR.MINOR.PATCH argument: $NEW_VERSION"
+  showUsage
+  exit 1
+fi
+
+if [ -n $(git tag --list "v$NEW_VERSION") ]; then
+  echo "Version $NEW_VERSION has already been released"
   exit 1
 fi
 
