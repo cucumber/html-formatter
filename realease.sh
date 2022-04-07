@@ -87,8 +87,8 @@ pushd javascript
 popd
 
 pushd java
-  mvn versions:set -DnewVersion="$NEW_VERSION"
-  mvn versions:set-scm-tag -DnewTag="v$NEW_VERSION"
+  mvn --quiet versions:set -DnewVersion="$NEW_VERSION"
+  mvn --quiet versions:set-scm-tag -DnewTag="v$NEW_VERSION"
 popd
 
 pushd ruby
@@ -109,7 +109,8 @@ fi
 ###
 pushd java
   NEW_VERSION_TEMPLATE="\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}-SNAPSHOT"
-  mvn build-helper:parse-version \
+  mvn --quiet \
+    build-helper:parse-version \
     versions:set -DnewVersion="$NEW_VERSION_TEMPLATE" \
     versions:set-scm-tag -DnewTag="HEAD"
 popd
