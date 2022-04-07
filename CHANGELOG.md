@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - [Java] Fix a regression from 14.0.0 where the embedded JavaScript had the wrong content,
-preventing reports from displaying properly.
+  preventing reports from displaying properly.
 
 ## [16.0.1] - 2021-07-19
 ### Changed
@@ -38,7 +38,7 @@ preventing reports from displaying properly.
 ## [16.0.0] - 2021-07-08
 ### Added
 - Add filters and highlighted search terms in URL query parameter of HTML reports to make sharing those easier
-([#1302](https://github.com/cucumber/cucumber/pull/1302))
+  ([#1302](https://github.com/cucumber/cucumber/pull/1302))
 
 ### Changed
 - Upgrade Cucumber Messages to v17.0.0
@@ -65,8 +65,8 @@ preventing reports from displaying properly.
 
 ### Changed
 - Upgrade dependencies including `@cucumber/gherkin` ^18.0.0,
-`@cucumber/messages` ^15.0.0, `@cucumber/query` ^9.0.2 and
-`@cucumber/react` ^13.0.0
+  `@cucumber/messages` ^15.0.0, `@cucumber/query` ^9.0.2 and
+  `@cucumber/react` ^13.0.0
 
 ## [12.0.0] - 2021-02-08
 ### Changed
@@ -128,28 +128,28 @@ preventing reports from displaying properly.
 ## [6.0.3] - 2020-06-12
 ### Fixed
 - [JavaScript] Fixed a bug where the command-line interface would always exit with 1
-even if there were no errors.
+  even if there were no errors.
 - [Java] Always use UTF-8 encoding
 
 ## [6.0.2] - 2020-05-01
 ### Added
 - [Java] Enable consumers to find our version at runtime using `clazz.getPackage().getImplementationVersion()` by upgrading to `cucumber-parent:2.1.0`
-([#976](https://github.com/cucumber/cucumber/pull/976)
-[aslakhellesoy](https://github.com/aslakhellesoy))
+  ([#976](https://github.com/cucumber/cucumber/pull/976)
+  [aslakhellesoy](https://github.com/aslakhellesoy))
 
 ### Fixed
 - [Java] Use version range for messages dependency
-([#986](https://github.com/cucumber/cucumber/pull/986)
-[mpkorstanje](https://github.com/mpkorstanje))
+  ([#986](https://github.com/cucumber/cucumber/pull/986)
+  [mpkorstanje](https://github.com/mpkorstanje))
 - [Java] Make writer idempotent when failing to close underlying writer
-([#986](https://github.com/cucumber/cucumber/pull/986)
-[mpkorstanje](https://github.com/mpkorstanje))
+  ([#986](https://github.com/cucumber/cucumber/pull/986)
+  [mpkorstanje](https://github.com/mpkorstanje))
 
 ## [6.0.1] - 2020-04-15
 ### Fixed
 - Fix Ruby release
-([#970](https://github.com/cucumber/cucumber/pull/970)
-[aslakhellesoy](https://github.com/aslakhellesoy))
+  ([#970](https://github.com/cucumber/cucumber/pull/970)
+  [aslakhellesoy](https://github.com/aslakhellesoy))
 
 ## [6.0.0] - 2020-04-14
 ### Changed
@@ -167,35 +167,35 @@ even if there were no errors.
 ## [4.3.0] - 2020-03-13
 ### Added
 - Ruby implementation
-([#931](https://github.com/cucumber/cucumber/pull/931)
-[vincent-psarga](https://github.com/vincent-psarga))
+  ([#931](https://github.com/cucumber/cucumber/pull/931)
+  [vincent-psarga](https://github.com/vincent-psarga))
 
 ## [4.2.0] - 2020-03-10
 ### Added
 - Java: New Java implementation
-([#922](https://github.com/cucumber/cucumber/pull/922)
-[mpkorstanje](https://github.com/mpkorstanje))
+  ([#922](https://github.com/cucumber/cucumber/pull/922)
+  [mpkorstanje](https://github.com/mpkorstanje))
 - JavaScript: Add a mustache template in the JavaScript npm module that other implementations can use
 - JavaScript: Add `CucumberHtmlStream` (default export), allowing this module to be used as a library (in Cucumber.js)
 
 ### Changed
 - It's not _really_ needed. This does break SEO, but that's not a goal for Cucumber HTML reports.
 - Using both server side rendering and client side rendering results in conflicting versions of the react dom being used during development.
-([#923](https://github.com/cucumber/cucumber/pull/923)
-[aslakhellesoy](https://github.com/mpkorstanje))
+  ([#923](https://github.com/cucumber/cucumber/pull/923)
+  [aslakhellesoy](https://github.com/mpkorstanje))
 - JavaScript: No server side rendering
 - JavaScript Use a custom mustache template engine that streams output. Ported from Java
 
 ### Fixed
 - [JavaScript] Lower memory footprint - messages are no longer buffered during HTML generation
-([#928](https://github.com/cucumber/cucumber/pull/928)
-[aslakhellesoy](https://github.com/aslakhellesoy))
+  ([#928](https://github.com/cucumber/cucumber/pull/928)
+  [aslakhellesoy](https://github.com/aslakhellesoy))
 
 ## [4.1.0] - 2020-03-02
 ### Added
 - Embed CSS in generated HTML
-([#911](https://github.com/cucumber/cucumber/pull/911)
-[aslakhellesoy](https://github.com/vincent-psarga))
+  ([#911](https://github.com/cucumber/cucumber/pull/911)
+  [aslakhellesoy](https://github.com/vincent-psarga))
 
 ## [4.0.0] - 2020-02-15
 ### Changed
@@ -260,8 +260,7 @@ even if there were no errors.
 
 ### Fixed
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v19.0.1...main
-[19.0.1]: https://github.com/cucumber/html-formatter/compare/v19.0.0...main
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v19.0.0...main
 [19.0.0]: https://github.com/cucumber/html-formatter/compare/v18.0.0...main
 [18.0.0]: https://github.com/cucumber/html-formatter/compare/v17.0.0...v18.0.0
 [17.0.0]: https://github.com/cucumber/html-formatter/compare/v16.0.1...v17.0.0
@@ -307,4 +306,6 @@ even if there were no errors.
 [1.0.2]: https://github.com/cucumber/html-formatter/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/cucumber/html-formatter/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/cucumber/cucumber/releases/tag/v1.0.0
-    https://github.com/mpkorstanje
+ttps://github.com/aslakhellesoy
+[vincent-psarga]:   https://github.com/vincent-psarga
+[mpkorstanje]:      https://github.com/mpkorstanje
