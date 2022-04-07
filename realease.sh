@@ -9,13 +9,11 @@ function showUsage() {
 }
 
 # TODO:
-# Version2:
-# Validate input
 
 # Version3:
+# Integrity check (are all the tools installed?)
 # Present the user with the current version?
 # Show unreleased
-# Integrity check (are all the tools installed)
 
 # Version4:
 # Bootstrap from single git repo.
@@ -23,6 +21,7 @@ function showUsage() {
 
 # Version5:
 # Version bumping
+
 while [[ $# -gt 0 ]]; do
   case $1 in
   --no-git-push)
