@@ -6,6 +6,7 @@ function showUsage() {
   echo "OPTIONS:"
   echo "  --help        shows this help"
   echo "  --no-git-push do not push to git"
+  echo "  --no-git-tag  do not commit git"
 }
 
 function release_javascript() {
@@ -17,7 +18,7 @@ function release_javascript() {
 }
 function post_release_javascript() {
   # noop
-  :;
+  :
 }
 
 function release_java() {
@@ -39,17 +40,16 @@ function post_release_java() {
 }
 
 function release_ruby() {
-if [[ -d ruby ]]; then
-  pushd ruby
-  echo "$NEW_VERSION" >VERSION
-  popd
-fi
+  if [[ -d ruby ]]; then
+    pushd ruby
+    echo "$NEW_VERSION" >VERSION
+    popd
+  fi
 }
 function post_release_ruby() {
   # noop
-  :;
+  :
 }
-
 
 # TODO:
 # Version3:
@@ -67,6 +67,11 @@ function post_release_ruby() {
 while [[ $# -gt 0 ]]; do
   case $1 in
   --no-git-push)
+    NO_GIT_PUSH="true"
+    shift # past argument
+    ;;
+  --no-git-commit)
+    NO_GIT_COMMIT="true"
     NO_GIT_PUSH="true"
     shift # past argument
     ;;
@@ -127,8 +132,10 @@ release_java
 release_ruby
 
 changelog release "$NEW_VERSION" --tag-format "v%s" -o CHANGELOG.md
-git commit -am "Prepare release v$NEW_VERSION"
-git tag "v$NEW_VERSION"
+if [[ -z $NO_GIT_COMMIT ]]; then
+  git commit -am "Prepare release v$NEW_VERSION"
+  git tag "v$NEW_TAG"
+fi
 
 ###
 ## post release
@@ -137,12 +144,14 @@ post_release_javascript
 post_release_java
 post_release_ruby
 
-git commit -am "Prepare for the next development iteration"
+if [[ -z $NO_GIT_COMMIT ]]; then
+  git commit -am "Prepare for the next development iteration"
+fi
 
 ###
 # push to github
 ##
 if [[ -z $NO_GIT_PUSH ]]; then
-  git push
+  git push origin
   git push origin "$(git rev-list --max-count=1 "v$NEW_VERSION"):refs/heads/release/v$NEW_VERSION"
 fi
