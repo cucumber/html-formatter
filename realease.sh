@@ -2,18 +2,16 @@
 set -e
 
 function showUsage() {
-  echo "Usage: $0 [OPTIONS] VERSION"
+  echo "Usage: $0 [OPTIONS] MAJOR.MINOR.PATCH"
   echo "OPTIONS:"
   echo "  --help        shows this help"
   echo "  --no-git-push do not push to git"
 }
 
 # Version2:
-# Proper command line
-#  - take version as arg
-#  - display help
-# Dry run
 # Validate input
+  # Tag format must be digits.digits.digits
+  # Check if tag exists?
 
 # Version3:
 # Present the user with the version?
@@ -52,12 +50,18 @@ done
 set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
 
 if [[ $# -ne 1 ]]; then
-  echo "Missing version argument"
+  echo "Missing MAJOR.MINOR.PATCH argument"
   showUsage
   exit 1
 fi
 
 NEW_VERSION=$1
+
+if [[ ! "$NEW_VERSION" =~ ^[0-9]+.[0-9]+.[0-9]+.$ ]]; then
+  echo "Invalid MAJOR.MINOR.PATCH argument"
+  showUsage
+  exit 1
+fi
 
 if ! git diff-index --quiet HEAD; then
   echo "Git has uncommitted changes"
