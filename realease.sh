@@ -56,6 +56,7 @@ function post_release_ruby() {
 # Integrity check (are all the tools installed?)
 # Present the user with the current version?
 # Show unreleased
+# Reduce the output from git and pushd/popo
 
 # Version4:
 # Bootstrap from single git repo.
