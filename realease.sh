@@ -17,6 +17,7 @@ function release_javascript() {
 }
 function post_release_javascript() {
   # noop
+  :;
 }
 
 function release_java() {
@@ -46,6 +47,7 @@ fi
 }
 function post_release_ruby() {
   # noop
+  :;
 }
 
 
