@@ -1,14 +1,6 @@
 #!/bin/bash
 set -e
 
-function showUsage() {
-  echo "Usage: $0 [OPTIONS] MAJOR.MINOR.PATCH"
-  echo "OPTIONS:"
-  echo "  --help        shows this help"
-  echo "  --no-git-push do not push to git"
-  echo "  --no-git-tag  do not commit git"
-}
-
 function release_javascript() {
   if [[ -d javascript ]]; then
     pushd javascript
@@ -64,6 +56,14 @@ function post_release_ruby() {
 
 # Version5:
 # Version bumping
+function showUsage() {
+  echo "Usage: $0 [OPTIONS] MAJOR.MINOR.PATCH"
+  echo "OPTIONS:"
+  echo "  --help           shows this help"
+  echo "  --no-git-push    do not push to git"
+  echo "  --no-git-commit  do not commit git"
+}
+
 while [[ $# -gt 0 ]]; do
   case $1 in
   --no-git-push)
