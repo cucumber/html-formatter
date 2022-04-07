@@ -9,7 +9,7 @@ if [[ -z $NEW_VERSION ]]; then
   exit 1
 fi
 
-if git diff-index --quiet HEAD; then
+if ! git diff-index --quiet HEAD; then
   echo "Git has uncommitted changes";
   exit 1
 fi
