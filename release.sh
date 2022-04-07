@@ -52,14 +52,22 @@ function validate_args() {
   fi
 
   if [ -n "$(git tag --list "v$NEW_VERSION")" ]; then
-    echo "Version $NEW_VERSION has already been released"
+    echo "Version $NEW_VERSION has already been released."
     exit 1
   fi
 }
 
 function validate_environment() {
+  if [ -z "$(git tag --list "v$(changelog latest)")" ]; then
+    echo "No git tag found for v$(changelog latest) (found in CHANGELOG.md)!"
+    echo
+    echo "Do you need to run this?"
+    echo "    git fetch --tags"
+    exit 1
+  fi
+
   if ! git diff-index --quiet HEAD; then
-    echo "Git has uncommitted changes"
+    echo "Git has uncommitted changes."
     exit 1
   fi
 }
