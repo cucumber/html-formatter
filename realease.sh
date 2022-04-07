@@ -1,6 +1,54 @@
 #!/bin/bash
 set -e
 
+function showUsage() {
+  echo "Usage: $0 [OPTIONS] MAJOR.MINOR.PATCH"
+  echo "OPTIONS:"
+  echo "  --help        shows this help"
+  echo "  --no-git-push do not push to git"
+}
+
+function release_javascript() {
+  if [[ -d javascript ]]; then
+    pushd javascript
+    npm version $NEW_VERSION
+    popd
+  fi
+}
+function post_release_javascript() {
+  # noop
+}
+
+function release_java() {
+  if [[ -d java ]]; then
+    pushd java
+    mvn --quiet versions:set -DnewVersion="$NEW_VERSION"
+    mvn --quiet versions:set-scm-tag -DnewTag="v$NEW_VERSION"
+    popd
+  fi
+}
+function post_release_java() {
+  pushd java
+  NEW_VERSION_TEMPLATE="\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}-SNAPSHOT"
+  mvn --quiet \
+    build-helper:parse-version \
+    versions:set -DnewVersion="$NEW_VERSION_TEMPLATE" \
+    versions:set-scm-tag -DnewTag="HEAD"
+  popd
+}
+
+function release_ruby() {
+if [[ -d ruby ]]; then
+  pushd ruby
+  echo "$NEW_VERSION" >VERSION
+  popd
+fi
+}
+function post_release_ruby() {
+  # noop
+}
+
+
 # TODO:
 # Version3:
 # Integrity check (are all the tools installed?)
@@ -97,50 +145,3 @@ git commit -am "Prepare for the next development iteration"
 if [[ -z $NO_GIT_PUSH ]]; then
   git push
 fi
-
-function showUsage() {
-  echo "Usage: $0 [OPTIONS] MAJOR.MINOR.PATCH"
-  echo "OPTIONS:"
-  echo "  --help        shows this help"
-  echo "  --no-git-push do not push to git"
-}
-
-function release_javascript() {
-  if [[ -d javascript ]]; then
-    pushd javascript
-    npm version $NEW_VERSION
-    popd
-  fi
-}
-function post_release_javascript() {
-  # noop
-}
-
-function release_java() {
-  if [[ -d java ]]; then
-    pushd java
-    mvn --quiet versions:set -DnewVersion="$NEW_VERSION"
-    mvn --quiet versions:set-scm-tag -DnewTag="v$NEW_VERSION"
-    popd
-  fi
-}
-function post_release_java() {
-  pushd java
-  NEW_VERSION_TEMPLATE="\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}-SNAPSHOT"
-  mvn --quiet \
-    build-helper:parse-version \
-    versions:set -DnewVersion="$NEW_VERSION_TEMPLATE" \
-    versions:set-scm-tag -DnewTag="HEAD"
-  popd
-}
-
-function release_ruby() {
-if [[ -d ruby ]]; then
-  pushd ruby
-  echo "$NEW_VERSION" >VERSION
-  popd
-fi
-}
-function post_release_ruby() {
-  # noop
-}
