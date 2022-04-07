@@ -13,15 +13,18 @@ function showUsage() {
 #  - take version as arg
 #  - display help
 # Dry run
+# Validate input
+
+# Version3:
 # Present the user with the version?
 # Show unreleased
 # Integrity check (are all the tools installed)
 
-# Version 3:
+# Version4:
 # Bootstrap from single git repo.
 # Add tests
 
-# Version 4:
+# Version5:
 # Version bumping
 while [[ $# -gt 0 ]]; do
   case $1 in
