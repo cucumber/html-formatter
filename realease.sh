@@ -8,13 +8,14 @@ function showUsage() {
   echo "  --no-git-push do not push to git"
 }
 
+# TODO:
 # Version2:
 # Validate input
-  # Tag format must be digits.digits.digits
-  # Check if tag exists?
+# Tag format must be digits.digits.digits
+# Check if tag exists?
 
 # Version3:
-# Present the user with the version?
+# Present the user with the current version?
 # Show unreleased
 # Integrity check (are all the tools installed)
 
@@ -57,8 +58,8 @@ fi
 
 NEW_VERSION=$1
 
-if [[ ! "$NEW_VERSION" =~ ^[0-9]+.[0-9]+.[0-9]+.$ ]]; then
-  echo "Invalid MAJOR.MINOR.PATCH argument"
+if [[ ! "$NEW_VERSION" =~ ^[0-9]+.[0-9]+.[0-9]+$ ]]; then
+  echo "Invalid MAJOR.MINOR.PATCH argument: $NEW_VERSION"
   showUsage
   exit 1
 fi
@@ -68,20 +69,22 @@ if ! git diff-index --quiet HEAD; then
   exit 1
 fi
 
+###
 ## release
+###
 changelog release "$NEW_VERSION" --tag-format "v%s" -o CHANGELOG.md
 
 pushd javascript
-npm version $NEW_VERSION
+  npm version $NEW_VERSION
 popd
 
 pushd java
-mvn versions:set -DnewVersion="$NEW_VERSION"
-mvn versions:set-scm-tag -DnewTag="v$NEW_VERSION"
+  mvn versions:set -DnewVersion="$NEW_VERSION"
+  mvn versions:set-scm-tag -DnewTag="v$NEW_VERSION"
 popd
 
 pushd ruby
-echo "$NEW_VERSION" >VERSION
+  echo "$NEW_VERSION" >VERSION
 popd
 
 git commit -am "Prepare release v$NEW_VERSION"
@@ -93,13 +96,14 @@ if [[ -z $NO_GIT_PUSH ]]; then
   git push origin $RELEASE_COMMIT:refs/heads/release/v$(NEW_VERSION)
 fi
 
+###
 ## post release
-
+###
 pushd java
-NEW_VERSION_TEMPLATE="\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}-SNAPSHOT"
-mvn build-helper:parse-version \
-  versions:set -DnewVersion="$NEW_VERSION_TEMPLATE" \
-  versions:set-scm-tag -DnewTag="HEAD"
+  NEW_VERSION_TEMPLATE="\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}-SNAPSHOT"
+  mvn build-helper:parse-version \
+    versions:set -DnewVersion="$NEW_VERSION_TEMPLATE" \
+    versions:set-scm-tag -DnewTag="HEAD"
 popd
 
 git commit -am "Prepare for the next development iteration"
