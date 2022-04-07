@@ -1,16 +1,63 @@
 #!/bin/bash
 set -e
 
-# Version2:
-# Present the user with the version
+function showUsage() {
+  echo "Usage: $0 [OPTIONS] VERSION"
+  echo "OPTIONS:"
+  echo "  --help        shows this help"
+  echo "  --no-git-push do not push to git"
+}
 
-if [[ -z $NEW_VERSION ]]; then
-  echo "Please set NEW_VERSION"
+# Version2:
+# Proper command line
+#  - take version as arg
+#  - display help
+# Dry run
+# Present the user with the version?
+# Show unreleased
+# Integrity check (are all the tools installed)
+
+# Version 3:
+# Bootstrap from single git repo.
+# Add tests
+
+# Version 4:
+# Version bumping
+while [[ $# -gt 0 ]]; do
+  case $1 in
+  --no-git-push)
+    NO_GIT_PUSH="true"
+    shift # past argument
+    ;;
+  -h | --help)
+    echo "Makes a release to GitHub"
+    showUsage
+    exit 0
+    ;;
+  -* | --*)
+    echo "Unknown option $1"
+    showUsage
+    exit 1
+    ;;
+  *)
+    POSITIONAL_ARGS+=("$1") # save positional arg
+    shift                   # past argument
+    ;;
+  esac
+done
+
+set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
+
+if [[ $# -ne 1 ]]; then
+  echo "Missing version argument"
+  showUsage
   exit 1
 fi
 
+NEW_VERSION=$1
+
 if ! git diff-index --quiet HEAD; then
-  echo "Git has uncommitted changes";
+  echo "Git has uncommitted changes"
   exit 1
 fi
 
@@ -18,33 +65,37 @@ fi
 changelog release "$NEW_VERSION" --tag-format "v%s" -o CHANGELOG.md
 
 pushd javascript
-  npm version $NEW_VERSION
+npm version $NEW_VERSION
 popd
 
 pushd java
-  mvn versions:set -DnewVersion="$NEW_VERSION"
-  mvn versions:set-scm-tag -DnewTag="v$NEW_VERSION"
+mvn versions:set -DnewVersion="$NEW_VERSION"
+mvn versions:set-scm-tag -DnewTag="v$NEW_VERSION"
 popd
 
 pushd ruby
-  echo "$NEW_VERSION" > VERSION
+echo "$NEW_VERSION" >VERSION
 popd
 
 git commit -am "Prepare release v$NEW_VERSION"
 git tag "v$NEW_VERSION"
 RELEASE_COMMIT=$(git rev-parse HEAD)
 
-#git push
-#git push origin $RELEASE_COMMIT:refs/heads/release/v$(NEW_VERSION)
+if [[ -z $NO_GIT_PUSH ]]; then
+  git push
+  git push origin $RELEASE_COMMIT:refs/heads/release/v$(NEW_VERSION)
+fi
 
 ## post release
 
 pushd java
-  NEW_VERSION_TEMPLATE="\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}-SNAPSHOT"
-  mvn build-helper:parse-version \
-    versions:set -DnewVersion="$NEW_VERSION_TEMPLATE" \
-    versions:set-scm-tag -DnewTag="HEAD"
+NEW_VERSION_TEMPLATE="\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}-SNAPSHOT"
+mvn build-helper:parse-version \
+  versions:set -DnewVersion="$NEW_VERSION_TEMPLATE" \
+  versions:set-scm-tag -DnewTag="HEAD"
 popd
 
 git commit -am "Prepare for the next development iteration"
-#git push
+if [[ -z $NO_GIT_PUSH ]]; then
+  git push
+fi
