@@ -5,7 +5,7 @@ set -e
 # Present the user with the version
 
 if [[ -z $NEW_VERSION ]]; then
-  echo "Please set VERSION"
+  echo "Please set NEW_VERSION"
   exit 1
 fi
 
@@ -15,22 +15,23 @@ if git diff-index --quiet HEAD; then
 fi
 
 ## release
-changelog release $NEW_VERSION --tag-format "v%s" -o CHANGELOG.md
+changelog release "$NEW_VERSION" --tag-format "v%s" -o CHANGELOG.md
 
 pushd javascript
   npm version $NEW_VERSION
 popd
 
 pushd java
-  mvn versions:set -DnewVersion=$NEW_VERSION
-  mvn versions:set-scm-tag -DnewTag=$NEW_VERSION
+  mvn versions:set -DnewVersion="$NEW_VERSION"
+  mvn versions:set-scm-tag -DnewTag="v$NEW_VERSION"
 popd
 
 pushd ruby
-  echo $NEW_VERSION > VERSION
+  echo "$NEW_VERSION" > VERSION
 popd
 
 git commit -am "Release v$NEW_VERSION"
+git tag "v$NEW_VERSION"
 RELEASE_COMMIT=$(git rev-parse HEAD)
 
 #git push
