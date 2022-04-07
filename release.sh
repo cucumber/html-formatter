@@ -95,8 +95,14 @@ done
 set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
 
 if [[ $# -ne 1 ]]; then
-  echo "Missing MAJOR.MINOR.PATCH argument"
+  echo "Missing MAJOR.MINOR.PATCH argument. Please specify a version to release."
+  echo
   showUsage
+  echo
+  echo "To help you choose the next version, here are the unreleased changes:"
+  echo
+  echo "$(changelog show unreleased)"
+  echo
   exit 1
 fi
 
