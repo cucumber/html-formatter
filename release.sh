@@ -38,9 +38,30 @@ function release_ruby() {
     popd
   fi
 }
+
 function post_release_ruby() {
   # noop
   :
+}
+
+function validate_args() {
+  if [[ ! "$NEW_VERSION" =~ ^[0-9]+.[0-9]+.[0-9]+$ ]]; then
+    echo "Invalid MAJOR.MINOR.PATCH argument: $NEW_VERSION"
+    showUsage
+    exit 1
+  fi
+
+  if [ -n "$(git tag --list "v$NEW_VERSION")" ]; then
+    echo "Version $NEW_VERSION has already been released"
+    exit 1
+  fi
+}
+
+function validate_environment() {
+  if ! git diff-index --quiet HEAD; then
+    echo "Git has uncommitted changes"
+    exit 1
+  fi
 }
 
 # TODO:
@@ -94,6 +115,8 @@ done
 
 set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
 
+validate_environment
+
 if [[ $# -ne 1 ]]; then
   echo "Missing MAJOR.MINOR.PATCH argument. Please specify a version to release."
   echo
@@ -105,30 +128,9 @@ if [[ $# -ne 1 ]]; then
   echo
   exit 1
 fi
-
 NEW_VERSION=$1
 
-if [[ ! "$NEW_VERSION" =~ ^[0-9]+.[0-9]+.[0-9]+$ ]]; then
-  echo "Invalid MAJOR.MINOR.PATCH argument: $NEW_VERSION"
-  showUsage
-  exit 1
-fi
-
-if [[ ! "$NEW_VERSION" =~ ^[0-9]+.[0-9]+.[0-9]+$ ]]; then
-  echo "Invalid MAJOR.MINOR.PATCH argument: $NEW_VERSION"
-  showUsage
-  exit 1
-fi
-
-if [ -n "$(git tag --list "v$NEW_VERSION")" ]; then
-  echo "Version $NEW_VERSION has already been released"
-  exit 1
-fi
-
-if ! git diff-index --quiet HEAD; then
-  echo "Git has uncommitted changes"
-  exit 1
-fi
+validate_args
 
 ###
 ## release
