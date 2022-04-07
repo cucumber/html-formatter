@@ -122,20 +122,14 @@ fi
 ###
 ## release
 ###
-changelog release "$NEW_VERSION" --tag-format "v%s" -o CHANGELOG.md
-
 release_javascript
 release_java
 release_ruby
 
+changelog release "$NEW_VERSION" --tag-format "v%s" -o CHANGELOG.md
 git commit -am "Prepare release v$NEW_VERSION"
 git tag "v$NEW_VERSION"
 RELEASE_COMMIT=$(git rev-parse HEAD)
-
-if [[ -z $NO_GIT_PUSH ]]; then
-  git push
-  git push origin $RELEASE_COMMIT:refs/heads/release/v$(NEW_VERSION)
-fi
 
 ###
 ## post release
@@ -145,6 +139,12 @@ post_release_java
 post_release_ruby
 
 git commit -am "Prepare for the next development iteration"
+
+###
+# push to github
+##
 if [[ -z $NO_GIT_PUSH ]]; then
   git push
+  git push origin $RELEASE_COMMIT:refs/heads/release/v$(NEW_VERSION)
+  git push origin "$(git rev-list --max-count=1 "v$NEW_VERSION"):refs/heads/release/v$NEW_VERSION"
 fi
