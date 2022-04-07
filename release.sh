@@ -132,6 +132,7 @@ release_java
 release_ruby
 
 changelog release "$NEW_VERSION" --tag-format "v%s" -o CHANGELOG.md
+
 if [[ -z $NO_GIT_COMMIT ]]; then
   git commit -am "Prepare release v$NEW_VERSION"
   git tag "v$NEW_TAG"
