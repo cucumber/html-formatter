@@ -30,7 +30,7 @@ pushd ruby
   echo "$NEW_VERSION" > VERSION
 popd
 
-git commit -am "Release v$NEW_VERSION"
+git commit -am "Prepare release v$NEW_VERSION"
 git tag "v$NEW_VERSION"
 RELEASE_COMMIT=$(git rev-parse HEAD)
 
@@ -46,5 +46,5 @@ pushd java
     versions:set-scm-tag -DnewTag="HEAD"
 popd
 
-git commit -am "Post release v$NEW_VERSION"
+git commit -am "Prepare for the next development iteration"
 #git push
