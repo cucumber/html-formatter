@@ -67,7 +67,7 @@ if [[ ! "$NEW_VERSION" =~ ^[0-9]+.[0-9]+.[0-9]+$ ]]; then
   exit 1
 fi
 
-if [ -n $(git tag --list "v$NEW_VERSION") ]; then
+if [ -n "$(git tag --list "v$NEW_VERSION")" ]; then
   echo "Version $NEW_VERSION has already been released"
   exit 1
 fi
