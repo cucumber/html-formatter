@@ -1,0 +1,6 @@
+#!/bin/bash
+TMP_FILE=$(mktemp)
+BOOTSTRAPPER_NAME=$0
+curl --silent -o "$TMP_FILE" https://raw.githubusercontent.com/cucumber/polyglot-release/main/release
+chmod 744 "$TMP_FILE"
+$TMP_FILE $@
