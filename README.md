@@ -2,7 +2,7 @@
 
 This is a cross-platform formatter that produces a pretty HTML report for Cucumber runs.
 
-It is built on top of [@cucumber/react](https://github.com/cucumber/cucumber-react) and works with *any*
+It is built on top of [@cucumber/react-components](https://github.com/cucumber/react-components) and works with *any*
 Cucumber implementation with a `message` formatter that outputs [cucumber messages](https://github.com/cucumber/common/tree/main/messages).
 
 This formatter is built into the following Cucumber implementations:

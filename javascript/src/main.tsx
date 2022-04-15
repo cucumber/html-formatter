@@ -1,7 +1,7 @@
 import './styles.scss'
 
 import * as messages from '@cucumber/messages'
-import { components, searchFromURLParams } from '@cucumber/react'
+import { components, searchFromURLParams } from '@cucumber/react-components'
 import React from 'react'
 import ReactDOM from 'react-dom'
 

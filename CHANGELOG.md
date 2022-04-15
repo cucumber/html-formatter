@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Use latest React components from new package `@cucumber/react-components`
 ### Fixed
 - JavaScript assets were not included in the Java package ([#65](https://github.com/cucumber/html-formatter/issues/65))
 
