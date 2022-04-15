@@ -6,10 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-### Changed
-- Use latest React components from new package `@cucumber/react-components`
-### Fixed
-- JavaScript assets were not included in the Java package ([#65](https://github.com/cucumber/html-formatter/issues/65))
+
+## [19.1.0] - 2022-04-15
 
 ## [19.0.0] - 2022-03-25
 ### Changed
@@ -262,7 +260,8 @@ even if there were no errors.
 
 ### Fixed
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v19.0.0...main
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v19.1.0...main
+[19.1.0]: https://github.com/cucumber/html-formatter/compare/v19.0.0...main
 [19.0.0]: https://github.com/cucumber/html-formatter/compare/v18.0.0...main
 [18.0.0]: https://github.com/cucumber/html-formatter/compare/v17.0.0...v18.0.0
 [17.0.0]: https://github.com/cucumber/html-formatter/compare/v16.0.1...v17.0.0
@@ -307,6 +306,8 @@ even if there were no errors.
 [1.1.0]: https://github.com/cucumber/html-formatter/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/cucumber/html-formatter/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/cucumber/html-formatter/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/cucumber/cucumber/releases/tag/v1.0.0
+om/cucumber/html-formatter/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/cucumber/cucumber/releases/tag/v1.0.0
 ttps://github.com/aslakhellesoy
 [vincent-psarga]:   https://github.com/vincent-psarga
