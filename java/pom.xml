@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>html-formatter</artifactId>
-    <version>19.1.1-SNAPSHOT</version>
+    <version>19.2.0</version>
     <packaging>jar</packaging>
     <name>Cucumber HTML Formatter</name>
     <description>Renders Cucumber Messages as HTML</description>
@@ -23,7 +23,7 @@
         <connection>scm:git:git://github.com/cucumber/html-formatter-java.git</connection>
         <developerConnection>scm:git:git@github.com:cucumber/html-formatter-java.git</developerConnection>
         <url>git://github.com/cucumber/html-formatter-java.git</url>
-        <tag>HEAD</tag>
+        <tag>v19.2.0</tag>
     </scm>
 
     <dependencyManagement>
