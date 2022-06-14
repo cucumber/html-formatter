@@ -1,13 +1,13 @@
 import { NdjsonToMessageStream } from '@cucumber/message-streams'
 import assert from 'assert'
 import fs from 'fs'
+import { writeFile } from 'fs/promises'
 import glob from 'glob'
 import path from 'path'
 import puppeteer from 'puppeteer'
 import { PassThrough, pipeline } from 'stream'
 
 import CucumberHtmlStream from '../src/CucumberHtmlStream'
-import { writeFile } from 'fs/promises'
 
 async function canRenderHtml(html: string): Promise<boolean> {
   const browser = await puppeteer.launch({
