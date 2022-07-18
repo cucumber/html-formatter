@@ -26,7 +26,7 @@
     "@cucumber/messages": ">=18"
   },
   "devDependencies": {
-    "@babel/core": "7.18.6",
+    "@babel/core": "7.18.9",
     "@cucumber/compatibility-kit": "^11.0.0",
     "@cucumber/gherkin": "24.0.0",
     "@cucumber/gherkin-streams": "^5.0.1",
