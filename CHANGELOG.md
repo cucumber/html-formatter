@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [20.0.0] - 2022-08-07
+
 ## [19.2.0] - 2022-05-27
 ### Changed
 - Upgrade to `@cucumber/react-components` `^20.1.0`
@@ -264,7 +266,8 @@ even if there were no errors.
 
 ### Fixed
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v19.2.0...main
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v20.0.0...main
+[20.0.0]: https://github.com/cucumber/html-formatter/compare/v19.2.0...main
 [19.2.0]: https://github.com/cucumber/html-formatter/compare/v19.1.0...main
 [19.1.0]: https://github.com/cucumber/html-formatter/compare/v19.0.0...main
 [19.0.0]: https://github.com/cucumber/html-formatter/compare/v18.0.0...main
@@ -312,7 +315,4 @@ even if there were no errors.
 [1.0.2]: https://github.com/cucumber/html-formatter/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/cucumber/html-formatter/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/cucumber/cucumber/releases/tag/v1.0.0
-ses/tag/v1.0.0
-ttps://github.com/aslakhellesoy
-[vincent-psarga]:   https://github.com/vincent-psarga
-[mpkorstanje]:      https://github.com/mpkorstanje
+mpkorstanje]:      https://github.com/mpkorstanje
