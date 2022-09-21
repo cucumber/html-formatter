@@ -10,20 +10,19 @@ on:
   workflow_call:
 
 jobs:
-  test-java:
+  test:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
+        os:
+          - ubuntu-latest
+        java: ['11', '17']
         include:
           - os: windows-latest
-            java: "17"
+            java: '17'
           - os: macos-latest
-            java: "17"
-          - os: ubuntu-latest
-            java: "17"
-          - os: ubuntu-latest
-            java: "11"
+            java: '17'
     steps:
       - uses: actions/checkout@v3
 
