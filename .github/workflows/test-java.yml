@@ -15,15 +15,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - ubuntu-latest
-        java: ["11", "17"]
         include:
           - os: windows-latest
             java: "17"
           - os: macos-latest
             java: "17"
-
+          - os: ubuntu-latest
+            java: "17"
+          - os: ubuntu-latest
+            java: "11"
     steps:
       - uses: actions/checkout@v3
 
