@@ -1,25 +1,45 @@
-
 name: test-java
 
 on:
   push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
+  workflow_call:
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  test-java:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            java: "17"
+          - os: macos-latest
+            java: "17"
+          - os: ubuntu-latest
+            java: "17"
+          - os: ubuntu-latest
+            java: "11"
     steps:
       - uses: actions/checkout@v3
+
+      - uses: ./.github/actions/prepare
+
       - uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
-          java-version: 17
-          cache: 'maven'
+          distribution: "temurin"
+          java-version: ${{ matrix.java }}
+          cache: "maven"
+
       - run: mvn install
         working-directory: java
+
       - run: mvn test
         working-directory: java
+
       - run: ./scripts/check-jar.sh
         working-directory: java
