@@ -17,6 +17,7 @@
 
     <properties>
         <project.Automatic-Module-Name>io.cucumber.htmlformatter</project.Automatic-Module-Name>
+        <project.build.outputTimestamp>1000000</project.build.outputTimestamp>
     </properties>
 
     <scm>
