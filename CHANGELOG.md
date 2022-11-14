@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [Java] Enabled reproducible builds
 
 ## [20.1.0] - 2022-09-14
 ### Changed
