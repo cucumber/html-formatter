@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Changed
+- Upgrade to `@cucumber/react-components` `21.0.1`
+- Upgrade to React 18
 - [Java] Enabled reproducible builds
 
 ## [20.1.0] - 2022-09-14
