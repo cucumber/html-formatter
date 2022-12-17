@@ -6,8 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-### Changed 
-- Upgrade to `messages` v21.0.2
+### Fixed 
+- [Java] Allow `io.cucumber:messages:18.0.0` as the minimum version 
 
 ## [20.2.0] - 2022-11-27
 ### Changed
