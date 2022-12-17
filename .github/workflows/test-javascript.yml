@@ -18,7 +18,7 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-        node-version: ["12.x", "14.x", "16.x", "17.x"]
+        node-version: ["12.x", "14.x", "17.x"]
         include:
           - os: windows-latest
             node-version: "17.x"
