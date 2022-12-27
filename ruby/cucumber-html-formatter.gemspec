@@ -9,21 +9,21 @@ Gem::Specification.new do |s|
   s.description = 'HTML formatter for Cucumber'
   s.summary     = "#{s.name}-#{s.version}"
   s.email       = 'cukes@googlegroups.com'
-  s.homepage    = "https://github.com/cucumber/html-formatter-ruby"
+  s.homepage    = "https://github.com/cucumber/html-formatter"
   s.platform    = Gem::Platform::RUBY
   s.license     = "MIT"
   s.required_ruby_version = ">= 2.3"
 
   s.metadata    = {
-                    'bug_tracker_uri'   => 'https://github.com/cucumber/cucumber/issues',
-                    'changelog_uri'     => 'https://github.com/cucumber/common/blob/main/html-formatter/CHANGELOG.md',
-                    'documentation_uri' => 'https://cucumber.io/docs/gherkin/',
+                    'bug_tracker_uri'   => 'https://github.com/cucumber/html-formatter/issues',
+                    'changelog_uri'     => 'https://github.com/cucumber/html-formatter/blob/main/CHANGELOG.md',
+                    'documentation_uri' => 'https://github.com/cucumber/html-formatter',
                     'homepage_uri'      => s.homepage,
                     'mailing_list_uri'  => 'https://groups.google.com/forum/#!forum/cukes',
-                    'source_code_uri'   => 'https://github.com/cucumber/common/tree/main/html-formatter/ruby'
+                    'source_code_uri'   => 'https://github.com/cucumber/html-formatter'
                   }
 
-  s.add_dependency 'cucumber-messages', '~> 21.0', '>= 21.0.1'
+  s.add_runtime_dependency 'cucumber-messages', '>= 18.0', '< 22.0'
 
   s.add_development_dependency 'rake', '~> 13.0', '>= 13.0.6'
   s.add_development_dependency 'rspec', '~> 3.11', '>= 3.11.0'
