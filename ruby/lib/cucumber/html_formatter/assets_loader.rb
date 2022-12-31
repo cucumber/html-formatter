@@ -6,11 +6,11 @@ module Cucumber
       end
 
       def css
-        read_asset('cucumber-html.css')
+        read_asset('main.css')
       end
 
       def script
-        read_asset('cucumber-html.js')
+        read_asset('main.js')
       end
 
       private
