@@ -1,7 +1,7 @@
 javascript_source = $(wildcard javascript/src/*)
-assets = cucumber-html.css cucumber-html.js index.mustache.html
+assets = main.css main.js main.js.LICENSE.txt index.mustache.html
 ruby_assets = $(addprefix ruby/assets/,$(assets))
-java_assets = $(addprefix java/target/classes/io/cucumber/htmlformatter/,$(assets))
+java_assets = $(addprefix java/src/main/resources/io/cucumber/htmlformatter/,$(assets))
 
 .DEFAULT_GOAL = help
 
@@ -14,28 +14,19 @@ clean: ## Remove javascript built module and related artifacts from java and rub
 	rm -rf $(ruby_assets) $(java_assets) javascript/dist
 .PHONY: .clean
 
-ruby/assets/cucumber-html.css: javascript/dist/main.css
+ruby/assets/index.mustache.html: javascript/src/index.mustache.html
 	cp $< $@
 
-ruby/assets/cucumber-html.js: javascript/dist/main.js
+ruby/assets/%: javascript/dist/%
 	cp $< $@
 
-ruby/assets/index.mustache.html: javascript/dist/src/index.mustache.html
+java/src/main/resources/io/cucumber/htmlformatter/index.mustache.html: javascript/src/index.mustache.html
 	cp $< $@
 
-java/target/classes/io/cucumber/htmlformatter/cucumber-html.css: javascript/dist/main.css java/target/classes/io/cucumber/htmlformatter
+java/src/main/resources/io/cucumber/htmlformatter/%: javascript/dist/%
 	cp $< $@
 
-java/target/classes/io/cucumber/htmlformatter/cucumber-html.js: javascript/dist/main.js java/target/classes/io/cucumber/htmlformatter
-	cp $< $@
-
-java/target/classes/io/cucumber/htmlformatter/index.mustache.html: javascript/dist/src/index.mustache.html java/target/classes/io/cucumber/htmlformatter
-	cp $< $@
-
-java/target/classes/io/cucumber/htmlformatter:
-	mkdir -p $@
-
-javascript/dist/src/index.mustache.html: javascript/dist/main.js
+javascript/dist/main.js.LICENSE.txt: javascript/dist/main.js
 
 javascript/dist/main.css: javascript/dist/main.js
 

@@ -45,13 +45,13 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
 
     private void writePreMessage() throws IOException {
         writeTemplateBetween(writer, template, null, "{{css}}");
-        writeResource(writer, "cucumber-html.css");
+        writeResource(writer, "main.css");
         writeTemplateBetween(writer, template, "{{css}}", "{{messages}}");
     }
 
     private void writePostMessage() throws IOException {
         writeTemplateBetween(writer, template, "{{messages}}", "{{script}}");
-        writeResource(writer, "cucumber-html.js");
+        writeResource(writer, "main.js");
         writeTemplateBetween(writer, template, "{{script}}", null);
     }
 
