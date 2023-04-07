@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+ - Upgrade Cucumber Messages to v22.0.0
 
 ## [20.2.1] - 2022-12-17
 ### Fixed
