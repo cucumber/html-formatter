@@ -6,8 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [20.3.0] - 2023-04-07
 ### Changed
- - Upgrade Cucumber Messages to v22.0.0
+- Upgrade Cucumber Messages to v22.0.0
 
 ## [20.2.1] - 2022-12-17
 ### Fixed
@@ -282,7 +284,8 @@ even if there were no errors.
 
 ### Fixed
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v20.2.1...main
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v20.3.0...main
+[20.3.0]: https://github.com/cucumber/html-formatter/compare/v20.2.1...main
 [20.2.1]: https://github.com/cucumber/html-formatter/compare/v20.2.0...main
 [20.2.0]: https://github.com/cucumber/html-formatter/compare/v20.1.0...main
 [20.1.0]: https://github.com/cucumber/html-formatter/compare/v20.0.0...main
