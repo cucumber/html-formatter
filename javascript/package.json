@@ -1,6 +1,6 @@
 {
   "name": "@cucumber/html-formatter",
-  "version": "20.3.0",
+  "version": "20.3.1",
   "description": "HTML formatter for Cucumber",
   "main": "dist/src/CucumberHtmlStream.js",
   "types": "dist/src/CucumberHtmlStream.d.ts",

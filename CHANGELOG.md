@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [20.3.1] - 2023-06-02
 ### Fixed
 - Set viewport width to device width
 
@@ -286,7 +288,8 @@ even if there were no errors.
 
 ### Fixed
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v20.3.0...main
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v20.3.1...main
+[20.3.1]: https://github.com/cucumber/html-formatter/compare/v20.3.0...main
 [20.3.0]: https://github.com/cucumber/html-formatter/compare/v20.2.1...main
 [20.2.1]: https://github.com/cucumber/html-formatter/compare/v20.2.0...main
 [20.2.0]: https://github.com/cucumber/html-formatter/compare/v20.1.0...main
