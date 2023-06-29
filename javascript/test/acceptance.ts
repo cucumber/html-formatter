@@ -1,7 +1,7 @@
 import { NdjsonToMessageStream } from '@cucumber/message-streams'
 import assert from 'assert'
 import fs from 'fs'
-import glob from 'glob'
+import { sync } from 'glob'
 import path from 'path'
 import puppeteer from 'puppeteer'
 import { PassThrough, pipeline } from 'stream'
@@ -29,7 +29,7 @@ async function canRenderHtml(html: string): Promise<boolean> {
 }
 
 describe('html-formatter', () => {
-  const files = glob.sync(
+  const files = sync(
     `./node_modules/@cucumber/compatibility-kit/features/**/*.ndjson`
   )
   for (const ndjson of files) {
