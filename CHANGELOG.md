@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Changed
-- Upgrade `@cucumber/react-components` to v21.1.0
+- Upgrade `@cucumber/react-components` to v21.1.1
 
 ## [20.3.1] - 2023-06-02
 ### Fixed
