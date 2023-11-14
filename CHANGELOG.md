@@ -6,10 +6,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Ruby] CI: Test on ruby 3.1/3.2 ([#268](https://github.com/cucumber/html-formatter/pull/268))
+
+### Changed
+- [Ruby] Minimum ruby version is now 2.6+ ([#268](https://github.com/cucumber/html-formatter/pull/268))
+- [Ruby] Add placeholder rubocop files ready for rubocop refactoring ([#268](https://github.com/cucumber/html-formatter/pull/268))
 
 ## [20.4.0] - 2023-07-13
 ### Changed
-- Upgrade `@cucumber/react-components` to v21.1.1
+- Upgrade `@cucumber/react-components` to 21.1.1
 
 ## [20.3.1] - 2023-06-02
 ### Fixed
@@ -17,7 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [20.3.0] - 2023-04-07
 ### Changed
-- Upgrade Cucumber Messages to v22.0.0
+- Upgrade `messages` to 22.0.0
 
 ## [20.2.1] - 2022-12-17
 ### Fixed
@@ -25,39 +31,43 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [20.2.0] - 2022-11-27
 ### Changed
-- Upgrade to `@cucumber/react-components` `21.0.1`
+- Upgrade `@cucumber/react-components` to `21.0.1`
 - Upgrade to React 18
 - [Java] Enabled reproducible builds
 
 ## [20.1.0] - 2022-09-14
 ### Changed
-- Upgrade to `@cucumber/react-components` `^20.2.0`
+- Upgrade `@cucumber/react-components` to `^20.2.0`
 
 ## [20.0.0] - 2022-08-07
+### Changed
+- A variety of dependabot updates
 
 ## [19.2.0] - 2022-05-27
 ### Changed
 - Upgrade to `@cucumber/react-components` `^20.1.0`
 
 ## [19.1.0] - 2022-04-15
+### Changed
+- A variety of dependabot updates
 
 ## [19.0.0] - 2022-03-25
 ### Changed
-- Upgrade to `@cucumber/react` `^19.2.0`
+- Upgrade `@cucumber/react` to `^19.2.0`
 
 ### Removed
-- binary command that accepted ndjson on stdin to create a report ([#4](https://github.com/cucumber/html-formatter/issues/4))
+- Binary command that accepted ndjson on stdin to create a report ([#4](https://github.com/cucumber/html-formatter/issues/4))
 
 ## [18.0.0] - 2022-01-26
 ### Added
 - Use `auto` theme to automatically render with light or dark theme per platform preference.
 
 ### Changed
-- Upgrade to `@cucumber/react` `^19.0.0`
+- Upgrade `@cucumber/react` to `^19.0.0`
 
 ## [17.0.0] - 2021-09-02
 ### Changed
-- Upgrade to `@cucumber/react` `^18.0.0`
+- Upgrade `@cucumber/react` to `^18.0.0`
 
 ### Fixed
 - [Java] Fix a regression from 14.0.0 where the embedded JavaScript had the wrong content,
@@ -65,7 +75,7 @@ preventing reports from displaying properly.
 
 ## [16.0.1] - 2021-07-19
 ### Changed
-- Upgrade to `messages` v17.0.1
+- Upgrade `messages` to 17.0.1
 
 ## [16.0.0] - 2021-07-08
 ### Added
@@ -73,7 +83,7 @@ preventing reports from displaying properly.
 ([#1302](https://github.com/cucumber/cucumber/pull/1302))
 
 ### Changed
-- Upgrade Cucumber Messages to v17.0.0
+- Upgrade Cucumber Messages to 17.0.0
 
 ## [15.0.2] - 2021-05-27
 ### Fixed
@@ -102,9 +112,9 @@ preventing reports from displaying properly.
 
 ## [12.0.0] - 2021-02-08
 ### Changed
-- Upgrade to gherkin 17.0.0
-- Upgrade to messages 14.0.0
-- Upgrade to query 8.0.0
+- Upgrade `gherkin` to 17.0.0
+- Upgrade `messages` to 14.0.0
+- Upgrade `query` to 8.0.0
 
 ### Fixed
 - Reclassified bundled dependencies as `devDependencies` only ([#1308](https://github.com/cucumber/cucumber/pull/1308))
@@ -126,6 +136,8 @@ preventing reports from displaying properly.
 - Upgrade `@cucumber/react`
 
 ## [11.0.0] - 2020-12-17
+### Fixed
+- Nothing changed, just tagged a new release to trigger build
 
 ## [10.0.0] - 2020-11-04
 ### Changed
@@ -166,22 +178,17 @@ even if there were no errors.
 ## [6.0.2] - 2020-05-01
 ### Added
 - [Java] Enable consumers to find our version at runtime using `clazz.getPackage().getImplementationVersion()` by upgrading to `cucumber-parent:2.1.0`
-([#976](https://github.com/cucumber/cucumber/pull/976)
-[aslakhellesoy](https://github.com/aslakhellesoy))
+([#976](https://github.com/cucumber/cucumber/pull/976) [aslakhellesoy](https://github.com/aslakhellesoy))
 
 ### Fixed
 - [Java] Use version range for messages dependency
-([#986](https://github.com/cucumber/cucumber/pull/986)
-[mpkorstanje](https://github.com/mpkorstanje))
+([#986](https://github.com/cucumber/cucumber/pull/986) [mpkorstanje](https://github.com/mpkorstanje))
 - [Java] Make writer idempotent when failing to close underlying writer
-([#986](https://github.com/cucumber/cucumber/pull/986)
-[mpkorstanje](https://github.com/mpkorstanje))
+([#986](https://github.com/cucumber/cucumber/pull/986) [mpkorstanje](https://github.com/mpkorstanje))
 
 ## [6.0.1] - 2020-04-15
 ### Fixed
-- Fix Ruby release
-([#970](https://github.com/cucumber/cucumber/pull/970)
-[aslakhellesoy](https://github.com/aslakhellesoy))
+- Fix Ruby release ([#970](https://github.com/cucumber/cucumber/pull/970) [aslakhellesoy](https://github.com/aslakhellesoy))
 
 ## [6.0.0] - 2020-04-14
 ### Changed
@@ -198,36 +205,29 @@ even if there were no errors.
 
 ## [4.3.0] - 2020-03-13
 ### Added
-- Ruby implementation
-([#931](https://github.com/cucumber/cucumber/pull/931)
-[vincent-psarga](https://github.com/vincent-psarga))
+- Ruby implementation ([#931](https://github.com/cucumber/cucumber/pull/931) [vincent-psarga](https://github.com/vincent-psarga))
 
 ## [4.2.0] - 2020-03-10
 ### Added
 - Java: New Java implementation
-([#922](https://github.com/cucumber/cucumber/pull/922)
-[mpkorstanje](https://github.com/mpkorstanje))
+([#922](https://github.com/cucumber/cucumber/pull/922) [mpkorstanje](https://github.com/mpkorstanje))
 - JavaScript: Add a mustache template in the JavaScript npm module that other implementations can use
 - JavaScript: Add `CucumberHtmlStream` (default export), allowing this module to be used as a library (in Cucumber.js)
 
 ### Changed
 - It's not _really_ needed. This does break SEO, but that's not a goal for Cucumber HTML reports.
 - Using both server side rendering and client side rendering results in conflicting versions of the react dom being used during development.
-([#923](https://github.com/cucumber/cucumber/pull/923)
-[aslakhellesoy](https://github.com/mpkorstanje))
+([#923](https://github.com/cucumber/cucumber/pull/923) [aslakhellesoy](https://github.com/mpkorstanje))
 - JavaScript: No server side rendering
 - JavaScript Use a custom mustache template engine that streams output. Ported from Java
 
 ### Fixed
 - [JavaScript] Lower memory footprint - messages are no longer buffered during HTML generation
-([#928](https://github.com/cucumber/cucumber/pull/928)
-[aslakhellesoy](https://github.com/aslakhellesoy))
+([#928](https://github.com/cucumber/cucumber/pull/928) [aslakhellesoy](https://github.com/aslakhellesoy))
 
 ## [4.1.0] - 2020-03-02
 ### Added
-- Embed CSS in generated HTML
-([#911](https://github.com/cucumber/cucumber/pull/911)
-[aslakhellesoy](https://github.com/vincent-psarga))
+- Embed CSS in generated HTML ([#911](https://github.com/cucumber/cucumber/pull/911) [aslakhellesoy](https://github.com/vincent-psarga))
 
 ## [4.0.0] - 2020-02-15
 ### Changed
@@ -290,19 +290,17 @@ even if there were no errors.
 ### Added
 - First release
 
-### Fixed
-
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v20.4.0...main
-[20.4.0]: https://github.com/cucumber/html-formatter/compare/v20.3.1...main
-[20.3.1]: https://github.com/cucumber/html-formatter/compare/v20.3.0...main
-[20.3.0]: https://github.com/cucumber/html-formatter/compare/v20.2.1...main
-[20.2.1]: https://github.com/cucumber/html-formatter/compare/v20.2.0...main
-[20.2.0]: https://github.com/cucumber/html-formatter/compare/v20.1.0...main
-[20.1.0]: https://github.com/cucumber/html-formatter/compare/v20.0.0...main
-[20.0.0]: https://github.com/cucumber/html-formatter/compare/v19.2.0...main
-[19.2.0]: https://github.com/cucumber/html-formatter/compare/v19.1.0...main
-[19.1.0]: https://github.com/cucumber/html-formatter/compare/v19.0.0...main
-[19.0.0]: https://github.com/cucumber/html-formatter/compare/v18.0.0...main
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v20.4.0...HEAD
+[20.4.0]: https://github.com/cucumber/html-formatter/compare/v20.3.1...v20.4.0
+[20.3.1]: https://github.com/cucumber/html-formatter/compare/v20.3.0...v20.3.1
+[20.3.0]: https://github.com/cucumber/html-formatter/compare/v20.2.1...v20.3.0
+[20.2.1]: https://github.com/cucumber/html-formatter/compare/v20.2.0...v20.2.1
+[20.2.0]: https://github.com/cucumber/html-formatter/compare/v20.1.0...v20.2.0
+[20.1.0]: https://github.com/cucumber/html-formatter/compare/v20.0.0...v20.1.0
+[20.0.0]: https://github.com/cucumber/html-formatter/compare/v19.2.0...v20.0.0
+[19.2.0]: https://github.com/cucumber/html-formatter/compare/v19.1.0...v19.2.0
+[19.1.0]: https://github.com/cucumber/html-formatter/compare/v19.0.0...v19.1.0
+[19.0.0]: https://github.com/cucumber/html-formatter/compare/v18.0.0...v19.0.0
 [18.0.0]: https://github.com/cucumber/html-formatter/compare/v17.0.0...v18.0.0
 [17.0.0]: https://github.com/cucumber/html-formatter/compare/v16.0.1...v17.0.0
 [16.0.1]: https://github.com/cucumber/html-formatter/compare/v16.0.0...v16.0.1
