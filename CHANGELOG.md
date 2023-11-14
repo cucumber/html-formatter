@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [21.0.0] - 2023-11-14
 ### Added
 - [Ruby] CI: Test on ruby 3.1/3.2 ([#268](https://github.com/cucumber/html-formatter/pull/268))
 
@@ -290,7 +292,8 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v20.4.0...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.0.0...HEAD
+[21.0.0]: https://github.com/cucumber/html-formatter/compare/v20.4.0...v21.0.0
 [20.4.0]: https://github.com/cucumber/html-formatter/compare/v20.3.1...v20.4.0
 [20.3.1]: https://github.com/cucumber/html-formatter/compare/v20.3.0...v20.3.1
 [20.3.0]: https://github.com/cucumber/html-formatter/compare/v20.2.1...v20.3.0
