@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.license     = "MIT"
   s.required_ruby_version = '>= 2.6'
+  s.required_rubygems_version = ">= 3.0.3"
 
   s.metadata    = {
                     'bug_tracker_uri'   => 'https://github.com/cucumber/html-formatter/issues',
@@ -30,7 +31,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubocop-rspec', '~> 2.15.0'
 
   s.executables      = ['cucumber-html-formatter']
-  s.rubygems_version = ">= 3.0.3"
   s.files            = Dir['README.md', 'LICENSE', 'lib/**/*', 'assets/*']
   s.test_files       = Dir['spec/**/*']
   s.rdoc_options     = ["--charset=UTF-8"]
