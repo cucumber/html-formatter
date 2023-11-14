@@ -21,11 +21,11 @@ Gem::Specification.new do |s|
                     'source_code_uri'   => 'https://github.com/cucumber/html-formatter'
                   }
 
-  s.add_runtime_dependency 'cucumber-messages', '>= 18.0', '< 22.1'
+  s.add_runtime_dependency 'cucumber-messages', '> 19', '< 24'
 
-  s.add_development_dependency 'rake', '~> 13.0', '>= 13.0.6'
-  s.add_development_dependency 'rspec', '~> 3.11', '>= 3.11.0'
-  s.add_development_dependency 'cucumber-compatibility-kit', '~> 12.0', '>= 12.0.0'
+  s.add_development_dependency 'rake', '~> 13.1'
+  s.add_development_dependency 'rspec', '~> 3.12'
+  s.add_development_dependency 'cucumber-compatibility-kit', '~> 14.1'
 
   s.executables      = ['cucumber-html-formatter']
   s.rubygems_version = ">= 3.0.3"
