@@ -292,17 +292,17 @@ even if there were no errors.
 
 ### Fixed
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v20.4.0...main
-[20.4.0]: https://github.com/cucumber/html-formatter/compare/v20.3.1...main
-[20.3.1]: https://github.com/cucumber/html-formatter/compare/v20.3.0...main
-[20.3.0]: https://github.com/cucumber/html-formatter/compare/v20.2.1...main
-[20.2.1]: https://github.com/cucumber/html-formatter/compare/v20.2.0...main
-[20.2.0]: https://github.com/cucumber/html-formatter/compare/v20.1.0...main
-[20.1.0]: https://github.com/cucumber/html-formatter/compare/v20.0.0...main
-[20.0.0]: https://github.com/cucumber/html-formatter/compare/v19.2.0...main
-[19.2.0]: https://github.com/cucumber/html-formatter/compare/v19.1.0...main
-[19.1.0]: https://github.com/cucumber/html-formatter/compare/v19.0.0...main
-[19.0.0]: https://github.com/cucumber/html-formatter/compare/v18.0.0...main
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v20.4.0...HEAD
+[20.4.0]: https://github.com/cucumber/html-formatter/compare/v20.3.1...v20.4.0
+[20.3.1]: https://github.com/cucumber/html-formatter/compare/v20.3.0...v20.3.1
+[20.3.0]: https://github.com/cucumber/html-formatter/compare/v20.2.1...v20.3.0
+[20.2.1]: https://github.com/cucumber/html-formatter/compare/v20.2.0...v20.2.1
+[20.2.0]: https://github.com/cucumber/html-formatter/compare/v20.1.0...v20.2.0
+[20.1.0]: https://github.com/cucumber/html-formatter/compare/v20.0.0...v20.1.0
+[20.0.0]: https://github.com/cucumber/html-formatter/compare/v19.2.0...v20.0.0
+[19.2.0]: https://github.com/cucumber/html-formatter/compare/v19.1.0...v19.2.0
+[19.1.0]: https://github.com/cucumber/html-formatter/compare/v19.0.0...v19.1.0
+[19.0.0]: https://github.com/cucumber/html-formatter/compare/v18.0.0...v19.0.0
 [18.0.0]: https://github.com/cucumber/html-formatter/compare/v17.0.0...v18.0.0
 [17.0.0]: https://github.com/cucumber/html-formatter/compare/v16.0.1...v17.0.0
 [16.0.1]: https://github.com/cucumber/html-formatter/compare/v16.0.0...v16.0.1
