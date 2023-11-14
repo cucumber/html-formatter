@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [Ruby] CI: Test on ruby 3.1/3.2 ([#268](https://github.com/cucumber/html-formatter/pull/268))
+
+### Changed
+- [Ruby] Minimum ruby version is now 2.6+ ([#268](https://github.com/cucumber/html-formatter/pull/268))
+- [Ruby] Add placeholder rubocop files ready for rubocop refactoring ([#268](https://github.com/cucumber/html-formatter/pull/268))
 
 ## [20.4.0] - 2023-07-13
 ### Changed
