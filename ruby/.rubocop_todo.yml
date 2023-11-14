@@ -209,8 +209,9 @@ RSpec/LeadingSubject:
 # Offense count: 3
 # Configuration parameters: .
 # SupportedStyles: have_received, receive
+# TODO: Fix this first as it keeps getting derped by the auto-gen flag
 RSpec/MessageSpies:
-  Enabled: have_received
+  Enabled: false
 
 # Offense count: 3
 RSpec/MultipleExpectations:
