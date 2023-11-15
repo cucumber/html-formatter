@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'cucumber/html_formatter/template_writer'
 
 describe Cucumber::HTMLFormatter::TemplateWriter do

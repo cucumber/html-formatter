@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'cucumber/html_formatter/assets_loader'
 
 describe Cucumber::HTMLFormatter::AssetsLoader do
