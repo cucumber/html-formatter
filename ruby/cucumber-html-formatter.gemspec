@@ -16,12 +16,12 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = '>= 3.0.3'
 
   s.metadata    = {
-    'bug_tracker_uri'   => 'https://github.com/cucumber/html-formatter/issues',
-                    'changelog_uri'     => 'https://github.com/cucumber/html-formatter/blob/main/CHANGELOG.md',
-                    'documentation_uri' => 'https://github.com/cucumber/html-formatter',
-                    'homepage_uri'      => s.homepage,
-                    'mailing_list_uri'  => 'https://groups.google.com/forum/#!forum/cukes',
-                    'source_code_uri'   => 'https://github.com/cucumber/html-formatter'
+    'bug_tracker_uri' => 'https://github.com/cucumber/html-formatter/issues',
+    'changelog_uri' => 'https://github.com/cucumber/html-formatter/blob/main/CHANGELOG.md',
+    'documentation_uri' => 'https://github.com/cucumber/html-formatter',
+    'homepage_uri' => s.homepage,
+    'mailing_list_uri' => 'https://groups.google.com/forum/#!forum/cukes',
+    'source_code_uri' => 'https://github.com/cucumber/html-formatter'
   }
 
   s.add_runtime_dependency 'cucumber-messages', '> 19', '< 24'
