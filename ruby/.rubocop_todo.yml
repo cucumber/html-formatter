@@ -348,16 +348,16 @@ Style/SignalException:
 # SupportedStyles: use_perl_names, use_english_names, use_builtin_english_names
 Style/SpecialGlobalVars:
   EnforcedStyle: use_perl_names
-
-# Offense count: 20
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Exclude:
-    - 'Gemfile'
-    - 'Rakefile'
-    - 'bin/cucumber-html-formatter'
-    - 'cucumber-html-formatter.gemspec'
-    - 'spec/capture_warnings.rb'
-    - 'spec/html_formatter_spec.rb'
+#
+## Offense count: 20
+## This cop supports safe autocorrection (--autocorrect).
+## Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
+## SupportedStyles: single_quotes, double_quotes
+#Style/StringLiterals:
+#  Exclude:
+#    - 'Gemfile'
+#    - 'Rakefile'
+#    - 'bin/cucumber-html-formatter'
+#    - 'cucumber-html-formatter.gemspec'
+#    - 'spec/capture_warnings.rb'
+#    - 'spec/html_formatter_spec.rb'

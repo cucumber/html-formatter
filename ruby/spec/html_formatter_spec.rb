@@ -14,11 +14,11 @@ describe Cucumber::HTMLFormatter::Formatter do
   let(:fake_assets) do
     Class.new do
       def template
-        "<html>{{css}}<body>{{messages}}</body>{{script}}</html>"
+        '<html>{{css}}<body>{{messages}}</body>{{script}}</html>'
       end
 
       def css
-        "<style>div { color: red }</style>"
+        '<style>div { color: red }</style>'
       end
 
       def script
