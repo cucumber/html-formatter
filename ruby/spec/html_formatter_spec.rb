@@ -34,12 +34,12 @@ describe Cucumber::HTMLFormatter::Formatter do
       formatter.process_messages([message])
       expect(out.string).to eq(
         [
-         '<html>',
-         '<style>div { color: red }</style>',
-         '<body>',
-         "#{message.to_json}</body>",
-         "<script>alert('Hi')</script>",
-         '</html>'
+          '<html>',
+          '<style>div { color: red }</style>',
+          '<body>',
+          "#{message.to_json}</body>",
+          "<script>alert('Hi')</script>",
+          '</html>'
         ].join("\n")
       )
     end
