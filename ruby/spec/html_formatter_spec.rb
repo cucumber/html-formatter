@@ -47,14 +47,14 @@ describe Cucumber::HTMLFormatter::Formatter do
 
   describe '#write_pre_message' do
     it 'outputs the content of the template up to {{messages}}' do
-      formatter.write_pre_message()
+      formatter.write_pre_message
 
       expect(out.string).to eq("<html>\n<style>div { color: red }</style>\n<body>\n")
     end
 
     it 'does not write the content twice' do
-      formatter.write_pre_message()
-      formatter.write_pre_message()
+      formatter.write_pre_message
+      formatter.write_pre_message
 
       expect(out.string).to eq("<html>\n<style>div { color: red }</style>\n<body>\n")
     end
@@ -79,7 +79,7 @@ describe Cucumber::HTMLFormatter::Formatter do
 
   describe '#write_post_message' do
     it 'outputs the template end' do
-      formatter.write_post_message()
+      formatter.write_post_message
 
       expect(out.string).to eq("</body>\n<script>alert('Hi')</script>\n</html>")
     end
