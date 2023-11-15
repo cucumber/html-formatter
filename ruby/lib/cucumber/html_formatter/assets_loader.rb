@@ -30,7 +30,6 @@ module Cucumber
       rescue
         '.'
       end
-
     end
   end
 end
