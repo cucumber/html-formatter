@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.6'
   s.required_rubygems_version = '>= 3.0.3'
 
-  s.metadata    = {
+  s.metadata = {
     'bug_tracker_uri' => 'https://github.com/cucumber/html-formatter/issues',
     'changelog_uri' => 'https://github.com/cucumber/html-formatter/blob/main/CHANGELOG.md',
     'documentation_uri' => 'https://github.com/cucumber/html-formatter',
