@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'cucumber/html_formatter/assets_loader'
-
 describe Cucumber::HTMLFormatter::AssetsLoader do
   subject(:assets_loader) { Cucumber::HTMLFormatter::AssetsLoader.new }
 

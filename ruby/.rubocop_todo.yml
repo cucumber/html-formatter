@@ -301,24 +301,24 @@ Style/MixinUsage:
   Exclude:
     - 'Rakefile'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantBegin:
-  Exclude:
-    - 'spec/capture_warnings.rb'
-
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantConstantBase:
-  Exclude:
-    - 'spec/html_formatter_spec.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowMultipleReturnValues.
-Style/RedundantReturn:
-  Exclude:
-    - 'lib/cucumber/html_formatter/template_writer.rb'
+## Offense count: 1
+## This cop supports safe autocorrection (--autocorrect).
+#Style/RedundantBegin:
+#  Exclude:
+#    - 'spec/capture_warnings.rb'
+#
+## Offense count: 4
+## This cop supports safe autocorrection (--autocorrect).
+#Style/RedundantConstantBase:
+#  Exclude:
+#    - 'spec/html_formatter_spec.rb'
+#
+## Offense count: 1
+## This cop supports safe autocorrection (--autocorrect).
+## Configuration parameters: AllowMultipleReturnValues.
+#Style/RedundantReturn:
+#  Exclude:
+#    - 'lib/cucumber/html_formatter/template_writer.rb'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).

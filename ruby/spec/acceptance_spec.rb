@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'cucumber-compatibility-kit'
-require 'cucumber/html_formatter'
 
 describe Cucumber::HTMLFormatter.name do
 

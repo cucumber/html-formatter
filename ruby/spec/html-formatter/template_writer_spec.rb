@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'cucumber/html_formatter/template_writer'
-
 describe Cucumber::HTMLFormatter::TemplateWriter do
   context 'write_between' do
     subject(:template_writer) { Cucumber::HTMLFormatter::TemplateWriter.new(template) }

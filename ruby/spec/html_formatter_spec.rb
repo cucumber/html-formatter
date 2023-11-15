@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'cucumber/messages'
-require 'cucumber/html_formatter'
 
 describe Cucumber::HTMLFormatter::Formatter do
   subject(:formatter) do
