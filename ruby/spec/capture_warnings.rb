@@ -37,12 +37,10 @@ module CaptureWarnings
     pipe_r.sync    = true
     error          = String.new
     reader = Thread.new do
-      begin
-        loop do
-          error << pipe_r.readpartial(1024)
-        end
-      rescue EOFError
+      loop do
+        error << pipe_r.readpartial(1024)
       end
+    rescue EOFError
     end
     STDERR.reopen(pipe_w)
     block.call

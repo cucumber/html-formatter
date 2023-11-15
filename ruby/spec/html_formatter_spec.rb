@@ -44,8 +44,8 @@ describe Cucumber::HTMLFormatter::Formatter do
 
   context '.write_message' do
     let(:message) do
-      ::Cucumber::Messages::Envelope.new(
-        pickle: ::Cucumber::Messages::Pickle.new(id: 'some-random-uid')
+      Cucumber::Messages::Envelope.new(
+        pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')
       )
     end
 
@@ -71,8 +71,8 @@ describe Cucumber::HTMLFormatter::Formatter do
 
   context '.process_messages' do
     let(:message) do
-      ::Cucumber::Messages::Envelope.new(
-        pickle: ::Cucumber::Messages::Pickle.new(id: 'some-random-uid')
+      Cucumber::Messages::Envelope.new(
+        pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')
       )
     end
 
