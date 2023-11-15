@@ -21,13 +21,6 @@ module Cucumber
         write_post_message
       end
 
-      def write_pre_message
-        return if @pre_message_written
-
-        out.puts(pre_message)
-        @pre_message_written = true
-      end
-
       def write_message(message)
         unless @first_message
           out.puts(',')
@@ -35,6 +28,13 @@ module Cucumber
         out.print(message.to_json)
 
         @first_message = false
+      end
+
+      def write_pre_message
+        return if @pre_message_written
+
+        out.puts(pre_message)
+        @pre_message_written = true
       end
 
       def write_post_message
