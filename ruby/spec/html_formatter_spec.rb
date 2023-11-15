@@ -27,9 +27,28 @@ describe Cucumber::HTMLFormatter::Formatter do
   end
   let(:assets) { fake_assets.new }
 
-  context '.write_pre_message' do
+  describe '#process_messages' do
+    let(:message) { Cucumber::Messages::Envelope.new(pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')) }
+
+    it 'produces the full html report' do
+      formatter.process_messages([message])
+      expect(out.string).to eq(
+        [
+         '<html>',
+         '<style>div { color: red }</style>',
+         '<body>',
+         "#{message.to_json}</body>",
+         "<script>alert('Hi')</script>",
+         '</html>'
+        ].join("\n")
+      )
+    end
+  end
+
+  describe '#write_pre_message' do
     it 'outputs the content of the template up to {{messages}}' do
       formatter.write_pre_message()
+
       expect(out.string).to eq("<html>\n<style>div { color: red }</style>\n<body>\n")
     end
 
@@ -41,15 +60,12 @@ describe Cucumber::HTMLFormatter::Formatter do
     end
   end
 
-  context '.write_message' do
-    let(:message) do
-      Cucumber::Messages::Envelope.new(
-        pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')
-      )
-    end
+  describe '#write_message' do
+    let(:message) { Cucumber::Messages::Envelope.new(pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')) }
 
     it 'appends the message to out' do
       formatter.write_message(message)
+
       expect(out.string).to eq(message.to_json)
     end
 
@@ -61,30 +77,11 @@ describe Cucumber::HTMLFormatter::Formatter do
     end
   end
 
-  context '.write_post_message' do
+  describe '#write_post_message' do
     it 'outputs the template end' do
       formatter.write_post_message()
+
       expect(out.string).to eq("</body>\n<script>alert('Hi')</script>\n</html>")
-    end
-  end
-
-  context '.process_messages' do
-    let(:message) do
-      Cucumber::Messages::Envelope.new(
-        pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')
-      )
-    end
-
-    it 'produces the full html report' do
-      formatter.process_messages([message])
-      expect(out.string).to eq([
-        '<html>',
-        '<style>div { color: red }</style>',
-        '<body>',
-        "#{message.to_json}</body>",
-        "<script>alert('Hi')</script>",
-        '</html>'
-      ].join("\n"))
     end
   end
 end
