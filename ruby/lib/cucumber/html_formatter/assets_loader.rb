@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cucumber
   module HTMLFormatter
     class AssetsLoader
@@ -28,7 +30,6 @@ module Cucumber
       rescue
         '.'
       end
-
     end
   end
 end

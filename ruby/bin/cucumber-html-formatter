@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'optparse'
 require 'cucumber/messages'
@@ -7,7 +8,7 @@ require 'cucumber/html_formatter'
 formatter = Cucumber::HTMLFormatter::Formatter.new(STDOUT)
 
 option_parser = OptionParser.new do |opts|
-  opts.on_tail("-h", "--help", "Show this message") do
+  opts.on_tail('-h', '--help', 'Show this message') do
     puts opts
     exit
   end

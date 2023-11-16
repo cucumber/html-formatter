@@ -1,26 +1,28 @@
-version = File.read(File.expand_path("VERSION", __dir__)).strip
+# frozen_string_literal: true
+
+version = File.read(File.expand_path('VERSION', __dir__)).strip
 
 Gem::Specification.new do |s|
   s.name        = 'cucumber-html-formatter'
   s.version     = version
-  s.authors     = ["Vincent Prêtre"]
+  s.authors     = ['Vincent Prêtre']
   s.description = 'HTML formatter for Cucumber'
   s.summary     = "#{s.name}-#{s.version}"
   s.email       = 'cukes@googlegroups.com'
-  s.homepage    = "https://github.com/cucumber/html-formatter"
+  s.homepage    = 'https://github.com/cucumber/html-formatter'
   s.platform    = Gem::Platform::RUBY
-  s.license     = "MIT"
+  s.license     = 'MIT'
   s.required_ruby_version = '>= 2.6'
-  s.required_rubygems_version = ">= 3.0.3"
+  s.required_rubygems_version = '>= 3.0.3'
 
-  s.metadata    = {
-                    'bug_tracker_uri'   => 'https://github.com/cucumber/html-formatter/issues',
-                    'changelog_uri'     => 'https://github.com/cucumber/html-formatter/blob/main/CHANGELOG.md',
-                    'documentation_uri' => 'https://github.com/cucumber/html-formatter',
-                    'homepage_uri'      => s.homepage,
-                    'mailing_list_uri'  => 'https://groups.google.com/forum/#!forum/cukes',
-                    'source_code_uri'   => 'https://github.com/cucumber/html-formatter'
-                  }
+  s.metadata = {
+    'bug_tracker_uri' => 'https://github.com/cucumber/html-formatter/issues',
+    'changelog_uri' => 'https://github.com/cucumber/html-formatter/blob/main/CHANGELOG.md',
+    'documentation_uri' => 'https://github.com/cucumber/html-formatter',
+    'homepage_uri' => s.homepage,
+    'mailing_list_uri' => 'https://groups.google.com/forum/#!forum/cukes',
+    'source_code_uri' => 'https://github.com/cucumber/html-formatter'
+  }
 
   s.add_runtime_dependency 'cucumber-messages', '> 19', '< 24'
 
@@ -33,6 +35,6 @@ Gem::Specification.new do |s|
   s.executables      = ['cucumber-html-formatter']
   s.files            = Dir['README.md', 'LICENSE', 'lib/**/*', 'assets/*']
   s.test_files       = Dir['spec/**/*']
-  s.rdoc_options     = ["--charset=UTF-8"]
-  s.require_path     = "lib"
+  s.rdoc_options     = ['--charset=UTF-8']
+  s.require_path     = 'lib'
 end

@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+- [Ruby] Fixed up 90% of all rubocop offenses ([#270](https://github.com/cucumber/html-formatter/pull/270))
 
 ## [21.0.0] - 2023-11-14
 ### Added
