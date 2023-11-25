@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [Ruby] Fixed up 90% of all rubocop offenses ([#270](https://github.com/cucumber/html-formatter/pull/270))
 - [Java] Fix project urls in `pom.xml`
 
+### Changed
+- Upgrade `messages` to 24.0.0
+
 ## [21.0.0] - 2023-11-14
 ### Added
 - [Ruby] CI: Test on ruby 3.1/3.2 ([#268](https://github.com/cucumber/html-formatter/pull/268))
