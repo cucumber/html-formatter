@@ -3,7 +3,6 @@
 require 'cucumber-compatibility-kit'
 
 describe Cucumber::HTMLFormatter.name do
-
   Cucumber::CompatibilityKit.gherkin_examples.each do |example_name|
     def run_formatter(messages)
       out = StringIO.new
