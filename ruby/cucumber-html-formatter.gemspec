@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake', '~> 13.1'
   s.add_development_dependency 'rspec', '~> 3.12'
   s.add_development_dependency 'rubocop', '~> 1.41.0'
+  s.add_development_dependency 'rubocop-rake', '~> 0.6.0'
   s.add_development_dependency 'rubocop-rspec', '~> 2.15.0'
 
   s.executables      = ['cucumber-html-formatter']

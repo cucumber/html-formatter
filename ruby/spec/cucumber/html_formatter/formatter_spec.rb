@@ -27,19 +27,21 @@ describe Cucumber::HTMLFormatter::Formatter do
 
   describe '#process_messages' do
     let(:message) { Cucumber::Messages::Envelope.new(pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')) }
+    let(:expected_report) do
+      <<~REPORT.strip
+        <html>
+        <style>div { color: red }</style>
+        <body>
+        #{message.to_json}</body>
+        <script>alert('Hi')</script>
+        </html>
+      REPORT
+    end
 
     it 'produces the full html report' do
       formatter.process_messages([message])
-      expect(out.string).to eq(
-        [
-          '<html>',
-          '<style>div { color: red }</style>',
-          '<body>',
-          "#{message.to_json}</body>",
-          "<script>alert('Hi')</script>",
-          '</html>'
-        ].join("\n")
-      )
+
+      expect(out.string).to eq(expected_report)
     end
   end
 
