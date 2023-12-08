@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'cucumber/messages'
-require 'cucumber-compatibility-kit'
-
 describe Cucumber::HTMLFormatter::Formatter do
   subject(:formatter) do
     formatter = described_class.new(out)
