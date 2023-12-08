@@ -5,7 +5,7 @@ require 'cucumber-compatibility-kit'
 
 describe Cucumber::HTMLFormatter::Formatter do
   subject(:formatter) do
-    formatter = Cucumber::HTMLFormatter::Formatter.new(out)
+    formatter = described_class.new(out)
     allow(formatter).to receive(:assets_loader).and_return(assets)
     formatter
   end
