@@ -27,7 +27,7 @@ module Cucumber
 
       def html_formatter_path
         Gem.loaded_specs['cucumber-html-formatter'].full_gem_path
-      rescue
+      rescue StandardError
         '.'
       end
     end
