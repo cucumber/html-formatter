@@ -34,7 +34,6 @@ Gem::Specification.new do |s|
 
   s.executables      = ['cucumber-html-formatter']
   s.files            = Dir['README.md', 'LICENSE', 'lib/**/*', 'assets/*']
-  s.test_files       = Dir['spec/**/*']
   s.rdoc_options     = ['--charset=UTF-8']
   s.require_path     = 'lib'
 end
