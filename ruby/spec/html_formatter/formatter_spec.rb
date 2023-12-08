@@ -86,7 +86,7 @@ describe Cucumber::HTMLFormatter::Formatter do
     end
   end
 
-  context 'Compatibility Kit examples' do
+  context 'when using the CCK' do
     Cucumber::CompatibilityKit.gherkin_examples.each do |example_name|
       def run_formatter(messages)
         out = StringIO.new
@@ -107,8 +107,9 @@ describe Cucumber::HTMLFormatter::Formatter do
 
     Cucumber::CompatibilityKit.markdown_examples.each do |example_name|
       describe "'#{example_name}' example" do
-        let(:example_ndjson) { "#{Cucumber::CompatibilityKit.example_path(example_name)}/#{example_name}.feature.md.ndjson" }
         subject(:html_report) { run_formatter(File.readlines(example_ndjson)) }
+
+        let(:example_ndjson) { "#{Cucumber::CompatibilityKit.example_path(example_name)}/#{example_name}.feature.md.ndjson" }
 
         it { is_expected.to match(/\A<!DOCTYPE html>\s?<html/) }
         it { is_expected.to match(/<\/html>\Z/) }
