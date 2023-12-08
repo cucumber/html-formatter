@@ -26,9 +26,9 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'cucumber-messages', '> 19', '< 25'
 
+  s.add_development_dependency 'cucumber-compatibility-kit', '~> 14.1'
   s.add_development_dependency 'rake', '~> 13.1'
   s.add_development_dependency 'rspec', '~> 3.12'
-  s.add_development_dependency 'cucumber-compatibility-kit', '~> 14.1'
   s.add_development_dependency 'rubocop', '~> 1.41.0'
   s.add_development_dependency 'rubocop-rspec', '~> 2.15.0'
 
