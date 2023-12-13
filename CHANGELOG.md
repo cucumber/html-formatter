@@ -7,12 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [21.1.0] - 2023-12-12
+### Changed
+- Upgrade `messages` to 24.0.0
+
 ### Fixed
 - [Ruby] Fixed up 90% of all rubocop offenses ([#270](https://github.com/cucumber/html-formatter/pull/270))
 - [Java] Fix project urls in `pom.xml`
-
-### Changed
-- Upgrade `messages` to 24.0.0
 
 ## [21.0.0] - 2023-11-14
 ### Added
@@ -299,7 +300,8 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.0.0...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.1.0...HEAD
+[21.1.0]: https://github.com/cucumber/html-formatter/compare/v21.0.0...v21.1.0
 [21.0.0]: https://github.com/cucumber/html-formatter/compare/v20.4.0...v21.0.0
 [20.4.0]: https://github.com/cucumber/html-formatter/compare/v20.3.1...v20.4.0
 [20.3.1]: https://github.com/cucumber/html-formatter/compare/v20.3.0...v20.3.1
