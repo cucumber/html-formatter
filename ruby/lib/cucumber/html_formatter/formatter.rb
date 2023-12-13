@@ -22,9 +22,7 @@ module Cucumber
       end
 
       def write_message(message)
-        unless @first_message
-          out.puts(',')
-        end
+        out.puts(',') unless @first_message
         out.print(message.to_json)
 
         @first_message = false
