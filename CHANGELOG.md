@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Upgrade `react-components` to [22.0.0](https://github.com/cucumber/react-components/releases/tag/v22.0.0) ([#275](https://github.com/cucumber/html-formatter/pull/275))
+
 ### Fixed
 - [Ruby] Fixed up All remaining rubocop offenses / removed excess crud ([#276](https://github.com/cucumber/html-formatter/pull/276))
 
