@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require 'cucumber/messages'
-
 describe Cucumber::HTMLFormatter::Formatter do
   subject(:formatter) do
-    formatter = Cucumber::HTMLFormatter::Formatter.new(out)
+    formatter = described_class.new(out)
     allow(formatter).to receive(:assets_loader).and_return(assets)
     formatter
   end
@@ -29,19 +27,21 @@ describe Cucumber::HTMLFormatter::Formatter do
 
   describe '#process_messages' do
     let(:message) { Cucumber::Messages::Envelope.new(pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')) }
+    let(:expected_report) do
+      <<~REPORT.strip
+        <html>
+        <style>div { color: red }</style>
+        <body>
+        #{message.to_json}</body>
+        <script>alert('Hi')</script>
+        </html>
+      REPORT
+    end
 
     it 'produces the full html report' do
       formatter.process_messages([message])
-      expect(out.string).to eq(
-        [
-          '<html>',
-          '<style>div { color: red }</style>',
-          '<body>',
-          "#{message.to_json}</body>",
-          "<script>alert('Hi')</script>",
-          '</html>'
-        ].join("\n")
-      )
+
+      expect(out.string).to eq(expected_report)
     end
   end
 
@@ -82,6 +82,37 @@ describe Cucumber::HTMLFormatter::Formatter do
       formatter.write_post_message
 
       expect(out.string).to eq("</body>\n<script>alert('Hi')</script>\n</html>")
+    end
+  end
+
+  context 'when using the CCK' do
+    Cucumber::CompatibilityKit.gherkin_examples.each do |example_name|
+      def run_formatter(messages)
+        out = StringIO.new
+        formatter = Cucumber::HTMLFormatter::Formatter.new(out)
+        formatter.process_messages(messages)
+        out.string
+      end
+
+      describe "'#{example_name}' example" do
+        subject(:html_report) { run_formatter(File.readlines(example_ndjson)) }
+
+        let(:example_ndjson) { "#{Cucumber::CompatibilityKit.example_path(example_name)}/#{example_name}.feature.ndjson" }
+
+        it { is_expected.to match(/\A<!DOCTYPE html>\s?<html/) }
+        it { is_expected.to match(/<\/html>\Z/) }
+      end
+    end
+
+    Cucumber::CompatibilityKit.markdown_examples.each do |example_name|
+      describe "'#{example_name}' example" do
+        subject(:html_report) { run_formatter(File.readlines(example_ndjson)) }
+
+        let(:example_ndjson) { "#{Cucumber::CompatibilityKit.example_path(example_name)}/#{example_name}.feature.md.ndjson" }
+
+        it { is_expected.to match(/\A<!DOCTYPE html>\s?<html/) }
+        it { is_expected.to match(/<\/html>\Z/) }
+      end
     end
   end
 end

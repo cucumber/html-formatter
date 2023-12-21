@@ -26,15 +26,15 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'cucumber-messages', '> 19', '< 25'
 
+  s.add_development_dependency 'cucumber-compatibility-kit', '~> 14.1'
   s.add_development_dependency 'rake', '~> 13.1'
   s.add_development_dependency 'rspec', '~> 3.12'
-  s.add_development_dependency 'cucumber-compatibility-kit', '~> 14.1'
   s.add_development_dependency 'rubocop', '~> 1.41.0'
+  s.add_development_dependency 'rubocop-rake', '~> 0.6.0'
   s.add_development_dependency 'rubocop-rspec', '~> 2.15.0'
 
   s.executables      = ['cucumber-html-formatter']
   s.files            = Dir['README.md', 'LICENSE', 'lib/**/*', 'assets/*']
-  s.test_files       = Dir['spec/**/*']
   s.rdoc_options     = ['--charset=UTF-8']
   s.require_path     = 'lib'
 end
