@@ -54,7 +54,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "glob": "^10.0.0",
     "mini-css-extract-plugin": "2.8.0",
-    "mocha": "10.2.0",
+    "mocha": "10.3.0",
     "prettier": "^3.0.0",
     "puppeteer": "^21.0.0",
     "react": "18.2.0",
