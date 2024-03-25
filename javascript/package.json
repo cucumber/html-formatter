@@ -6,7 +6,7 @@
   "types": "dist/src/CucumberHtmlStream.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cucumber/cucumber.git"
+    "url": "git+https://github.com/cucumber/html-formatter.git"
   },
   "author": "Aslak Hellesøy",
   "license": "MIT",
@@ -70,9 +70,9 @@
     "webpack-cli": "5.1.4"
   },
   "bugs": {
-    "url": "https://github.com/cucumber/cucumber/issues"
+    "url": "https://github.com/cucumber/html-formatter/issues"
   },
-  "homepage": "https://github.com/cucumber/cucumber#readme",
+  "homepage": "https://github.com/cucumber/html-formatter#readme",
   "directories": {
     "test": "test"
   },
