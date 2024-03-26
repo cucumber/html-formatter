@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Correct repo URL in `package.json`
 
 ## [21.3.0] - 2024-03-15
 ### Changed
