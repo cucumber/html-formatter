@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [21.3.1] - 2024-03-26
 ### Fixed
 - Correct repo URL in `package.json`
 
@@ -313,7 +315,8 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.3.0...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.3.1...HEAD
+[21.3.1]: https://github.com/cucumber/html-formatter/compare/v21.3.0...v21.3.1
 [21.3.0]: https://github.com/cucumber/html-formatter/compare/v21.2.0...v21.3.0
 [21.2.0]: https://github.com/cucumber/html-formatter/compare/v21.1.0...v21.2.0
 [21.1.0]: https://github.com/cucumber/html-formatter/compare/v21.0.0...v21.1.0
