@@ -22,6 +22,7 @@ import static java.util.Objects.requireNonNull;
 public final class MessagesToHtmlWriter implements AutoCloseable {
     private final String template;
     private final Writer writer;
+    private final JsonInHtmlWriter jsonInHtmlWriter;
     private final Serializer serializer;
     private boolean preMessageWritten = false;
     private boolean postMessageWritten = false;
@@ -37,8 +38,10 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         );
     }
 
+
     private MessagesToHtmlWriter(Writer writer, Serializer serializer) throws IOException {
         this.writer = writer;
+        this.jsonInHtmlWriter = new JsonInHtmlWriter(writer);
         this.serializer = serializer;
         this.template = readResource("index.mustache.html");
     }
@@ -77,7 +80,7 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
             writer.write(",");
         }
 
-        serializer.writeValue(writer, envelope);
+        serializer.writeValue(jsonInHtmlWriter, envelope);
     }
 
     /**

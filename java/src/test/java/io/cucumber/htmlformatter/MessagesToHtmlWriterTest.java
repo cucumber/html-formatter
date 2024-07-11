@@ -2,7 +2,11 @@ package io.cucumber.htmlformatter;
 
 import io.cucumber.htmlformatter.MessagesToHtmlWriter.Serializer;
 import io.cucumber.messages.Convertor;
+import io.cucumber.messages.types.Comment;
 import io.cucumber.messages.types.Envelope;
+import io.cucumber.messages.types.Feature;
+import io.cucumber.messages.types.GherkinDocument;
+import io.cucumber.messages.types.Location;
 import io.cucumber.messages.types.TestRunFinished;
 import io.cucumber.messages.types.TestRunStarted;
 import org.junit.jupiter.api.Test;
@@ -10,8 +14,11 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.Instant;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -80,6 +87,22 @@ class MessagesToHtmlWriterTest {
 
         assertThat(html, containsString("" +
                 "window.CUCUMBER_MESSAGES = [{\"testRunStarted\":{\"timestamp\":{\"seconds\":10,\"nanos\":0}}},{\"testRunFinished\":{\"success\":true,\"timestamp\":{\"seconds\":15,\"nanos\":0}}}];"));
+    }
+
+
+    @Test
+    void it_escapes_forward_slashes() throws IOException {
+        Envelope envelope = Envelope.of(new GherkinDocument(
+                null,
+                null,
+                singletonList(new Comment(
+                        new Location(0L, 0L),
+                        "</script><script>alert('Hello')</script>"
+                ))
+        ));
+        String html = renderAsHtml(envelope);
+        assertThat(html, containsString(
+                "window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"<\\/script><script>alert('Hello')<\\/script>\"}]}}];"));
     }
 
     private static String renderAsHtml(Envelope... messages) throws IOException {

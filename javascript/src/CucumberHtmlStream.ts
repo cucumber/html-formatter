@@ -115,6 +115,6 @@ export default class CucumberHtmlStream extends Transform {
     } else {
       this.push(',')
     }
-    this.push(JSON.stringify(envelope))
+    this.push(JSON.stringify(envelope).replace(/\//g, '\\/'))
   }
 }

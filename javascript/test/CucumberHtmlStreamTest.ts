@@ -73,4 +73,26 @@ describe('CucumberHtmlStream', () => {
       ) >= 0
     )
   })
+
+  it('escapes forward slashes', async () => {
+    const e1: messages.Envelope = {
+      gherkinDocument: {
+        comments: [
+          {
+            location: {
+              line: 0,
+              column: 0,
+            },
+            text: `</script><script>alert('Hello')</script>`,
+          },
+        ],
+      },
+    }
+    const html = await renderAsHtml(e1)
+    assert(
+      html.indexOf(
+        `window.CUCUMBER_MESSAGES = [{"gherkinDocument":{"comments":[{"location":{"line":0,"column":0},"text":"<\\/script><script>alert('Hello')<\\/script>"}]}}];`
+      ) >= 0
+    )
+  })
 })
