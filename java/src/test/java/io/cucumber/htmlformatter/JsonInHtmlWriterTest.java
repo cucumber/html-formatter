@@ -18,8 +18,8 @@ class JsonInHtmlWriterTest {
 
     @Test
     void writes() throws IOException {
-        writer.write("<script>");
-        assertEquals("<script>", output());
+        writer.write("{\"hello\": \"world\"}");
+        assertEquals("{\"hello\": \"world\"}", output());
     }
 
     @Test
@@ -52,16 +52,40 @@ class JsonInHtmlWriterTest {
     }
 
     @Test
-    void large_writes() throws IOException {
+    void large_writes_with_odd_boundaries() throws IOException {
         char[] buffer = new char[1024];
+        // This forces the buffer to flush after every 1023 written characters.
+        buffer[0] = 'a';
+        Arrays.fill(buffer, 1, buffer.length, '/');
+        writer.write(buffer);
+
+        StringBuilder expected = new StringBuilder();
+        expected.append("a");
+        for (int i = 1; i < buffer.length; i++) {
+            expected.append("\\/");
+        }
+        assertEquals(expected.toString(), output());
+    }
+
+
+    @Test
+    void really_large_writes() throws IOException {
+        char[] buffer = new char[2048];
         Arrays.fill(buffer, '/');
         writer.write(buffer);
 
         StringBuilder expected = new StringBuilder();
-        for (int i = 0; i < 1024; i++) {
+        for (int i = 0; i < buffer.length; i++) {
             expected.append("\\/");
         }
         assertEquals(expected.toString(), output());
+    }
+
+    @Test
+    void empty_write() throws IOException {
+        char[] buffer = new char[0];
+        writer.write(buffer);
+        assertEquals("", output());
     }
 
     private String output() throws IOException {

@@ -4,59 +4,50 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * Writes json with the forward slash ({@code /}) escaped.
+ * Writes json with the forward slash ({@code /}) escaped. Assumes
+ * JSON has not been escaped yet.
  */
 class JsonInHtmlWriter extends Writer {
-    private static final int WRITE_BUFFER_SIZE = 1024;
+    private static final int BUFFER_SIZE = 1024;
     private final Writer delegate;
-    private char[] writeBuffer;
+    private char[] escapeBuffer;
 
     JsonInHtmlWriter(Writer delegate) {
         this.delegate = delegate;
     }
 
     @Override
-    public void write(char[] buffer, int offset, int length) throws IOException {
-        int escapes = countEscapes(buffer, offset, length);
-        if (escapes == 0) {
-            delegate.write(buffer, offset, length);
-            return;
-        }
-        int escapedLength = length + escapes;
-        char[] escapedBuffer = prepareWriteBuffer(escapedLength);
-        writeEscapeTo(buffer, offset, length, escapedBuffer);
-        delegate.write(escapedBuffer, 0, escapedLength);
-    }
-
-    private static int countEscapes(char[] source, int startAt, int length) {
-        int count = 0;
-        for (int i = startAt; i < startAt + length; i++) {
-            if (source[i] == '/') {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    private char[] prepareWriteBuffer(int length) {
-        if (length > WRITE_BUFFER_SIZE) {
-            return new char[length];
-        }
-        // Reuse the same write buffer, avoid array allocations
-        if (writeBuffer == null) {
-            writeBuffer = new char[WRITE_BUFFER_SIZE];
-        }
-        return writeBuffer;
-    }
-
-    private static void writeEscapeTo(char[] source, int startAt, int length, char[] destination) {
-        for (int i = startAt, j = 0; i < startAt + length; i++) {
+    public void write(char[] source, int offset, int length) throws IOException {
+        char[] destination = prepareBuffer();
+        int flushAt = BUFFER_SIZE - 2;
+        int written = 0;
+        for (int i = offset; i < offset + length; i++) {
             char c = source[i];
-            if (c == '/') {
-                destination[j++] = '\\';
+
+            // Flush buffer if (nearly) full
+            if (written >= flushAt) {
+                delegate.write(destination, 0, written);
+                written = 0;
             }
-            destination[j++] = c;
+
+            // Write with escapes
+            if (c == '/') {
+                destination[written++] = '\\';
+            }
+            destination[written++] = c;
         }
+        // Flush any remaining
+        if (written > 0) {
+            delegate.write(destination, 0, written);
+        }
+    }
+
+    private char[] prepareBuffer() {
+        // Reuse the same buffer, avoids repeated array allocation
+        if (escapeBuffer == null) {
+            escapeBuffer = new char[BUFFER_SIZE];
+        }
+        return escapeBuffer;
     }
 
     @Override

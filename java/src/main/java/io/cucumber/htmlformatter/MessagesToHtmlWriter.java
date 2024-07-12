@@ -138,9 +138,29 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         return new String(baos.toByteArray(), UTF_8);
     }
 
+    /**
+     * Serializes a message to JSON.
+     */
     @FunctionalInterface
     public interface Serializer {
 
+        /**
+         * Serialize a message to JSON and write it to the given {@code writer}.
+         *
+         * <ul>
+         *     <li>Values must be included unless their value is {@code null}
+         *     or an "absent" reference values such as empty optionals.
+         *     <li>Enums must be written as strings.
+         *     <li>The solidus {@code /} may not be escaped. Writing json
+         *     into the html context is handled in this implementation.
+         *     <li>Implementations may not close the {@code writer} after
+         *     writing a {@code value}.
+         * </ul>
+         *
+         * @param writer to write to
+         * @param value  to serialize
+         * @throws IOException if anything goes wrong
+         */
         void writeValue(Writer writer, Envelope value) throws IOException;
 
     }
