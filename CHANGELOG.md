@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-
+### Fixed
+- Escape json when writing in html ([#312](https://github.com/cucumber/html-formatter/pull/312))
+ 
 ## [21.4.0] - 2024-06-21
 ### Changed
 - Upgrade `react-components` to [22.2.0](https://github.com/cucumber/react-components/releases/tag/v22.2.0)

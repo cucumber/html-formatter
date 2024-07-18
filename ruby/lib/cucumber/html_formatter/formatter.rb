@@ -23,7 +23,7 @@ module Cucumber
 
       def write_message(message)
         out.puts(',') unless @first_message
-        out.print(message.to_json)
+        out.print(message.to_json.gsub('/', '\/'))
 
         @first_message = false
       end

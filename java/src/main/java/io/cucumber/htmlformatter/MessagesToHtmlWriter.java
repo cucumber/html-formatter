@@ -22,6 +22,7 @@ import static java.util.Objects.requireNonNull;
 public final class MessagesToHtmlWriter implements AutoCloseable {
     private final String template;
     private final Writer writer;
+    private final JsonInHtmlWriter jsonInHtmlWriter;
     private final Serializer serializer;
     private boolean preMessageWritten = false;
     private boolean postMessageWritten = false;
@@ -37,8 +38,10 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         );
     }
 
+
     private MessagesToHtmlWriter(Writer writer, Serializer serializer) throws IOException {
         this.writer = writer;
+        this.jsonInHtmlWriter = new JsonInHtmlWriter(writer);
         this.serializer = serializer;
         this.template = readResource("index.mustache.html");
     }
@@ -77,7 +80,7 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
             writer.write(",");
         }
 
-        serializer.writeValue(writer, envelope);
+        serializer.writeValue(jsonInHtmlWriter, envelope);
     }
 
     /**
@@ -135,9 +138,29 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         return new String(baos.toByteArray(), UTF_8);
     }
 
+    /**
+     * Serializes a message to JSON.
+     */
     @FunctionalInterface
     public interface Serializer {
 
+        /**
+         * Serialize a message to JSON and write it to the given {@code writer}.
+         *
+         * <ul>
+         *     <li>Values must be included unless their value is {@code null}
+         *     or an "absent" reference values such as empty optionals.
+         *     <li>Enums must be written as strings.
+         *     <li>The solidus {@code /} may not be escaped. Writing json
+         *     into the html context is handled in this implementation.
+         *     <li>Implementations may not close the {@code writer} after
+         *     writing a {@code value}.
+         * </ul>
+         *
+         * @param writer to write to
+         * @param value  to serialize
+         * @throws IOException if anything goes wrong
+         */
         void writeValue(Writer writer, Envelope value) throws IOException;
 
     }

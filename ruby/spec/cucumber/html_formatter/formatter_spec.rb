@@ -62,6 +62,19 @@ describe Cucumber::HTMLFormatter::Formatter do
 
   describe '#write_message' do
     let(:message) { Cucumber::Messages::Envelope.new(pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')) }
+    let(:message_with_slashes) do
+      Cucumber::Messages::Envelope.new(
+        gherkin_document: Cucumber::Messages::GherkinDocument.new(
+          comments: [Cucumber::Messages::Comment.new(
+            location: Cucumber::Messages::Location.new(
+              line: 0,
+              column: 0
+            ),
+            text: '</script><script>alert(\'Hello\')</script>'
+          )]
+        )
+      )
+    end
 
     it 'appends the message to out' do
       formatter.write_message(message)
@@ -75,6 +88,15 @@ describe Cucumber::HTMLFormatter::Formatter do
 
       expect(out.string).to eq("#{message.to_json},\n#{message.to_json}")
     end
+
+    it 'escapes forward slashes' do
+
+      formatter.write_message(message_with_slashes)
+
+      expect(out.string).to eq('{"gherkinDocument":{"comments":[{"location":{"line":0,"column":0},"text":"<\/script><script>alert(\'Hello\')<\/script>"}]}}')
+    end
+
+
   end
 
   describe '#write_post_message' do
