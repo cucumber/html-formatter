@@ -60,7 +60,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "sass": "1.77.8",
-    "sass-loader": "14.2.1",
+    "sass-loader": "15.0.0",
     "shx": "^0.3.4",
     "source-map-support": "0.5.21",
     "ts-loader": "9.5.1",
