@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [21.5.0] - 2024-08-02
 ### Changed
 - Upgrade `react-components` to [22.3.0](https://github.com/cucumber/react-components/releases/tag/v22.3.0)
 
@@ -325,7 +327,8 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.4.1...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.5.0...HEAD
+[21.5.0]: https://github.com/cucumber/html-formatter/compare/v21.4.1...v21.5.0
 [21.4.1]: https://github.com/cucumber/html-formatter/compare/v21.4.0...v21.4.1
 [21.4.0]: https://github.com/cucumber/html-formatter/compare/v21.3.1...v21.4.0
 [21.3.1]: https://github.com/cucumber/html-formatter/compare/v21.3.0...v21.3.1
