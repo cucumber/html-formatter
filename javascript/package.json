@@ -34,7 +34,7 @@
     "@cucumber/message-streams": "4.0.1",
     "@cucumber/messages": "24.1.0",
     "@cucumber/query": "12.2.0",
-    "@cucumber/react-components": "22.2.0",
+    "@cucumber/react-components": "22.3.0",
     "@types/glob": "^8.0.0",
     "@types/mocha": "10.0.7",
     "@types/node": "20.14.14",
