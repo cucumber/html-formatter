@@ -2,8 +2,8 @@
   "name": "@cucumber/html-formatter",
   "version": "21.5.0",
   "description": "HTML formatter for Cucumber",
-  "main": "dist/src/CucumberHtmlStream.js",
-  "types": "dist/src/CucumberHtmlStream.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cucumber/html-formatter.git"

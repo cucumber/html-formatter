@@ -6,7 +6,7 @@ import path from 'path'
 import puppeteer from 'puppeteer'
 import { PassThrough, pipeline } from 'stream'
 
-import CucumberHtmlStream from '../src/CucumberHtmlStream'
+import { CucumberHtmlStream } from '../src'
 
 async function canRenderHtml(html: string): Promise<boolean> {
   const browser = await puppeteer.launch({
