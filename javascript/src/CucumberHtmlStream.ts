@@ -2,7 +2,7 @@ import * as messages from '@cucumber/messages'
 import fs from 'fs'
 import { Readable, Transform, TransformCallback } from 'stream'
 
-export default class CucumberHtmlStream extends Transform {
+export class CucumberHtmlStream extends Transform {
   private template: string | null = null
   private preMessageWritten = false
   private postMessageWritten = false

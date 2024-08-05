@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Add named export for `CucumberHtmlStream` ([#320](https://github.com/cucumber/html-formatter/pull/320))
 
 ## [21.5.0] - 2024-08-02
 ### Changed
