@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [21.6.0] - 2024-08-05
 ### Added
 - Add named export for `CucumberHtmlStream` ([#320](https://github.com/cucumber/html-formatter/pull/320))
 
@@ -329,7 +331,8 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.5.0...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.6.0...HEAD
+[21.6.0]: https://github.com/cucumber/html-formatter/compare/v21.5.0...v21.6.0
 [21.5.0]: https://github.com/cucumber/html-formatter/compare/v21.4.1...v21.5.0
 [21.4.1]: https://github.com/cucumber/html-formatter/compare/v21.4.0...v21.4.1
 [21.4.0]: https://github.com/cucumber/html-formatter/compare/v21.3.1...v21.4.0
