@@ -105,7 +105,7 @@ describe Cucumber::HTMLFormatter::Formatter do
   end
 
   context 'when using the CCK' do
-    Cucumber::CompatibilityKit.gherkin_examples.each do |example_name|
+    CCK::Examples.gherkin.each do |example_name|
       def run_formatter(messages)
         out = StringIO.new
         formatter = Cucumber::HTMLFormatter::Formatter.new(out)
@@ -116,18 +116,18 @@ describe Cucumber::HTMLFormatter::Formatter do
       describe "'#{example_name}' example" do
         subject(:html_report) { run_formatter(File.readlines(example_ndjson)) }
 
-        let(:example_ndjson) { "#{Cucumber::CompatibilityKit.example_path(example_name)}/#{example_name}.feature.ndjson" }
+        let(:example_ndjson) { "#{CCK::Examples.feature_code_for(example_name)}/#{example_name}.feature.ndjson" }
 
         it { is_expected.to match(/\A<!DOCTYPE html>\s?<html/) }
         it { is_expected.to match(/<\/html>\Z/) }
       end
     end
 
-    Cucumber::CompatibilityKit.markdown_examples.each do |example_name|
+    CCK::Examples.markdown.each do |example_name|
       describe "'#{example_name}' example" do
         subject(:html_report) { run_formatter(File.readlines(example_ndjson)) }
 
-        let(:example_ndjson) { "#{Cucumber::CompatibilityKit.example_path(example_name)}/#{example_name}.feature.md.ndjson" }
+        let(:example_ndjson) { "#{CCK::Examples.feature_code_for(example_name)}/#{example_name}.feature.md.ndjson" }
 
         it { is_expected.to match(/\A<!DOCTYPE html>\s?<html/) }
         it { is_expected.to match(/<\/html>\Z/) }
