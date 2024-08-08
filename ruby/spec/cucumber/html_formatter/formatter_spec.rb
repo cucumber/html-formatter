@@ -90,13 +90,10 @@ describe Cucumber::HTMLFormatter::Formatter do
     end
 
     it 'escapes forward slashes' do
-
       formatter.write_message(message_with_slashes)
 
       expect(out.string).to eq('{"gherkinDocument":{"comments":[{"location":{"line":0,"column":0},"text":"<\/script><script>alert(\'Hello\')<\/script>"}]}}')
     end
-
-
   end
 
   describe '#write_post_message' do

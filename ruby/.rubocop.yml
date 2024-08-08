@@ -8,6 +8,10 @@ AllCops:
   Exclude:
     - 'vendor/**/*'
 
+# Stylistic preference for cucumber
+Gemspec/DevelopmentDependencies:
+  Enabled: false
+
 # Disabled on our repo's to enable polyglot-release
 Gemspec/RequireMFA:
   Enabled: false
