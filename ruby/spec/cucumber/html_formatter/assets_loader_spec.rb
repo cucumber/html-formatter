@@ -9,7 +9,7 @@ describe Cucumber::HTMLFormatter::AssetsLoader do
 
   describe '#template' do
     it 'reads the content of assets/index.mustache.html' do
-      expect(File).to receive(:read).with(/.*\/assets\/index\.mustache\.html$/)
+      expect(File).to receive(:read).with(a_string_ending_with('assets/index.mustache.html'))
 
       assets_loader.template
     end
@@ -17,7 +17,7 @@ describe Cucumber::HTMLFormatter::AssetsLoader do
 
   describe '#css' do
     it 'reads the content of assets/main.css' do
-      expect(File).to receive(:read).with(/.*\/assets\/main\.css$/)
+      expect(File).to receive(:read).with(a_string_ending_with('assets/main.css'))
 
       assets_loader.css
     end
@@ -25,7 +25,7 @@ describe Cucumber::HTMLFormatter::AssetsLoader do
 
   describe '#script' do
     it 'reads the content of assets/main.js' do
-      expect(File).to receive(:read).with(/.*\/assets\/main\.js$/)
+      expect(File).to receive(:read).with(a_string_ending_with('assets/main.js'))
 
       assets_loader.script
     end
