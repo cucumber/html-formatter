@@ -3,30 +3,34 @@
 describe Cucumber::HTMLFormatter::Formatter do
   subject(:formatter) { described_class.new(out) }
 
-  before do
-    allow(formatter).to receive(:assets_loader).and_return(assets)
-  end
 
   let(:out) { StringIO.new }
-  let(:assets) do
-    Class.new do
-      class << self
-        def template
-          '<html>{{css}}<body>{{messages}}</body>{{script}}</html>'
-        end
-
-        def css
-          '<style>div { color: red }</style>'
-        end
-
-        def script
-          "<script>alert('Hi')</script>"
-        end
-      end
-    end
-  end
+  # let(:assets) do
+  #   Class.new do
+  #     class << self
+  #       def template
+  #         '<html>{{css}}<body>{{messages}}</body>{{script}}</html>'
+  #       end
+  #
+  #       def css
+  #         '<style>div { color: red }</style>'
+  #       end
+  #
+  #       def script
+  #         "<script>alert('Hi')</script>"
+  #       end
+  #     end
+  #   end
+  # end
 
   describe '#process_messages' do
+    before do
+      # allow(formatter).to receive(:assets_loader).and_return(assets)
+      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:template).and_return('<html>{{css}}<body>{{messages}}</body>{{script}}</html>')
+      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:css).and_return('<style>div { color: red }</style>')
+      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:script).and_return("<script>alert('Hi')</script>")
+    end
+
     let(:message) { Cucumber::Messages::Envelope.new(pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')) }
     let(:expected_report) do
       <<~REPORT.strip
@@ -47,6 +51,13 @@ describe Cucumber::HTMLFormatter::Formatter do
   end
 
   describe '#write_pre_message' do
+    before do
+      # allow(formatter).to receive(:assets_loader).and_return(assets)
+      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:template).and_return('<html>{{css}}<body>{{messages}}</body>{{script}}</html>')
+      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:css).and_return('<style>div { color: red }</style>')
+      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:script).and_return("<script>alert('Hi')</script>")
+    end
+
     it 'outputs the content of the template up to {{messages}}' do
       formatter.write_pre_message
 
@@ -62,6 +73,14 @@ describe Cucumber::HTMLFormatter::Formatter do
   end
 
   describe '#write_message' do
+    before do
+      # allow(formatter).to receive(:assets_loader).and_return(assets)
+      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:template).and_return('<html>{{css}}<body>{{messages}}</body>{{script}}</html>')
+      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:css).and_return('<style>div { color: red }</style>')
+      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:script).and_return("<script>alert('Hi')</script>")
+    end
+
+
     let(:message) { Cucumber::Messages::Envelope.new(pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')) }
     let(:message_with_slashes) do
       Cucumber::Messages::Envelope.new(
@@ -98,6 +117,14 @@ describe Cucumber::HTMLFormatter::Formatter do
   end
 
   describe '#write_post_message' do
+    before do
+      # allow(formatter).to receive(:assets_loader).and_return(assets)
+      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:template).and_return('<html>{{css}}<body>{{messages}}</body>{{script}}</html>')
+      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:css).and_return('<style>div { color: red }</style>')
+      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:script).and_return("<script>alert('Hi')</script>")
+    end
+
+    
     it 'outputs the template end' do
       formatter.write_post_message
 
