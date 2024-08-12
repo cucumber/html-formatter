@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Changed
-- [Ruby] Updated dependencies to support latest messages & reduced object creation ([#322](https://github.com/cucumber/html-formatter/pull/322))
+- Updated dependencies to support latest messages
+- [Ruby] Reduce object creation when creating/writing to templates ([#322](https://github.com/cucumber/html-formatter/pull/322))
 
 ## [21.6.0] - 2024-08-05
 ### Added
