@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 describe Cucumber::HTMLFormatter::Formatter do
-  subject(:formatter) do
-    formatter = described_class.new(out)
+  subject(:formatter) { described_class.new(out) }
+
+  before do
     allow(formatter).to receive(:assets_loader).and_return(assets)
-    formatter
   end
 
   let(:out) { StringIO.new }
