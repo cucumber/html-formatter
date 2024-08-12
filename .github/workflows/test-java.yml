@@ -27,17 +27,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
       - uses: ./.github/actions/prepare
-
       - uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: ${{ matrix.java }}
           cache: "maven"
-
       - run: mvn install
         working-directory: java
-
       - run: mvn test
         working-directory: java

@@ -41,14 +41,10 @@ module Cucumber
 
       private
 
-      def assets_loader
-        @assets_loader ||= AssetsLoader.new
-      end
-
       def pre_message
         [
           template_writer.write_between(nil, '{{css}}'),
-          assets_loader.css,
+          AssetsLoader.css,
           template_writer.write_between('{{css}}', '{{messages}}')
         ].join("\n")
       end
@@ -56,13 +52,13 @@ module Cucumber
       def post_message
         [
           template_writer.write_between('{{messages}}', '{{script}}'),
-          assets_loader.script,
+          AssetsLoader.script,
           template_writer.write_between('{{script}}', nil)
         ].join("\n")
       end
 
       def template_writer
-        @template_writer ||= TemplateWriter.new(assets_loader.template)
+        @template_writer ||= TemplateWriter.new(AssetsLoader.template)
       end
     end
   end

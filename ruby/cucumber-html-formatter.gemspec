@@ -24,14 +24,14 @@ Gem::Specification.new do |s|
     'source_code_uri' => 'https://github.com/cucumber/html-formatter'
   }
 
-  s.add_runtime_dependency 'cucumber-messages', '> 19', '< 25'
+  s.add_runtime_dependency 'cucumber-messages', '> 19', '< 27'
 
-  s.add_development_dependency 'cucumber-compatibility-kit', '~> 14.1'
-  s.add_development_dependency 'rake', '~> 13.1'
-  s.add_development_dependency 'rspec', '~> 3.12'
-  s.add_development_dependency 'rubocop', '~> 1.41.0'
+  s.add_development_dependency 'cucumber-compatibility-kit', '~> 15.2'
+  s.add_development_dependency 'rake', '~> 13.2'
+  s.add_development_dependency 'rspec', '~> 3.13'
+  s.add_development_dependency 'rubocop', '~> 1.61.0'
   s.add_development_dependency 'rubocop-rake', '~> 0.6.0'
-  s.add_development_dependency 'rubocop-rspec', '~> 2.15.0'
+  s.add_development_dependency 'rubocop-rspec', '~> 2.25.0'
 
   s.executables      = ['cucumber-html-formatter']
   s.files            = Dir['README.md', 'LICENSE', 'lib/**/*', 'assets/*']

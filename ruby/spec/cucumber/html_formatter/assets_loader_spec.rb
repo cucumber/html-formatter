@@ -1,33 +1,27 @@
 # frozen_string_literal: true
 
 describe Cucumber::HTMLFormatter::AssetsLoader do
-  subject(:assets_loader) { described_class.new }
-
-  before do
-    allow(File).to receive(:read).and_return('whatever content')
-  end
-
   describe '#template' do
     it 'reads the content of assets/index.mustache.html' do
-      expect(File).to receive(:read).with(/.*\/assets\/index\.mustache\.html$/)
+      expect(File).to receive(:read).with(a_string_ending_with('assets/index.mustache.html'))
 
-      assets_loader.template
+      described_class.template
     end
   end
 
   describe '#css' do
     it 'reads the content of assets/main.css' do
-      expect(File).to receive(:read).with(/.*\/assets\/main\.css$/)
+      expect(File).to receive(:read).with(a_string_ending_with('assets/main.css'))
 
-      assets_loader.css
+      described_class.css
     end
   end
 
   describe '#script' do
     it 'reads the content of assets/main.js' do
-      expect(File).to receive(:read).with(/.*\/assets\/main\.js$/)
+      expect(File).to receive(:read).with(a_string_ending_with('assets/main.js'))
 
-      assets_loader.script
+      described_class.script
     end
   end
 end
