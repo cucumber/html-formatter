@@ -3,132 +3,95 @@
 describe Cucumber::HTMLFormatter::Formatter do
   subject(:formatter) { described_class.new(out) }
 
-
   let(:out) { StringIO.new }
-  # let(:assets) do
-  #   Class.new do
-  #     class << self
-  #       def template
-  #         '<html>{{css}}<body>{{messages}}</body>{{script}}</html>'
-  #       end
-  #
-  #       def css
-  #         '<style>div { color: red }</style>'
-  #       end
-  #
-  #       def script
-  #         "<script>alert('Hi')</script>"
-  #       end
-  #     end
-  #   end
-  # end
 
-  describe '#process_messages' do
+  context 'when using a simple set of assets' do
     before do
-      # allow(formatter).to receive(:assets_loader).and_return(assets)
-      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:template).and_return('<html>{{css}}<body>{{messages}}</body>{{script}}</html>')
-      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:css).and_return('<style>div { color: red }</style>')
-      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:script).and_return("<script>alert('Hi')</script>")
-    end
-
-    let(:message) { Cucumber::Messages::Envelope.new(pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')) }
-    let(:expected_report) do
-      <<~REPORT.strip
-        <html>
-        <style>div { color: red }</style>
-        <body>
-        #{message.to_json}</body>
-        <script>alert('Hi')</script>
-        </html>
-      REPORT
-    end
-
-    it 'produces the full html report' do
-      formatter.process_messages([message])
-
-      expect(out.string).to eq(expected_report)
-    end
-  end
-
-  describe '#write_pre_message' do
-    before do
-      # allow(formatter).to receive(:assets_loader).and_return(assets)
-      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:template).and_return('<html>{{css}}<body>{{messages}}</body>{{script}}</html>')
-      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:css).and_return('<style>div { color: red }</style>')
-      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:script).and_return("<script>alert('Hi')</script>")
-    end
-
-    it 'outputs the content of the template up to {{messages}}' do
-      formatter.write_pre_message
-
-      expect(out.string).to eq("<html>\n<style>div { color: red }</style>\n<body>\n")
-    end
-
-    it 'does not write the content twice' do
-      formatter.write_pre_message
-      formatter.write_pre_message
-
-      expect(out.string).to eq("<html>\n<style>div { color: red }</style>\n<body>\n")
-    end
-  end
-
-  describe '#write_message' do
-    before do
-      # allow(formatter).to receive(:assets_loader).and_return(assets)
-      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:template).and_return('<html>{{css}}<body>{{messages}}</body>{{script}}</html>')
-      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:css).and_return('<style>div { color: red }</style>')
-      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:script).and_return("<script>alert('Hi')</script>")
-    end
-
-
-    let(:message) { Cucumber::Messages::Envelope.new(pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')) }
-    let(:message_with_slashes) do
-      Cucumber::Messages::Envelope.new(
-        gherkin_document: Cucumber::Messages::GherkinDocument.new(
-          comments: [Cucumber::Messages::Comment.new(
-            location: Cucumber::Messages::Location.new(
-              line: 0,
-              column: 0
-            ),
-            text: '</script><script>alert(\'Hello\')</script>'
-          )]
+      allow(Cucumber::HTMLFormatter::AssetsLoader)
+        .to receive_messages(
+          template: '<html>{{css}}<body>{{messages}}</body>{{script}}</html>',
+          css: '<style>div { color: red }</style>',
+          script: "<script>alert('Hi')</script>"
         )
-      )
     end
 
-    it 'appends the message to out' do
-      formatter.write_message(message)
+    describe '#process_messages' do
+      let(:message) { Cucumber::Messages::Envelope.new(pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')) }
+      let(:expected_report) do
+        <<~REPORT.strip
+          <html>
+          <style>div { color: red }</style>
+          <body>
+          #{message.to_json}</body>
+          <script>alert('Hi')</script>
+          </html>
+        REPORT
+      end
 
-      expect(out.string).to eq(message.to_json)
+      it 'produces the full html report' do
+        formatter.process_messages([message])
+
+        expect(out.string).to eq(expected_report)
+      end
     end
 
-    it 'adds commas between the messages' do
-      formatter.write_message(message)
-      formatter.write_message(message)
+    describe '#write_pre_message' do
+      it 'outputs the content of the template up to {{messages}}' do
+        formatter.write_pre_message
 
-      expect(out.string).to eq("#{message.to_json},\n#{message.to_json}")
+        expect(out.string).to eq("<html>\n<style>div { color: red }</style>\n<body>\n")
+      end
+
+      it 'does not write the content twice' do
+        formatter.write_pre_message
+        formatter.write_pre_message
+
+        expect(out.string).to eq("<html>\n<style>div { color: red }</style>\n<body>\n")
+      end
     end
 
-    it 'escapes forward slashes' do
-      formatter.write_message(message_with_slashes)
+    describe '#write_message' do
+      let(:message) { Cucumber::Messages::Envelope.new(pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')) }
+      let(:message_with_slashes) do
+        Cucumber::Messages::Envelope.new(
+          gherkin_document: Cucumber::Messages::GherkinDocument.new(
+            comments: [Cucumber::Messages::Comment.new(
+              location: Cucumber::Messages::Location.new(
+                line: 0,
+                column: 0
+              ),
+              text: '</script><script>alert(\'Hello\')</script>'
+            )]
+          )
+        )
+      end
 
-      expect(out.string).to eq('{"gherkinDocument":{"comments":[{"location":{"line":0,"column":0},"text":"<\/script><script>alert(\'Hello\')<\/script>"}]}}')
+      it 'appends the message to out' do
+        formatter.write_message(message)
+
+        expect(out.string).to eq(message.to_json)
+      end
+
+      it 'adds commas between the messages' do
+        formatter.write_message(message)
+        formatter.write_message(message)
+
+        expect(out.string).to eq("#{message.to_json},\n#{message.to_json}")
+      end
+
+      it 'escapes forward slashes' do
+        formatter.write_message(message_with_slashes)
+
+        expect(out.string).to eq('{"gherkinDocument":{"comments":[{"location":{"line":0,"column":0},"text":"<\/script><script>alert(\'Hello\')<\/script>"}]}}')
+      end
     end
-  end
 
-  describe '#write_post_message' do
-    before do
-      # allow(formatter).to receive(:assets_loader).and_return(assets)
-      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:template).and_return('<html>{{css}}<body>{{messages}}</body>{{script}}</html>')
-      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:css).and_return('<style>div { color: red }</style>')
-      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:script).and_return("<script>alert('Hi')</script>")
-    end
+    describe '#write_post_message' do
+      it 'outputs the template end' do
+        formatter.write_post_message
 
-    
-    it 'outputs the template end' do
-      formatter.write_post_message
-
-      expect(out.string).to eq("</body>\n<script>alert('Hi')</script>\n</html>")
+        expect(out.string).to eq("</body>\n<script>alert('Hi')</script>\n</html>")
+      end
     end
   end
 
