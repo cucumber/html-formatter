@@ -8,22 +8,23 @@ describe Cucumber::HTMLFormatter::Formatter do
   end
 
   let(:out) { StringIO.new }
-  let(:fake_assets) do
+  let(:assets) do
     Class.new do
-      def template
-        '<html>{{css}}<body>{{messages}}</body>{{script}}</html>'
-      end
+      class << self
+        def template
+          '<html>{{css}}<body>{{messages}}</body>{{script}}</html>'
+        end
 
-      def css
-        '<style>div { color: red }</style>'
-      end
+        def css
+          '<style>div { color: red }</style>'
+        end
 
-      def script
-        "<script>alert('Hi')</script>"
+        def script
+          "<script>alert('Hi')</script>"
+        end
       end
     end
   end
-  let(:assets) { fake_assets.new }
 
   describe '#process_messages' do
     let(:message) { Cucumber::Messages::Envelope.new(pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')) }
