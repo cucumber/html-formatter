@@ -2,7 +2,11 @@
 
 describe Cucumber::HTMLFormatter::TemplateWriter do
   describe '#write_between' do
-    subject(:template_writer) { described_class.new(template) }
+    subject(:template_writer) { described_class.new }
+
+    before do
+      allow(Cucumber::HTMLFormatter::AssetsLoader).to receive(:template).and_return(template)
+    end
 
     let(:template) { 'Some template {{here}} with content after' }
 
