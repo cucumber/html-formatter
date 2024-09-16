@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Run `rubocop` linting tests in CI for ruby ([#329](https://github.com/cucumber/html-formatter/pull/329))
+
+### Changed
+- [Ruby] Alter asset template location scanner in codebase to be hardcoded (Was always only in one location) ([#329](https://github.com/cucumber/html-formatter/pull/329)) 
 
 ## [21.7.0] - 2024-08-12
 ### Changed
