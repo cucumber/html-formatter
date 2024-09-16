@@ -58,7 +58,7 @@ module Cucumber
       end
 
       def template_writer
-        @template_writer ||= TemplateWriter.new(AssetsLoader.template)
+        @template_writer ||= TemplateWriter.new
       end
     end
   end

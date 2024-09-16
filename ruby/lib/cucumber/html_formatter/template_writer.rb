@@ -4,9 +4,10 @@ module Cucumber
   module HTMLFormatter
     class TemplateWriter
       attr_reader :template
+      private :template
 
-      def initialize(template)
-        @template = template
+      def initialize
+        @template = AssetsLoader.template
       end
 
       def write_between(from, to)

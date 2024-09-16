@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe Cucumber::HTMLFormatter::AssetsLoader do
-  describe '#template' do
+  describe '.template' do
     it 'reads the content of assets/index.mustache.html' do
       expect(File).to receive(:read).with(a_string_ending_with('assets/index.mustache.html'))
 
@@ -9,7 +9,7 @@ describe Cucumber::HTMLFormatter::AssetsLoader do
     end
   end
 
-  describe '#css' do
+  describe '.css' do
     it 'reads the content of assets/main.css' do
       expect(File).to receive(:read).with(a_string_ending_with('assets/main.css'))
 
@@ -17,7 +17,7 @@ describe Cucumber::HTMLFormatter::AssetsLoader do
     end
   end
 
-  describe '#script' do
+  describe '.script' do
     it 'reads the content of assets/main.js' do
       expect(File).to receive(:read).with(a_string_ending_with('assets/main.js'))
 
