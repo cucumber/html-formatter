@@ -20,7 +20,7 @@
     "prepublishOnly": "npm run build",
     "eslint:fix": "eslint --ext ts,tsx --max-warnings 0 --fix src test",
     "eslint": "eslint --ext ts,tsx --max-warnings 0 src test",
-    "validate": "mocha test/acceptance.ts"
+    "validate": "shx mkdir -p acceptance && mocha test/acceptance.ts"
   },
   "peerDependencies": {
     "@cucumber/messages": ">=18"
