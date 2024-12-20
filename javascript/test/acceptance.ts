@@ -46,8 +46,8 @@ describe('html-formatter', () => {
           ndjsonData,
           toMessageStream,
           new CucumberHtmlStream(
-              path.join(__dirname, '../dist/main.css'),
-              path.join(__dirname, '../dist/main.js'),
+            path.join(__dirname, '../dist/main.css'),
+            path.join(__dirname, '../dist/main.js')
           ),
           out,
           (err: Error) => {
@@ -57,7 +57,11 @@ describe('html-formatter', () => {
           }
         )
       })
-      fs.writeFileSync(path.join(__dirname, '../acceptance', name + '.html'), htmlData.toString(), {encoding: 'utf-8'})
+      fs.writeFileSync(
+        path.join(__dirname, '../acceptance', name + '.html'),
+        htmlData.toString(),
+        { encoding: 'utf-8' }
+      )
       assert.ok(await canRenderHtml(htmlData.toString()))
     })
   }
