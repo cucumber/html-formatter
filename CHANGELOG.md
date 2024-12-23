@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Use correct favicon ([#341](https://github.com/cucumber/html-formatter/pull/341))
 
 ## [21.7.0] - 2024-08-12
 ### Changed

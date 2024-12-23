@@ -33,7 +33,8 @@ describe('html-formatter', () => {
     `./node_modules/@cucumber/compatibility-kit/features/**/*.ndjson`
   )
   for (const ndjson of files) {
-    it(`can render ${path.basename(ndjson, '.ndjson')}`, async () => {
+    const name = path.basename(ndjson, '.ndjson')
+    it(`can render ${name}`, async () => {
       const ndjsonData = fs.createReadStream(ndjson, { encoding: 'utf-8' })
       const toMessageStream = new NdjsonToMessageStream()
       const htmlData = await new Promise<string>((resolve, reject) => {
@@ -45,8 +46,8 @@ describe('html-formatter', () => {
           ndjsonData,
           toMessageStream,
           new CucumberHtmlStream(
-            __dirname + '/../dist/main.css',
-            __dirname + '/../dist/main.js'
+            path.join(__dirname, '../dist/main.css'),
+            path.join(__dirname, '../dist/main.js')
           ),
           out,
           (err: Error) => {
@@ -56,6 +57,11 @@ describe('html-formatter', () => {
           }
         )
       })
+      fs.writeFileSync(
+        path.join(__dirname, '../acceptance', name + '.html'),
+        htmlData.toString(),
+        { encoding: 'utf-8' }
+      )
       assert.ok(await canRenderHtml(htmlData.toString()))
     })
   }
