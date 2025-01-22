@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Use correct favicon ([#341](https://github.com/cucumber/html-formatter/pull/341))
 
+### Changed
+- [JavaScript] Default to built-in CSS and JS files ([#344](https://github.com/cucumber/html-formatter/pull/344))
+
 ## [21.7.0] - 2024-08-12
 ### Changed
 - Updated dependencies to support latest messages
