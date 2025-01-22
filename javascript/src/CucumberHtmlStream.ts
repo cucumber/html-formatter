@@ -1,7 +1,7 @@
 import * as messages from '@cucumber/messages'
 import fs from 'fs'
+import path from 'path'
 import { Readable, Transform, TransformCallback } from 'stream'
-import path from "path";
 
 export class CucumberHtmlStream extends Transform {
   private template: string | null = null
