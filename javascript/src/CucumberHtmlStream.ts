@@ -1,5 +1,6 @@
 import * as messages from '@cucumber/messages'
 import fs from 'fs'
+import path from 'path'
 import { Readable, Transform, TransformCallback } from 'stream'
 
 export class CucumberHtmlStream extends Transform {
@@ -12,8 +13,8 @@ export class CucumberHtmlStream extends Transform {
    * @param jsPath
    */
   constructor(
-    private readonly cssPath: string,
-    private readonly jsPath: string
+    private readonly cssPath: string = path.join(__dirname, '..', 'main.css'),
+    private readonly jsPath: string = path.join(__dirname, '..', 'main.js')
   ) {
     super({ objectMode: true })
   }
