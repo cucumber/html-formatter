@@ -6,11 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-### Fixed
-- Use correct favicon ([#341](https://github.com/cucumber/html-formatter/pull/341))
 
+## [21.8.0] - 2025-01-22
 ### Changed
 - [JavaScript] Default to built-in CSS and JS files ([#344](https://github.com/cucumber/html-formatter/pull/344))
+
+### Fixed
+- Use correct favicon ([#341](https://github.com/cucumber/html-formatter/pull/341))
 
 ## [21.7.0] - 2024-08-12
 ### Changed
@@ -341,7 +343,8 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.7.0...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.8.0...HEAD
+[21.8.0]: https://github.com/cucumber/html-formatter/compare/v21.7.0...v21.8.0
 [21.7.0]: https://github.com/cucumber/html-formatter/compare/v21.6.0...v21.7.0
 [21.6.0]: https://github.com/cucumber/html-formatter/compare/v21.5.0...v21.6.0
 [21.5.0]: https://github.com/cucumber/html-formatter/compare/v21.4.1...v21.5.0
