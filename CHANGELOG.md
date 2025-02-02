@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [21.9.0] - 2025-02-02
 ### Changed
 - Update dependency messages to support v27
 
@@ -345,7 +347,8 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.8.0...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.9.0...HEAD
+[21.9.0]: https://github.com/cucumber/html-formatter/compare/v21.8.0...v21.9.0
 [21.8.0]: https://github.com/cucumber/html-formatter/compare/v21.7.0...v21.8.0
 [21.7.0]: https://github.com/cucumber/html-formatter/compare/v21.6.0...v21.7.0
 [21.6.0]: https://github.com/cucumber/html-formatter/compare/v21.5.0...v21.6.0
