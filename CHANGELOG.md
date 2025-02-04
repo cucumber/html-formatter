@@ -45,7 +45,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [21.3.0] - 2024-03-15
 ### Changed
-- Upgrade `react-components` to [22.1.0](https://github.com/cucumber/react-components/releases/tag/v22.1.0) ([#275](https://github.com/cucumber/html-formatter/pull/293))
+- Upgrade `react-components` to [22.1.0](https://github.com/cucumber/react-components/releases/tag/v22.1.0) ([#293](https://github.com/cucumber/html-formatter/pull/293))
 
 ## [21.2.0] - 2023-12-21
 ### Changed
