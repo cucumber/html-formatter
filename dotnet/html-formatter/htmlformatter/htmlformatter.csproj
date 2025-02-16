@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>10.0</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\index.mustache.html" />
+    <None Remove="Resources\main.css" />
+    <None Remove="Resources\main.js" />
+    <None Remove="Resources\main.js.LICENSE.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\index.mustache.html" />
+    <EmbeddedResource Include="Resources\main.css" />
+    <EmbeddedResource Include="Resources\main.js" />
+    <EmbeddedResource Include="Resources\main.js.LICENSE.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Cucumber.Messages" Version="27.0.2" />
+  </ItemGroup>
+
+</Project>
