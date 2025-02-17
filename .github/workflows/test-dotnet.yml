@@ -16,16 +16,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/prepare
-      - uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
       - run: |
           pwd
           ls -Al
           tree -L 3
           cat /home/runner/work/html-formatter/html-formatter/dotnet/HtmlFormatter/Cucumber.HtmlFormatter.csproj
           cat /home/runner/work/html-formatter/html-formatter/dotnet/HtmlFormatterTest/Cucumber.HtmlFormatterTest.csproj
+      - uses: ./.github/actions/prepare
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
         working-directory: dotnet
       - name: run tests
         run: dotnet test
