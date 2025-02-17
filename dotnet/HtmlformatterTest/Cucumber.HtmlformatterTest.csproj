@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\htmlformatter\Htmlformatter.csproj" />
+    <ProjectReference Include="..\htmlformatter\Cucumber.Htmlformatter.csproj" />
   </ItemGroup>
 
   <ItemGroup>

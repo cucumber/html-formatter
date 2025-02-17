@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35728.132
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Htmlformatter", "htmlformatter\Htmlformatter.csproj", "{BF4685E0-B43F-43B8-845E-DC35DEB562C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cucumber.Htmlformatter", "htmlformatter\Cucumber.Htmlformatter.csproj", "{BF4685E0-B43F-43B8-845E-DC35DEB562C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlformatterTest", "htmlformatterTest\HtmlformatterTest.csproj", "{819EA1E3-4E86-45C7-BFDF-0A4866BAED28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cucumber.HtmlformatterTest", "htmlformatterTest\Cucumber.HtmlformatterTest.csproj", "{819EA1E3-4E86-45C7-BFDF-0A4866BAED28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
