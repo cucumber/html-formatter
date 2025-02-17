@@ -92,7 +92,7 @@ public class MessagesToHtmlWriter : IDisposable
         writer.Write(resource);
     }
 
-    private void writeTemplateBetween(StreamWriter writer, string template, string begin, string end)
+    private void writeTemplateBetween(StreamWriter writer, string template, string? begin, string? end)
     {
         int beginIndex = begin == null ? 0 : template.IndexOf(begin) + begin.Length;
         int endIndex = end == null ? template.Length : template.IndexOf(end);

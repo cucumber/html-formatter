@@ -17,7 +17,9 @@ namespace htmlformatterTest
             var type = typeof(T);
             foreach (var field in type.GetFields(BindingFlags.Public | BindingFlags.Static))
             {
+#pragma warning disable CS8605 // Unboxing a possibly null value.
                 var value = (T)field.GetValue(null);
+#pragma warning restore CS8605 // Unboxing a possibly null value.
                 var attribute = field.GetCustomAttribute<System.ComponentModel.DescriptionAttribute>();
                 var name = attribute?.Description ?? field.Name;
                 _enumToString[value] = name;
@@ -28,7 +30,7 @@ namespace htmlformatterTest
         public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             var stringValue = reader.GetString();
-            return _stringToEnum.TryGetValue(stringValue, out var enumValue) ? enumValue : default;
+            return _stringToEnum.TryGetValue(stringValue!, out var enumValue) ? enumValue : default;
         }
 
         public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
