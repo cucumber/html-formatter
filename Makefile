@@ -2,7 +2,7 @@ javascript_source = $(wildcard javascript/src/*)
 assets = main.css main.js main.js.LICENSE.txt index.mustache.html
 ruby_assets = $(addprefix ruby/assets/,$(assets))
 java_assets = $(addprefix java/src/main/resources/io/cucumber/htmlformatter/,$(assets))
-dotnet_assets = $(addprefix dotnet/html-formatter/htmlformatter/Resources,$(assets))
+dotnet_assets = $(addprefix dotnet/html-formatter/HtmlFormatter/Resources,$(assets))
 
 .DEFAULT_GOAL = help
 
