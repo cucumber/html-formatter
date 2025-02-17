@@ -9,7 +9,7 @@
     <NoWarn>1591</NoWarn>
     <Deterministic Condition="'$(Configuration)' == 'Release'">false</Deterministic>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>Cucumber.Htmlformatter.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Cucumber.HtmlFormatter.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Label="Version">
@@ -37,8 +37,8 @@
   </ItemGroup>
 
   <PropertyGroup Label="Package Properties">
-    <Product>Cucumber.Htmlformatter</Product>
-    <PackageId>Cucumber.Htmlformatter</PackageId>
+    <Product>Cucumber.HtmlFormatter</Product>
+    <PackageId>Cucumber.HtmlFormatter</PackageId>
     <Authors>Cucumber Ltd</Authors>
     <Copyright>Copyright © Cucumber Ltd</Copyright>
     <Description>A Cucumber Messages formatter that produces a pretty HTML report for Cucumber runs.</Description>
@@ -51,7 +51,7 @@
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageOutputPath>bin/$(Configuration)/NuGet</PackageOutputPath>
-    <Title>Cucumber Htmlformatter</Title>
+    <Title>Cucumber HtmlFormatter</Title>
   </PropertyGroup>
 
   <ItemGroup>

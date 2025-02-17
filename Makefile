@@ -27,10 +27,10 @@ java/src/main/resources/io/cucumber/htmlformatter/index.mustache.html: javascrip
 java/src/main/resources/io/cucumber/htmlformatter/%: javascript/dist/%
 	cp $< $@
 
-dotnet/html-formatter/htmlformatter/Resources/index.mustache.html: javascript/src/index.mustache.html
+dotnet/HtmlFormatter/Resources/index.mustache.html: javascript/src/index.mustache.html
 	cp $< $@
 
-dotnet/html-formatter/htmlformatter/Resources/%: javascript/dist/%
+dotnet/HtmlFormatter/Resources/%: javascript/dist/%
 	cp $< $@
 
 javascript/dist/main.js.LICENSE.txt: javascript/dist/main.js
