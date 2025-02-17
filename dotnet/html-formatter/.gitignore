@@ -173,3 +173,4 @@ Gherkin.NuGetPackages/bin/
 .packed
 .tested
 .fixprotoc
+.vs/
