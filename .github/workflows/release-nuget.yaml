@@ -6,12 +6,20 @@ on:
       - "release/*"
 
 jobs:
+  pre-release-check:
+    uses: cucumber/.github/.github/workflows/prerelease-checks.yml@main
+
+  test-dotnet:
+    uses: ./.github/workflows/test-dotnet.yml
+
   publish-nuget:
     name: Publish package to NuGet.org
+    needs: [pre-release-check, test-dotnet]
     runs-on: ubuntu-latest
     environment: Release
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/prepare
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
