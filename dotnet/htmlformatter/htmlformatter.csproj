@@ -5,8 +5,19 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>10.0</LangVersion>
     <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <Deterministic Condition="'$(Configuration)' == 'Release'">false</Deterministic>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Cucumber.Htmlformatter.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
+  <PropertyGroup Label="Version">
+    <VersionNumber>21.9.0</VersionNumber>
+    <Version Condition="'$(SnapshotSuffix)' != ''">$(VersionNumber)-$(SnapshotSuffix)</Version>
+    <Version Condition="'$(SnapshotSuffix)' == ''">$(VersionNumber)</Version>
+  </PropertyGroup>
+  
   <ItemGroup>
     <None Remove="Resources\index.mustache.html" />
     <None Remove="Resources\main.css" />
@@ -25,4 +36,29 @@
     <PackageReference Include="Cucumber.Messages" Version="[27.0, 28.0)" />
   </ItemGroup>
 
+  <PropertyGroup Label="Package Properties">
+    <Product>Cucumber.Htmlformatter</Product>
+    <PackageId>Cucumber.Htmlformatter</PackageId>
+    <Authors>Cucumber Ltd</Authors>
+    <Copyright>Copyright © Cucumber Ltd</Copyright>
+    <Description>A Cucumber Messages formatter that produces a pretty HTML report for Cucumber runs.</Description>
+    <PackageTags>cucumber-messages cucumber reqnroll specflow gherkin</PackageTags>
+    <PackageProjectUrl>https://github.com/cucumber/html-formatter</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/cucumber/html-formatter</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>cucumber-mark-green-128.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageOutputPath>bin/$(Configuration)/NuGet</PackageOutputPath>
+    <Title>Cucumber Htmlformatter</Title>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)\Resources\cucumber-mark-green-128.png">
+      <Pack>True</Pack>
+      <PackagePath>.</PackagePath>
+      <Visible>true</Visible>
+    </None>
+  </ItemGroup>
 </Project>
