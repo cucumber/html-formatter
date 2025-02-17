@@ -9,7 +9,7 @@
     <NoWarn>1591</NoWarn>
     <Deterministic Condition="'$(Configuration)' == 'Release'">false</Deterministic>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>Cucumber.Htmlformatter.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Htmlformatter.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Label="Version">

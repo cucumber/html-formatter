@@ -103,7 +103,7 @@ public class MessagesToHtmlWriter : IDisposable
     private string GetResource(string name)
     {
         var assembly = typeof(MessagesToHtmlWriter).Assembly;
-        var resourceStream = assembly.GetManifestResourceStream("htmlformatter.Resources."+ name);
+        var resourceStream = assembly.GetManifestResourceStream("Htmlformatter.Resources." + name);
         var resource = new StreamReader(resourceStream).ReadToEnd();
         return resource;
     }
