@@ -48,7 +48,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageIcon>cucumber-mark-green-128.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageOutputPath>bin/$(Configuration)/NuGet</PackageOutputPath>
     <Title>Cucumber HtmlFormatter</Title>
@@ -59,6 +59,10 @@
       <Pack>True</Pack>
       <PackagePath>.</PackagePath>
       <Visible>true</Visible>
+    </None>
+    <None Include="README.md">
+      <Pack>true</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 </Project>
