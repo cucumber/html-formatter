@@ -1,10 +1,9 @@
-﻿using htmlformatterTest;
-using Io.Cucumber.Messages.Types;
+﻿using Io.Cucumber.Messages.Types;
 using System;
 using System.IO;
 using System.Text.Json;
 
-namespace htmlFormatterTest
+namespace Cucumber.HtmlFormatterTest
 {
     /// <summary>
     /// When using System.Text.Json to serialize a Cucumber Message Envelope, the following serialization options are used.

@@ -1,5 +1,4 @@
-﻿using HtmlFormatter;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
@@ -9,15 +8,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static System.Text.Encoding;
 using Io.Cucumber.Messages.Types;
 using Cucumber.Messages;
+using Cucumber.HtmlFormatter;
 
-namespace htmlformatterTest
+namespace Cucumber.HtmlFormatterTest
 {
     [TestClass]
     public class MessagesToHtmlWriterTest
     {
         static readonly Action<StreamWriter, Envelope> serializer = new Action<StreamWriter, Envelope>((sw, e) =>
         {
-            var s = htmlFormatterTest.NdjsonSerializer.Serialize(e);
+            var s = NdjsonSerializer.Serialize(e);
             sw.Write(s);
         });
 
@@ -44,7 +44,7 @@ namespace htmlformatterTest
             MemoryStream bytes = new MemoryStream();
             MessagesToHtmlWriter messagesToHtmlWriter = new MessagesToHtmlWriter(bytes, serializer);
             messagesToHtmlWriter.Dispose();
-            Assert.ThrowsException<System.Exception>(() => messagesToHtmlWriter.Write(Envelope.Create(new TestRunStarted(Converters.ToTimestamp(DateTime.UnixEpoch.AddSeconds(10).ToUniversalTime()), null))));
+            Assert.ThrowsException<IOException>(() => messagesToHtmlWriter.Write(Envelope.Create(new TestRunStarted(Converters.ToTimestamp(DateTime.UnixEpoch.AddSeconds(10).ToUniversalTime()), null))));
         }
 
         [TestMethod]

@@ -1,7 +1,7 @@
 ﻿using Io.Cucumber.Messages.Types;
-using System;
 using System.IO;
-namespace HtmlFormatter;
+
+namespace Cucumber.HtmlFormatter;
 
 public class MessagesToHtmlWriter : IDisposable
 {
@@ -22,30 +22,30 @@ public class MessagesToHtmlWriter : IDisposable
         this.writer = writer;
         this.streamSerializer = streamSerializer;
         template = GetResource("index.mustache.html");
-        this.JsonInHtmlWriter = new JsonInHtmlWriter(writer);
+        JsonInHtmlWriter = new JsonInHtmlWriter(writer);
     }
 
-    private void writePreMessage()
+    private void WritePreMessage()
     {
-        writeTemplateBetween(writer, template, null, "{{css}}");
-        writeResource(writer, "main.css");
-        writeTemplateBetween(writer, template, "{{css}}", "{{messages}}");
+        WriteTemplateBetween(writer, template, null, "{{css}}");
+        WriteResource(writer, "main.css");
+        WriteTemplateBetween(writer, template, "{{css}}", "{{messages}}");
     }
 
-    private void writePostMessage()
+    private void WritePostMessage()
     {
-        writeTemplateBetween(writer, template, "{{messages}}", "{{script}}");
-        writeResource(writer, "main.js");
-        writeTemplateBetween(writer, template, "{{script}}", null);
+        WriteTemplateBetween(writer, template, "{{messages}}", "{{script}}");
+        WriteResource(writer, "main.js");
+        WriteTemplateBetween(writer, template, "{{script}}", null);
     }
 
     public void Write(Envelope envelope)
     {
-        if (streamClosed) { throw new System.Exception("Stream closed"); }
+        if (streamClosed) { throw new IOException("Stream closed"); }
 
         if (!preMessageWritten)
         {
-            writePreMessage();
+            WritePreMessage();
             preMessageWritten = true;
             writer.Flush();
         }
@@ -68,12 +68,12 @@ public class MessagesToHtmlWriter : IDisposable
 
         if (!preMessageWritten)
         {
-            writePreMessage();
+            WritePreMessage();
             preMessageWritten = true;
         }
         if (!postMessageWritten)
         {
-            writePostMessage();
+            WritePostMessage();
             postMessageWritten = true;
         }
         try
@@ -86,13 +86,13 @@ public class MessagesToHtmlWriter : IDisposable
             streamClosed = true;
         }
     }
-    private void writeResource(StreamWriter writer, string v)
+    private void WriteResource(StreamWriter writer, string v)
     {
         var resource = GetResource(v);
         writer.Write(resource);
     }
 
-    private void writeTemplateBetween(StreamWriter writer, string template, string? begin, string? end)
+    private void WriteTemplateBetween(StreamWriter writer, string template, string? begin, string? end)
     {
         int beginIndex = begin == null ? 0 : template.IndexOf(begin) + begin.Length;
         int endIndex = end == null ? template.Length : template.IndexOf(end);

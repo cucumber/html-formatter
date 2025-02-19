@@ -1,8 +1,8 @@
-﻿using HtmlFormatter;
+﻿using Cucumber.HtmlFormatter;
 using System.Text;
 
 
-namespace htmlformatterTest
+namespace Cucumber.HtmlFormatterTest
 {
     [TestClass]
     public sealed class JsonInHtmlWriterTests
