@@ -3,7 +3,7 @@ import './styles.scss'
 import * as messages from '@cucumber/messages'
 import { components, searchFromURLParams } from '@cucumber/react-components'
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 
 const { CucumberReact } = components
 const { FilteredResults, EnvelopesWrapper, SearchWrapper } = components.app
@@ -14,7 +14,9 @@ declare global {
   }
 }
 
-const app = (
+const root = createRoot(document.getElementById('content') as HTMLElement)
+
+root.render(
   <CucumberReact theme="auto">
     <EnvelopesWrapper envelopes={window.CUCUMBER_MESSAGES}>
       <SearchWrapper {...searchFromURLParams()}>
@@ -23,5 +25,3 @@ const app = (
     </EnvelopesWrapper>
   </CucumberReact>
 )
-
-ReactDOM.render(app, document.getElementById('content'))

@@ -39,7 +39,7 @@ jobs:
         working-directory: javascript
       - run: npm run build
         working-directory: javascript
-      - run: npm run eslint
+      - run: npm run lint
         working-directory: javascript
       - name: Acceptance tests
         working-directory: javascript
