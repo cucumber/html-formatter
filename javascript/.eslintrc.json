@@ -7,7 +7,7 @@
   "parserOptions": {
     "sourceType": "module"
   },
-  "plugins": ["react", "import", "simple-import-sort", "node", "@typescript-eslint"],
+  "plugins": ["react", "import", "simple-import-sort", "n", "@typescript-eslint"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -20,7 +20,7 @@
   ],
   "rules": {
     "import/no-cycle": "error",
-    "node/no-extraneous-import": "error",
+    "n/no-extraneous-import": "error",
     "@typescript-eslint/ban-ts-ignore": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
