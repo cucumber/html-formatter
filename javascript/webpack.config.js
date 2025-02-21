@@ -12,7 +12,8 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: {
-                auto: true
+                auto: true,
+                namedExport: false
               }
             }
           },
