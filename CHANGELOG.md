@@ -9,10 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [21.10.0] - 2025-03-30
 ### Added
-- Remove duplications in steps due to empty parameters ([#373](https://github.com/cucumber/react-components/pull/373))
 - Added .NET implementation ([#352](https://github.com/cucumber/html-formatter/pull/352))
 
 ### Fixed
+- Remove duplications in steps due to empty parameters ([#373](https://github.com/cucumber/react-components/pull/373))
 
 ## [21.9.0] - 2025-02-02
 ### Changed
