@@ -2,7 +2,7 @@ javascript_source = $(wildcard javascript/src/*)
 assets = main.css main.js main.js.LICENSE.txt index.mustache.html
 ruby_assets = $(addprefix ruby/assets/,$(assets))
 java_assets = $(addprefix java/src/main/resources/io/cucumber/htmlformatter/,$(assets))
-dotnet_assets = $(addprefix dotnet/HtmlFormatter/Resources/,$(assets))
+dotnet_assets = $(addprefix dotnet/Cucumber.HtmlFormatter/Resources/,$(assets))
 
 .DEFAULT_GOAL = help
 
@@ -27,10 +27,10 @@ java/src/main/resources/io/cucumber/htmlformatter/index.mustache.html: javascrip
 java/src/main/resources/io/cucumber/htmlformatter/%: javascript/dist/%
 	cp $< $@
 
-dotnet/HtmlFormatter/Resources/index.mustache.html: javascript/src/index.mustache.html
+dotnet/Cucumber.HtmlFormatter/Resources/index.mustache.html: javascript/src/index.mustache.html
 	cp $< $@
 
-dotnet/HtmlFormatter/Resources/%: javascript/dist/%
+dotnet/Cucumber.HtmlFormatter/Resources/%: javascript/dist/%
 	cp $< $@
 
 javascript/dist/main.js.LICENSE.txt: javascript/dist/main.js
