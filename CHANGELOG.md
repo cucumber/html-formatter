@@ -6,8 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Remove duplications in steps due to empty parameters ([#373](https://github.com/cucumber/react-components/pull/373))
 ### Added
-- Added .NET implementation
+- Added .NET implementation ([#352](https://github.com/cucumber/html-formatter/pull/352))
 
 ## [21.9.0] - 2025-02-02
 ### Changed
