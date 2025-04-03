@@ -6,7 +6,7 @@ runs:
     - name: with Node.js 16 on ubuntu-latest
       uses: actions/setup-node@v4
       with:
-        node-version: 16.x
+        node-version: 22.x
         cache: "npm"
         cache-dependency-path: javascript/package-lock.json
 
