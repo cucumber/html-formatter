@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>html-formatter</artifactId>
-    <version>21.10.2-SNAPSHOT</version>
+    <version>21.11.0</version>
     <packaging>jar</packaging>
     <name>Cucumber HTML Formatter</name>
     <description>Renders Cucumber Messages as HTML</description>
@@ -17,14 +17,14 @@
 
     <properties>
         <project.Automatic-Module-Name>io.cucumber.htmlformatter</project.Automatic-Module-Name>
-        <project.build.outputTimestamp>1745098450</project.build.outputTimestamp>
+        <project.build.outputTimestamp>1748195921</project.build.outputTimestamp>
     </properties>
 
     <scm>
         <connection>scm:git:git://github.com/cucumber/html-formatter.git</connection>
         <developerConnection>scm:git:git@github.com:cucumber/html-formatter.git</developerConnection>
         <url>git://github.com/cucumber/html-formatter.git</url>
-        <tag>HEAD</tag>
+        <tag>v21.11.0</tag>
     </scm>
 
     <dependencyManagement>
