@@ -1,5 +1,6 @@
 import './styles.scss'
 
+import { Envelope } from '@cucumber/messages'
 import {
   EnvelopesProvider,
   ExecutionSummary,
@@ -9,7 +10,6 @@ import {
 } from '@cucumber/react-components'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { Envelope } from '@cucumber/messages'
 
 declare global {
   interface Window {
