@@ -16,7 +16,7 @@ async function canRenderHtml(html: string): Promise<boolean> {
   const page = await browser.newPage()
   await page.setContent(html)
   const dynamicHTML = await page.evaluate(() => {
-    const content = document.querySelector('[data-testid="cucumber-react"]')
+    const content = document.getElementById('report')
     return content && content.innerHTML
   })
   await browser.close()
