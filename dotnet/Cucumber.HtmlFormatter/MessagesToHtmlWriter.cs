@@ -16,17 +16,20 @@ public class MessagesToHtmlWriter : IDisposable
     private bool postMessageWritten = false;
     private bool isAsyncInitialized = false;
 
+    [Obsolete("Cucumber.HtmlFormatter moving to async only operations. Please use the MessagesToHtmlWriter(Stream, Func<StreamWriter, Envelope, Task>) constructor", false)]
     public MessagesToHtmlWriter(Stream stream, Action<StreamWriter, Envelope> streamSerializer) : this(new StreamWriter(stream), streamSerializer)
     {
     }
     public MessagesToHtmlWriter(Stream stream, Func<StreamWriter, Envelope, Task> asyncStreamSerializer) : this(new StreamWriter(stream), asyncStreamSerializer) { }
 
+    [Obsolete("Cucumber.HtmlFormatter moving to async only operations. Please use the MessagesToHtmlWriter(StreamWriter, Func<StreamWriter, Envelope, Task>) constructor", false)]
     public MessagesToHtmlWriter(StreamWriter writer, Action<StreamWriter, Envelope> streamSerializer)
     {
         this.writer = writer;
         this.streamSerializer = streamSerializer;
         // Create async wrapper for sync serializer
-        this.asyncStreamSerializer = (w, e) => {
+        this.asyncStreamSerializer = (w, e) =>
+        {
             streamSerializer(w, e);
             return Task.CompletedTask;
         };
