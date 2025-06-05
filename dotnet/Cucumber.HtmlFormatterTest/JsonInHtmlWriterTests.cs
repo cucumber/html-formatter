@@ -1,4 +1,5 @@
 ﻿using Cucumber.HtmlFormatter;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 
@@ -25,6 +26,13 @@ namespace Cucumber.HtmlFormatterTest
         }
 
         [TestMethod]
+        public async Task WritesAsync()
+        {
+            await writer.WriteAsync("{\"hello\": \"world\"}");
+            Assert.AreEqual("{\"hello\": \"world\"}", await OutputAsync());
+        }
+
+        [TestMethod]
         public void EscapesSingle()
         {
             writer.Write("/");
@@ -32,10 +40,24 @@ namespace Cucumber.HtmlFormatterTest
         }
 
         [TestMethod]
+        public async Task EscapesSingleAsync()
+        {
+            await writer.WriteAsync("/");
+            Assert.AreEqual("\\/", await OutputAsync());
+        }
+
+        [TestMethod]
         public void EscapesMultiple()
         {
             writer.Write("</script><script></script>");
             Assert.AreEqual("<\\/script><script><\\/script>", Output());
+        }
+
+        [TestMethod]
+        public async Task EscapesMultipleAsync()
+        {
+            await writer.WriteAsync("</script><script></script>");
+            Assert.AreEqual("<\\/script><script><\\/script>", await OutputAsync());
         }
 
         [TestMethod]
@@ -57,6 +79,23 @@ namespace Cucumber.HtmlFormatterTest
         }
 
         [TestMethod]
+        public async Task PartialWritesAsync()
+        {
+            char[] buffer = new char[100];
+            string text = "</script><script></script>";
+
+            text.CopyTo(0, buffer, 0, 9);
+            await writer.WriteAsync(buffer, 0, 9);
+
+            text.CopyTo(9, buffer, 2, 8);
+            await writer.WriteAsync(buffer, 2, 8);
+
+            text.CopyTo(17, buffer, 4, 9);
+            await writer.WriteAsync(buffer, 4, 9);
+
+            Assert.AreEqual("<\\/script><script><\\/script>", await OutputAsync());
+        }
+        [TestMethod]
         public void LargeWritesWithOddBoundaries()
         {
             char[] buffer = new char[1024];
@@ -74,6 +113,26 @@ namespace Cucumber.HtmlFormatterTest
                 expected.Append("\\/");
             }
             Assert.AreEqual(expected.ToString(), Output());
+        }
+
+        [TestMethod]
+        public async Task LargeWritesWithOddBoundariesAsync()
+        {
+            char[] buffer = new char[1024];
+            buffer[0] = 'a';
+            for (int i = 1; i < buffer.Length; i++)
+            {
+                buffer[i] = '/';
+            }
+            await writer.WriteAsync(buffer);
+
+            StringBuilder expected = new StringBuilder();
+            expected.Append('a');
+            for (int i = 1; i < buffer.Length; i++)
+            {
+                expected.Append("\\/");
+            }
+            Assert.AreEqual(expected.ToString(), await OutputAsync());
         }
 
         [TestMethod]
@@ -95,6 +154,24 @@ namespace Cucumber.HtmlFormatterTest
         }
 
         [TestMethod]
+        public async Task ReallyLargeWritesAsync()
+        {
+            char[] buffer = new char[2048];
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                buffer[i] = '/';
+            }
+            await writer.WriteAsync(buffer);
+
+            StringBuilder expected = new StringBuilder();
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                expected.Append("\\/");
+            }
+            Assert.AreEqual(expected.ToString(), await OutputAsync());
+        }
+
+        [TestMethod]
         public void EmptyWrite()
         {
             char[] buffer = new char[0];
@@ -102,10 +179,25 @@ namespace Cucumber.HtmlFormatterTest
             Assert.AreEqual("", Output());
         }
 
+        [TestMethod]
+        public async Task EmptyWriteAsync()
+        {
+            char[] buffer = new char[0];
+            await writer.WriteAsync(buffer);
+            Assert.AreEqual("", await OutputAsync());
+        }
+
         private string Output()
         {
             writer.Flush();
             return Encoding.UTF8.GetString(outStream.ToArray());
         }
+
+        private async Task<string> OutputAsync()
+        {
+            await writer.FlushAsync();
+            return Encoding.UTF8.GetString(outStream.ToArray());
+        }
+
     }
 }
