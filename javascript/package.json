@@ -33,7 +33,7 @@
     "@cucumber/gherkin-utils": "^9.0.0",
     "@cucumber/message-streams": "4.0.1",
     "@cucumber/messages": "27.2.0",
-    "@cucumber/query": "13.2.0",
+    "@cucumber/query": "13.3.0",
     "@cucumber/react-components": "23.0.0",
     "@eslint/compat": "^1.2.7",
     "@eslint/eslintrc": "^3.2.0",
