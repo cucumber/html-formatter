@@ -14,7 +14,6 @@ jobs:
 
   publish-rubygem:
     name: Publish Ruby Gem
-    needs: [pre-release-check, test-ruby]
     runs-on: ubuntu-latest
     environment: Release
     steps:
