@@ -6,12 +6,6 @@ on:
       - release/*
 
 jobs:
-  pre-release-check:
-    uses: cucumber/.github/.github/workflows/prerelease-checks.yml@main
-
-  test-ruby:
-    uses: ./.github/workflows/test-ruby.yml
-
   publish-rubygem:
     name: Publish Ruby Gem
     runs-on: ubuntu-latest
