@@ -66,7 +66,9 @@ namespace Cucumber.HtmlFormatterTest
         public void ItThrowsWhenWritingAfterClose()
         {
             MemoryStream bytes = new MemoryStream();
+#pragma warning disable CS0618 // Type or member is obsolete
             MessagesToHtmlWriter messagesToHtmlWriter = new MessagesToHtmlWriter(bytes, serializer);
+#pragma warning restore CS0618 // Type or member is obsolete
             messagesToHtmlWriter.Dispose();
             Assert.ThrowsException<IOException>(() => messagesToHtmlWriter.Write(Envelope.Create(new TestRunStarted(Converters.ToTimestamp(DateTime.UnixEpoch.AddSeconds(10).ToUniversalTime()), null))));
         }
@@ -87,7 +89,9 @@ namespace Cucumber.HtmlFormatterTest
         public void ItCanBeClosedTwice()
         {
             MemoryStream bytes = new MemoryStream();
+#pragma warning disable CS0618 // Type or member is obsolete
             MessagesToHtmlWriter messagesToHtmlWriter = new MessagesToHtmlWriter(bytes, serializer);
+#pragma warning restore CS0618 // Type or member is obsolete
             messagesToHtmlWriter.Dispose();
             try { messagesToHtmlWriter.Dispose(); }
             catch (System.Exception e)
@@ -124,7 +128,9 @@ namespace Cucumber.HtmlFormatterTest
         public void ItIsIdempotentUnderFailureToClose()
         {
             var bytes = new StreamThatFailsToClose();
+#pragma warning disable CS0618 // Type or member is obsolete
             MessagesToHtmlWriter messagesToHtmlWriter = new MessagesToHtmlWriter(bytes, serializer);
+#pragma warning restore CS0618 // Type or member is obsolete
             Assert.ThrowsException<System.Exception>(() => messagesToHtmlWriter.Dispose());
             byte[] before = bytes.ToArray();
             try { messagesToHtmlWriter.Dispose(); }
@@ -203,7 +209,9 @@ namespace Cucumber.HtmlFormatterTest
         private static string RenderAsHtml(params Envelope[] messages)
         {
             MemoryStream bytes = new MemoryStream();
+#pragma warning disable CS0618 // Type or member is obsolete
             using (MessagesToHtmlWriter messagesToHtmlWriter = new MessagesToHtmlWriter(bytes, serializer))
+#pragma warning restore CS0618 // Type or member is obsolete
             {
                 foreach (Envelope message in messages)
                 {

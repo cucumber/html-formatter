@@ -34,10 +34,10 @@ public class JsonInHtmlWriter : StreamWriter
         Write(value, 0, value.GetLength(0));
     }
 
-    public async Task WriteAsync(char[] value)
-    {
-        await WriteAsync(value, 0, value.GetLength(0));
-    }
+    //public async Task WriteAsync(char[] value)
+    //{
+    //    await WriteAsync(value, 0, value.GetLength(0));
+    //}
 
     public override void Write(char[] source, int offset, int length)
     {
