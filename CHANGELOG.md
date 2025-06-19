@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [.Net] Added asynchronous implementations of the HtmlFormatter methods ([#376](https://github.com/cucumber/html-formatter/pull/376))
+
+### Deprecated
+- [.Net] Synchronous implementations of the HtmlFormatter methods ([#376](https://github.com/cucumber/html-formatter/pull/376))
 
 ## [21.11.0] - 2025-05-25
 ### Changed
