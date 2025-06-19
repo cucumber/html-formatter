@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>html-formatter</artifactId>
-    <version>21.11.1-SNAPSHOT</version>
+    <version>21.12.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Cucumber HTML Formatter</name>
     <description>Renders Cucumber Messages as HTML</description>
@@ -17,7 +17,7 @@
 
     <properties>
         <project.Automatic-Module-Name>io.cucumber.htmlformatter</project.Automatic-Module-Name>
-        <project.build.outputTimestamp>1748195933</project.build.outputTimestamp>
+        <project.build.outputTimestamp>1750354696</project.build.outputTimestamp>
     </properties>
 
     <scm>
@@ -40,7 +40,7 @@
             <dependency>
                 <groupId>com.fasterxml.jackson</groupId>
                 <artifactId>jackson-bom</artifactId>
-                <version>2.19.0</version>
+                <version>2.19.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

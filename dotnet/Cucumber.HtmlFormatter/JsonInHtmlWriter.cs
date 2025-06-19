@@ -24,6 +24,11 @@ public class JsonInHtmlWriter : StreamWriter
         Write(value.ToCharArray(), 0, value.Length);
     }
 
+    public override async Task WriteAsync(string value)
+    {
+        await WriteAsync(value.ToCharArray(), 0, value.Length);
+    }
+
     public override void Write(char[] value)
     {
         Write(value, 0, value.GetLength(0));
@@ -62,6 +67,38 @@ public class JsonInHtmlWriter : StreamWriter
         }
     }
 
+    public override async Task WriteAsync(char[] source, int offset, int length)
+    {
+        if (offset + length > source.GetLength(0))
+            throw new ArgumentException("Cannot read past the end of the input source char array.");
+
+        char[] destination = PrepareBuffer();
+        int flushAt = BUFFER_SIZE - 2;
+        int written = 0;
+        for (int i = offset; i < offset + length; i++)
+        {
+            char c = source[i];
+
+            // Flush buffer if (nearly) full
+            if (written >= flushAt)
+            {
+                await Writer.WriteAsync(destination, 0, written);
+                written = 0;
+            }
+
+            // Write with escapes
+            if (c == '/')
+            {
+                destination[written++] = '\\';
+            }
+            destination[written++] = c;
+        }
+        // Flush any remaining
+        if (written > 0)
+        {
+            await Writer.WriteAsync(destination, 0, written);
+        }
+    }
     private char[] PrepareBuffer()
     {
         // Reuse the same buffer, avoids repeated array allocation
@@ -72,6 +109,11 @@ public class JsonInHtmlWriter : StreamWriter
     public override void Flush()
     {
         Writer.Flush();
+    }
+
+    public override async Task FlushAsync()
+    {
+        await Writer.FlushAsync();
     }
 
     public override void Close()
