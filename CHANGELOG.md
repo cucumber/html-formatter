@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Deprecated
 - [.Net] Synchronous implementations of the HtmlFormatter methods ([#376](https://github.com/cucumber/html-formatter/pull/376))
 
+### Changed
+- Upgrade `react-components` to [23.1.0](https://github.com/cucumber/react-components/releases/tag/v23.1.0)
+
 ## [21.11.0] - 2025-05-25
 ### Changed
 - Upgrade `react-components` to [23.0.0](https://github.com/cucumber/react-components/releases/tag/v23.0.0)
