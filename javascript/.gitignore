@@ -1,3 +1,5 @@
+acceptance/*.html
+test-results/
 dist/
 .idea/
 .nyc_output/
@@ -10,7 +12,6 @@ node_modules/
 .built*
 .compared
 .codegen
-acceptance/
 storybook-static
 *-go
 *.iml

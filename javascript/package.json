@@ -16,11 +16,11 @@
     "build:webpack": "webpack",
     "build": "npm run clean && npm run build:tsc && npm run prepare && npm run build:webpack",
     "prepare": "shx mkdir -p dist/src && shx cp src/*.scss dist/src && shx cp src/index.mustache.html dist/src",
-    "test": "mocha --exclude test/acceptance.ts",
+    "test": "mocha --exclude test/acceptance.spec.ts",
     "prepublishOnly": "npm run build",
     "fix": "eslint --max-warnings 0 --fix src test && prettier --write src test",
     "lint": "eslint --max-warnings 0 src test && prettier --check src test",
-    "validate": "shx mkdir -p acceptance && mocha test/acceptance.ts"
+    "validate": "npx playwright test"
   },
   "peerDependencies": {
     "@cucumber/messages": ">=18"
@@ -38,6 +38,7 @@
     "@eslint/compat": "^1.2.7",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.20.0",
+    "@playwright/test": "^1.53.1",
     "@types/glob": "^8.0.0",
     "@types/mocha": "10.0.10",
     "@types/node": "22.15.32",
@@ -58,11 +59,11 @@
     "mini-css-extract-plugin": "2.9.2",
     "mocha": "11.7.0",
     "prettier": "^3.5.1",
-    "puppeteer": "^24.0.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "sass": "1.89.2",
     "sass-loader": "16.0.5",
+    "serve": "^14.2.4",
     "shx": "^0.4.0",
     "source-map-support": "0.5.21",
     "ts-loader": "9.5.2",
