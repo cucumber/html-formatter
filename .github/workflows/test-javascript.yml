@@ -52,3 +52,9 @@ jobs:
       - name: Acceptance tests
         working-directory: javascript
         run: npm run validate
+      - name: Acceptance tests x2
+        working-directory: javascript
+        run: npm run validate
+      - name: Acceptance tests x3
+        working-directory: javascript
+        run: npm run validate
