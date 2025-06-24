@@ -23,7 +23,7 @@ Once you have Node.js installed, you can use:
 
 This will build the Javascript package and copy the required artifacts to the Java and Ruby packages.
 
-### Screenshots
+### Screenshots
 
 In the JavaScript package, we use fixtures from the [Compatibility Kit](https://github.com/cucumber/compatibility-kit) (CCK) to generate sample reports, render them in a browser and check them against reference screenshots [with Playwright](https://playwright.dev/docs/test-snapshots).
 
