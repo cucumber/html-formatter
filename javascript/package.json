@@ -20,7 +20,7 @@
     "prepublishOnly": "npm run build",
     "fix": "eslint --max-warnings 0 --fix src test && prettier --write src test",
     "lint": "eslint --max-warnings 0 src test && prettier --check src test",
-    "validate": "npx playwright test"
+    "acceptance": "playwright test"
   },
   "peerDependencies": {
     "@cucumber/messages": ">=18"

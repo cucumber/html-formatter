@@ -23,4 +23,10 @@ export default defineConfig({
     },
   ],
   snapshotPathTemplate: '{testDir}/__screenshots__/{arg}{ext}',
+  expect: {
+    toHaveScreenshot: {
+      stylePath: './test/screenshot.css',
+      maxDiffPixelRatio: 0.05,
+    },
+  },
 })

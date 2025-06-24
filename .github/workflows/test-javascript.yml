@@ -53,4 +53,4 @@ jobs:
         run: npx playwright install --with-deps
       - name: Acceptance tests
         working-directory: javascript
-        run: npm run validate
+        run: npm run acceptance
