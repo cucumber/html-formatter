@@ -37,8 +37,6 @@ for (const fixture of fixtures) {
   test(`can render ${name}`, async ({ page }) => {
     await page.goto(`/${name}.html`)
     await page.waitForSelector('#report', { timeout: 3000 })
-    await expect(page).toHaveScreenshot(`${name}.png`, {
-      fullPage: true,
-    })
+    await expect(page).toHaveScreenshot(`${name}.png`)
   })
 }
