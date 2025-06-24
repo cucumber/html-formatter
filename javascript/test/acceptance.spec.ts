@@ -1,9 +1,10 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import { pipeline } from 'node:stream/promises'
+
 import { NdjsonToMessageStream } from '@cucumber/message-streams'
 import { expect, test } from '@playwright/test'
-import fs from 'fs'
 import { sync } from 'glob'
-import path from 'path'
-import { PassThrough, pipeline } from 'stream'
 
 import { CucumberHtmlStream } from '../src'
 
@@ -16,35 +17,16 @@ test.beforeAll(async () => {
 
   for (const fixture of fixtures) {
     const name = path.basename(fixture, '.ndjson')
-    const ndjsonData = fs.createReadStream(fixture, { encoding: 'utf-8' })
-    const toMessageStream = new NdjsonToMessageStream()
+    const outputFile = path.join(outputDir, name + '.html')
 
-    const htmlData = await new Promise<string>((resolve, reject) => {
-      const chunks: Buffer[] = []
-      const out = new PassThrough()
-        .on('data', (chunk) => chunks.push(Buffer.from(chunk)))
-        .on('end', () => resolve(Buffer.concat(chunks).toString()))
-
-      pipeline(
-        ndjsonData,
-        toMessageStream,
-        new CucumberHtmlStream(
-          path.join(__dirname, '../dist/main.css'),
-          path.join(__dirname, '../dist/main.js')
-        ),
-        out,
-        (err: Error) => {
-          if (err) {
-            reject(err)
-          }
-        }
-      )
-    })
-
-    fs.writeFileSync(
-      path.join(outputDir, name + '.html'),
-      htmlData.toString(),
-      { encoding: 'utf-8' }
+    await pipeline(
+      fs.createReadStream(fixture, { encoding: 'utf-8' }),
+      new NdjsonToMessageStream(),
+      new CucumberHtmlStream(
+        path.join(__dirname, '../dist/main.css'),
+        path.join(__dirname, '../dist/main.js')
+      ),
+      fs.createWriteStream(outputFile)
     )
   }
 })
