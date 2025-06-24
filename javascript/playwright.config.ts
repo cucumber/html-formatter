@@ -4,7 +4,7 @@ export default defineConfig({
   testDir: './test',
   fullyParallel: true,
   webServer: {
-    command: 'npx serve ./acceptance',
+    command: 'npx serve ./test/__output__',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
     stdout: 'ignore',

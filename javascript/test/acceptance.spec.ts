@@ -12,7 +12,7 @@ const fixtures = sync(
 )
 
 test.beforeAll(async () => {
-  const acceptanceDir = path.join(__dirname, '../acceptance')
+  const outputDir = path.join(__dirname, './__output__')
 
   for (const fixture of fixtures) {
     const name = path.basename(fixture, '.ndjson')
@@ -42,7 +42,7 @@ test.beforeAll(async () => {
     })
 
     fs.writeFileSync(
-      path.join(acceptanceDir, name + '.html'),
+      path.join(outputDir, name + '.html'),
       htmlData.toString(),
       { encoding: 'utf-8' }
     )

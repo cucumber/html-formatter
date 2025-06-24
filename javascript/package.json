@@ -16,7 +16,7 @@
     "build:webpack": "webpack",
     "build": "npm run clean && npm run build:tsc && npm run prepare && npm run build:webpack",
     "prepare": "shx mkdir -p dist/src && shx cp src/*.scss dist/src && shx cp src/index.mustache.html dist/src",
-    "test": "mocha --exclude test/acceptance.spec.ts",
+    "test": "mocha 'src/**/*.spec.ts'",
     "prepublishOnly": "npm run build",
     "fix": "eslint --max-warnings 0 --fix src test && prettier --write src test",
     "lint": "eslint --max-warnings 0 src test && prettier --check src test",

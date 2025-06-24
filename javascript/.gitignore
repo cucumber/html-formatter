@@ -1,4 +1,4 @@
-acceptance/*.html
+test/__output__/*.html
 test-results/
 dist/
 .idea/

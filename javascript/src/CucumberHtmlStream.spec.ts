@@ -2,7 +2,7 @@ import * as messages from '@cucumber/messages'
 import assert from 'assert'
 import { Writable } from 'stream'
 
-import { CucumberHtmlStream } from '../src'
+import { CucumberHtmlStream } from './index'
 
 async function renderAsHtml(
   ...envelopes: messages.Envelope[]
