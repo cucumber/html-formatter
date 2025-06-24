@@ -25,7 +25,11 @@ This will build the Javascript package and copy the required artifacts to the Ja
 
 ### Screenshots
 
-In the JavaScript package, we use fixtures from the [Compatibility Kit](https://github.com/cucumber/compatibility-kit) (CCK) to generate sample reports, render them in a browser and check them against reference screenshots [with Playwright](https://playwright.dev/docs/test-snapshots). If fixtures are added or changed in the CCK, the screenshots will have to be updated accordingly. To do that, run:
+In the JavaScript package, we use fixtures from the [Compatibility Kit](https://github.com/cucumber/compatibility-kit) (CCK) to generate sample reports, render them in a browser and check them against reference screenshots [with Playwright](https://playwright.dev/docs/test-snapshots).
+
+If the tests fail, you can see actual vs expected screenshots plus a visual diff for each affected test in the `test-results` directory.
+
+If fixtures are added or changed in the CCK, the screenshots will have to be updated accordingly. To do that, run:
 
 ```shell
 npx playwright test --update-snapshots
