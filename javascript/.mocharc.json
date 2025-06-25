@@ -3,6 +3,7 @@
     "ts-node/register",
     "source-map-support/register"
   ],
+  "spec": "src/**/*.spec.ts",
   "extension": [
     "ts",
     "tsx"
