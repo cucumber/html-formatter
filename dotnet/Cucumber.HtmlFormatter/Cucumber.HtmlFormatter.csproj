@@ -30,7 +30,7 @@
     <Product>Cucumber.HtmlFormatter</Product>
     <PackageId>Cucumber.HtmlFormatter</PackageId>
     <Authors>Cucumber Ltd</Authors>
-    <Copyright>Copyright © Cucumber Ltd</Copyright>
+    <Copyright>Copyright &#xA9; Cucumber Ltd</Copyright>
     <Description>A Cucumber Messages formatter that produces a pretty HTML report for Cucumber runs.</Description>
     <PackageTags>cucumber-messages cucumber reqnroll gherkin</PackageTags>
     <PackageProjectUrl>https://github.com/cucumber/html-formatter</PackageProjectUrl>
