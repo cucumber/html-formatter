@@ -19,18 +19,18 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <EmbeddedResource Include="Resources\**\*"/>
+    <EmbeddedResource Include="Resources\**\*" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cucumber.Messages" Version="[27.0, 28.0)"/>
+    <PackageReference Include="Cucumber.Messages" Version="28.0.0" />
   </ItemGroup>
 
   <PropertyGroup Label="Package Properties">
     <Product>Cucumber.HtmlFormatter</Product>
     <PackageId>Cucumber.HtmlFormatter</PackageId>
     <Authors>Cucumber Ltd</Authors>
-    <Copyright>Copyright &#xA9; Cucumber Ltd</Copyright>
+    <Copyright>Copyright © Cucumber Ltd</Copyright>
     <Description>A Cucumber Messages formatter that produces a pretty HTML report for Cucumber runs.</Description>
     <PackageTags>cucumber-messages cucumber reqnroll gherkin</PackageTags>
     <PackageProjectUrl>https://github.com/cucumber/html-formatter</PackageProjectUrl>
