@@ -19,11 +19,11 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <EmbeddedResource Include="Resources\**\*"/>
+    <EmbeddedResource Include="Resources\**\*" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cucumber.Messages" Version="[27.0, 28.0)"/>
+    <PackageReference Include="Cucumber.Messages" Version="[27.0, 29.0)"/>
   </ItemGroup>
 
   <PropertyGroup Label="Package Properties">
