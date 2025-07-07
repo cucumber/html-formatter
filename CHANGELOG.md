@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Changed
-- [.Net] Upgrade `Cucumber Messages` to [28.0.0](https://github.com/cucumber/messages/releases/tag/v28.0.0)
+- Upgrade `cucumber-messages` to [28.0.0](https://github.com/cucumber/messages/releases/tag/v28.0.0)
 
 ## [21.12.0] - 2025-06-19
 ### Added
