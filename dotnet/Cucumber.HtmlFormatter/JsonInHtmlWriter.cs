@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cucumber.HtmlFormatter;
+﻿namespace Cucumber.HtmlFormatter;
 
 public class JsonInHtmlWriter : StreamWriter
 {
-    private readonly int BUFFER_SIZE = 1024;
-    private StreamWriter Writer;
-    private char[] escapeBuffer;
+    private const int BUFFER_SIZE = 1024;
+    private readonly StreamWriter _writer;
+    private readonly char[] _escapeBuffer;
 
     public JsonInHtmlWriter(StreamWriter writer) : base(writer.BaseStream)
     {
-        Writer = writer;
-        escapeBuffer = new char[BUFFER_SIZE]; // Initialize escapeBuffer
+        _writer = writer;
+        _escapeBuffer = new char[BUFFER_SIZE]; // Initialize escapeBuffer
     }
 
     public override void Write(string value)
@@ -39,17 +32,17 @@ public class JsonInHtmlWriter : StreamWriter
         if (offset + length > source.GetLength(0))
             throw new ArgumentException("Cannot read past the end of the input source char array.");
 
-        char[] destination = PrepareBuffer();
-        int flushAt = BUFFER_SIZE - 2;
-        int written = 0;
-        for (int i = offset; i < offset + length; i++)
+        var destination = PrepareBuffer();
+        var flushAt = BUFFER_SIZE - 2;
+        var written = 0;
+        for (var i = offset; i < offset + length; i++)
         {
-            char c = source[i];
+            var c = source[i];
 
             // Flush buffer if (nearly) full
             if (written >= flushAt)
             {
-                Writer.Write(destination, 0, written);
+                _writer.Write(destination, 0, written);
                 written = 0;
             }
 
@@ -63,7 +56,7 @@ public class JsonInHtmlWriter : StreamWriter
         // Flush any remaining
         if (written > 0)
         {
-            Writer.Write(destination, 0, written);
+            _writer.Write(destination, 0, written);
         }
     }
 
@@ -72,17 +65,17 @@ public class JsonInHtmlWriter : StreamWriter
         if (offset + length > source.GetLength(0))
             throw new ArgumentException("Cannot read past the end of the input source char array.");
 
-        char[] destination = PrepareBuffer();
-        int flushAt = BUFFER_SIZE - 2;
-        int written = 0;
-        for (int i = offset; i < offset + length; i++)
+        var destination = PrepareBuffer();
+        var flushAt = BUFFER_SIZE - 2;
+        var written = 0;
+        for (var i = offset; i < offset + length; i++)
         {
             char c = source[i];
 
             // Flush buffer if (nearly) full
             if (written >= flushAt)
             {
-                await Writer.WriteAsync(destination, 0, written);
+                await _writer.WriteAsync(destination, 0, written);
                 written = 0;
             }
 
@@ -96,28 +89,28 @@ public class JsonInHtmlWriter : StreamWriter
         // Flush any remaining
         if (written > 0)
         {
-            await Writer.WriteAsync(destination, 0, written);
+            await _writer.WriteAsync(destination, 0, written);
         }
     }
+
     private char[] PrepareBuffer()
     {
         // Reuse the same buffer, avoids repeated array allocation
-        escapeBuffer ??= new char[BUFFER_SIZE];
-        return escapeBuffer;
+        return _escapeBuffer;
     }
 
     public override void Flush()
     {
-        Writer.Flush();
+        _writer.Flush();
     }
 
     public override async Task FlushAsync()
     {
-        await Writer.FlushAsync();
+        await _writer.FlushAsync();
     }
 
     public override void Close()
     {
-        Writer.Close();
+        _writer.Close();
     }
 }
