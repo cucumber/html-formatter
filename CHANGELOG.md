@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [.Net] Added possiblity to customize resources in subclasses of MessagesToHtmlWriter ([#400](https://github.com/cucumber/html-formatter/pull/400))
 
 ## [21.13.0] - 2025-07-07
 ### Changed
