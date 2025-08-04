@@ -6,7 +6,7 @@ namespace Cucumber.HtmlFormatterTest;
 [TestClass]
 public sealed class JsonInHtmlWriterTests
 {
-    private readonly MemoryStream _outStream = new MemoryStream();
+    private readonly MemoryStream _outStream = new();
     private readonly JsonInHtmlWriter _writer;
 
     public JsonInHtmlWriterTests()
@@ -171,7 +171,7 @@ public sealed class JsonInHtmlWriterTests
     [TestMethod]
     public void EmptyWrite()
     {
-        char[] buffer = new char[0];
+        char[] buffer = [];
         _writer.Write(buffer);
         Assert.AreEqual("", Output());
     }
@@ -179,7 +179,7 @@ public sealed class JsonInHtmlWriterTests
     [TestMethod]
     public async Task EmptyWriteAsync()
     {
-        char[] buffer = new char[0];
+        char[] buffer = [];
         await _writer.WriteAsync(buffer);
         Assert.AreEqual("", await OutputAsync());
     }

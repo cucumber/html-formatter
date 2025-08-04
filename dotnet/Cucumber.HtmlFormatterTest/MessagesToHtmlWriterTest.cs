@@ -63,7 +63,7 @@ public class MessagesToHtmlWriterTest
         MessagesToHtmlWriter messagesToHtmlWriter = new MessagesToHtmlWriter(bytes, Serializer);
 #pragma warning restore CS0618 // Type or member is obsolete
         messagesToHtmlWriter.Dispose();
-        Assert.ThrowsException<IOException>(() => messagesToHtmlWriter.Write(Envelope.Create(new TestRunStarted(Converters.ToTimestamp(DateTime.UnixEpoch.AddSeconds(10).ToUniversalTime()), null))));
+        Assert.ThrowsExactly<IOException>(() => messagesToHtmlWriter.Write(Envelope.Create(new TestRunStarted(Converters.ToTimestamp(DateTime.UnixEpoch.AddSeconds(10).ToUniversalTime()), null))));
     }
 
     [TestMethod]
@@ -72,7 +72,7 @@ public class MessagesToHtmlWriterTest
         MemoryStream bytes = new MemoryStream();
         MessagesToHtmlWriter messagesToHtmlWriter = new MessagesToHtmlWriter(bytes, AsyncSerializer);
         await messagesToHtmlWriter.DisposeAsync();
-        await Assert.ThrowsExceptionAsync<IOException>(async () =>
+        await Assert.ThrowsExactlyAsync<IOException>(async () =>
             await messagesToHtmlWriter.WriteAsync(
                 Envelope.Create(new TestRunStarted(
                     Converters.ToTimestamp(DateTime.UnixEpoch.AddSeconds(10).ToUniversalTime()), null))));
@@ -126,7 +126,7 @@ public class MessagesToHtmlWriterTest
         MessagesToHtmlWriter messagesToHtmlWriter = new MessagesToHtmlWriter(bytes, Serializer);
 #pragma warning restore CS0618 // Type or member is obsolete
         // ReSharper disable once AccessToDisposedClosure
-        Assert.ThrowsException<System.Exception>(() => messagesToHtmlWriter.Dispose());
+        Assert.ThrowsExactly<System.Exception>(() => messagesToHtmlWriter.Dispose());
         byte[] before = bytes.ToArray();
         try { messagesToHtmlWriter.Dispose(); }
         catch (System.Exception e)
@@ -142,7 +142,7 @@ public class MessagesToHtmlWriterTest
     {
         var bytes = new StreamThatFailsToClose();
         MessagesToHtmlWriter messagesToHtmlWriter = new MessagesToHtmlWriter(bytes, AsyncSerializer);
-        await Assert.ThrowsExceptionAsync<System.Exception>(async () => await messagesToHtmlWriter.DisposeAsync());
+        await Assert.ThrowsExactlyAsync<System.Exception>(async () => await messagesToHtmlWriter.DisposeAsync());
         byte[] before = bytes.ToArray();
         try { await messagesToHtmlWriter.DisposeAsync(); }
         catch (System.Exception e)
@@ -178,7 +178,7 @@ public class MessagesToHtmlWriterTest
         Envelope envelope = Envelope.Create(new GherkinDocument(
             null,
             null,
-            new List<Comment> { new Comment(new Location(0L, 0L), "</script><script>alert('Hello')</script>") }
+            [new(new Location(0L, 0L), "</script><script>alert('Hello')</script>")]
         ));
         string html = RenderAsHtml(envelope);
         Assert.IsTrue(html.Contains("window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"<\\/script><script>alert('Hello')<\\/script>\"}]}}];"),
@@ -192,7 +192,7 @@ public class MessagesToHtmlWriterTest
         Envelope envelope = Envelope.Create(new GherkinDocument(
             null,
             null,
-            new List<Comment> { new Comment(new Location(0L, 0L), "</script><script>alert('Hello')</script>") }
+            [new(new Location(0L, 0L), "</script><script>alert('Hello')</script>")]
         ));
         string html = await RenderAsHtmlAsync(envelope);
         Assert.IsTrue(html.Contains("window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"<\\/script><script>alert('Hello')<\\/script>\"}]}}];"),
