@@ -43,11 +43,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
           cache-dependency-path: javascript/package-lock.json
-      - run: npm install-ci-test
+      - run: npm ci
         working-directory: javascript
       - run: npm run build
         working-directory: javascript
       - run: npm run lint
+        working-directory: javascript
+      - run: npm test
         working-directory: javascript
       - name: Setup browsers
         run: npx playwright install --with-deps
