@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - [.Net] Added possibility to customize resources for MessagesToHtmlWriter ([#400](https://github.com/cucumber/html-formatter/pull/400))
 
+### Changed
+- Upgrade `react-components` to [23.2.0](https://github.com/cucumber/react-components/releases/tag/v23.2.0)
+
 ## [21.13.0] - 2025-07-07
 ### Changed
 - Upgrade `cucumber-messages` to [28.0.0](https://github.com/cucumber/messages/releases/tag/v28.0.0)
