@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- [.Net] Added possibility to customize resources for MessagesToHtmlWriter ([#400](https://github.com/cucumber/html-formatter/pull/400))
+
 ### Changed
 - Upgrade `react-components` to [23.2.0](https://github.com/cucumber/react-components/releases/tag/v23.2.0)
 
