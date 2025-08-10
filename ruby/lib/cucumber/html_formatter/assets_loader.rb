@@ -8,6 +8,10 @@ module Cucumber
           read_asset('index.mustache.html')
         end
 
+        def icon
+          read_asset('icon.url')
+        end
+
         def css
           read_asset('main.css')
         end

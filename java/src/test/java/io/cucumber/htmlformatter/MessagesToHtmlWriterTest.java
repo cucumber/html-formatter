@@ -19,7 +19,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.text.IsEqualCompressingWhiteSpace.equalToCompressingWhiteSpace;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -44,10 +43,23 @@ class MessagesToHtmlWriterTest {
     }
 
     @Test
+    void it_writes_default_title() throws IOException {
+        String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer));
+        assertThat(html, containsString("<title>Cucumber</title>"));
+    }
+
+    @Test
     void it_writes_custom_title() throws IOException {
         String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer).title("Custom Title"));
         assertThat(html, containsString("<title>Custom Title</title>"));
     }
+    
+    @Test
+    void it_writes_default_icon() throws IOException {
+        String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer));
+        assertThat(html, containsString("<link rel=\"icon\" href=\"data:image/svg+xml;base64,"));
+    }
+    
     
     @Test
     void it_writes_custom_icon() throws IOException {
@@ -55,20 +67,19 @@ class MessagesToHtmlWriterTest {
                 .icon(() -> new ByteArrayInputStream("https://example.com/logo.svg".getBytes(UTF_8))));
         assertThat(html, containsString("<link rel=\"icon\" href=\"https://example.com/logo.svg\">"));
     }
-
     
     @Test
     void it_writes_custom_css() throws IOException {
         String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer)
                 .customCss(() -> new ByteArrayInputStream(("p { color: red; }").getBytes(UTF_8))));
-        assertThat(html, equalToCompressingWhiteSpace("\t<style>\np { color: red; }\n\t</style>"));
+        assertThat(html, containsString("p { color: red; }"));
     }
     
     @Test
     void it_writes_custom_script() throws IOException {
         String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer)
                 .customScript(() -> new ByteArrayInputStream(("console.log(\"Hello world\");").getBytes(UTF_8))));
-        assertThat(html, equalToCompressingWhiteSpace("<script>\nconsole.log(\"Hello world\");\n</script>"));
+        assertThat(html, containsString("console.log(\"Hello world\");"));
     }
 
     @Test
@@ -88,7 +99,7 @@ class MessagesToHtmlWriterTest {
     }
 
     @Test
-    void it_is_idempotent_under_failure_to_close() throws IOException {
+    void it_is_idempotent_under_failure_to_close() {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream() {
             @Override
             public void close() throws IOException {

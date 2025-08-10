@@ -9,22 +9,29 @@ describe Cucumber::HTMLFormatter::Formatter do
     before do
       allow(Cucumber::HTMLFormatter::AssetsLoader)
         .to receive_messages(
-          template: '<html>{{css}}<body>{{messages}}</body>{{script}}</html>',
-          css: '<style>div { color: red }</style>',
-          script: "<script>alert('Hi')</script>"
+          template: "{{title}}{{icon}}{{css}}{{custom_css}}{{messages}}{{script}}{{custom_script}}",
+          icon: 'https://example.org/icon.svg',
+          css: 'div { color: red }',
+          script: "alert('Hi');"
         )
     end
 
     describe '#process_messages' do
       let(:message) { Cucumber::Messages::Envelope.new(pickle: Cucumber::Messages::Pickle.new(id: 'some-random-uid')) }
       let(:expected_report) do
-        <<~REPORT.strip
-          <html>
-          <style>div { color: red }</style>
-          <body>
-          #{message.to_json}</body>
-          <script>alert('Hi')</script>
-          </html>
+        <<~REPORT 
+          
+          Cucumber
+
+          https://example.org/icon.svg
+
+          div { color: red }
+
+
+          #{message.to_json}
+          alert('Hi');
+
+
         REPORT
       end
 
@@ -39,14 +46,14 @@ describe Cucumber::HTMLFormatter::Formatter do
       it 'outputs the content of the template up to {{messages}}' do
         formatter.write_pre_message
 
-        expect(out.string).to eq("<html>\n<style>div { color: red }</style>\n<body>\n")
+        expect(out.string).to eq("\nCucumber\n\nhttps://example.org/icon.svg\n\ndiv { color: red }\n\n\n")
       end
 
       it 'does not write the content twice' do
         formatter.write_pre_message
         formatter.write_pre_message
 
-        expect(out.string).to eq("<html>\n<style>div { color: red }</style>\n<body>\n")
+        expect(out.string).to eq("\nCucumber\n\nhttps://example.org/icon.svg\n\ndiv { color: red }\n\n\n")
       end
     end
 
@@ -90,7 +97,7 @@ describe Cucumber::HTMLFormatter::Formatter do
       it 'outputs the template end' do
         formatter.write_post_message
 
-        expect(out.string).to eq("</body>\n<script>alert('Hi')</script>\n</html>")
+        expect(out.string).to eq("\nalert('Hi');\n\n\n")
       end
     end
   end
