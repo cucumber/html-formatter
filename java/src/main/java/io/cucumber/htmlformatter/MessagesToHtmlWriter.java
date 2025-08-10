@@ -29,9 +29,9 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
     private final String template;
     private final Supplier<InputStream> title;
     private final Supplier<InputStream> icon;
-    private final Supplier<InputStream> css;
+    private final Supplier<InputStream> css = () -> getResource("main.css");
     private final Supplier<InputStream> customCss;
-    private final Supplier<InputStream> script;
+    private final Supplier<InputStream> script = () -> getResource("main.js");
     private final Supplier<InputStream> customScript;
 
     private boolean preMessageWritten = false;
@@ -44,12 +44,10 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         this(
                 createWriter(outputStream),
                 requireNonNull(serializer),
-                () -> new ByteArrayInputStream("Cucumber".getBytes(UTF_8)),
+                () -> createInputStream("Cucumber"),
                 () -> getResource("icon.url"),
-                () -> getResource("main.css"),
-                MessagesToHtmlWriter::getEmptyResource,
-                () -> getResource("main.js"),
-                MessagesToHtmlWriter::getEmptyResource
+                MessagesToHtmlWriter::createEmptyInputStream,
+                MessagesToHtmlWriter::createEmptyInputStream
         );
     }
 
@@ -58,9 +56,7 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
             Serializer serializer,
             Supplier<InputStream> title,
             Supplier<InputStream> icon,
-            Supplier<InputStream> css,
             Supplier<InputStream> customCss,
-            Supplier<InputStream> script,
             Supplier<InputStream> customScript
     ) {
         this.writer = writer;
@@ -69,15 +65,18 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         this.template = readTemplate();
         this.title = title;
         this.icon = icon;
-        this.css = css;
         this.customCss = customCss;
         this.customScript = customScript;
-        this.script = script;
     }
 
     private static String readTemplate() {
         try {
-            return readResource("index.mustache.html");
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(baos, UTF_8))) {
+                InputStream resource = getResource("index.mustache.html");
+                writeResource(writer, resource);
+            }
+            return new String(baos.toByteArray(), UTF_8);
         } catch (IOException e) {
             throw new RuntimeException("Could not read resource index.mustache.html", e);
         }
@@ -98,8 +97,12 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
     public static Builder builder(Serializer serializer) {
         return new Builder(serializer);
     }
-
-    private static ByteArrayInputStream getEmptyResource() {
+    
+    private static InputStream createInputStream(String text) {
+        return new ByteArrayInputStream(text.getBytes(UTF_8));
+    }
+    
+    private static InputStream createEmptyInputStream() {
         return new ByteArrayInputStream(new byte[0]);
     }
 
@@ -128,15 +131,6 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         return resource;
     }
 
-    private static String readResource(String name) throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(baos, UTF_8))) {
-            InputStream resource = getResource(name);
-            writeResource(writer, resource);
-        }
-        return new String(baos.toByteArray(), UTF_8);
-    }
-
     private void writePreMessage() throws IOException {
         writeTemplateBetween(writer, template, null, "{{title}}");
         writeResource(writer, title);
@@ -144,17 +138,17 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         writeResource(writer, icon);
         writeTemplateBetween(writer, template, "{{icon}}", "{{css}}");
         writeResource(writer, css);
-        writeTemplateBetween(writer, template, "{{css}}", "{{customCss}}");
+        writeTemplateBetween(writer, template, "{{css}}", "{{custom_css}}");
         writeResource(writer, customCss);
-        writeTemplateBetween(writer, template, "{{customCss}}", "{{messages}}");
+        writeTemplateBetween(writer, template, "{{custom_css}}", "{{messages}}");
     }
 
     private void writePostMessage() throws IOException {
         writeTemplateBetween(writer, template, "{{messages}}", "{{script}}");
         writeResource(writer, script);
-        writeTemplateBetween(writer, template, "{{script}}", "{{customScript}}");
+        writeTemplateBetween(writer, template, "{{script}}", "{{custom_script}}");
         writeResource(writer, customScript);
-        writeTemplateBetween(writer, template, "{{customScript}}", null);
+        writeTemplateBetween(writer, template, "{{custom_script}}", null);
     }
 
     /**
@@ -241,12 +235,10 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
 
     public static final class Builder {
         private final Serializer serializer;
-        private Supplier<InputStream> title = () -> new ByteArrayInputStream("Cucumber".getBytes(UTF_8));
+        private Supplier<InputStream> title = () -> createInputStream("Cucumber");
         private Supplier<InputStream> icon = () -> getResource("icon.url");
-        private Supplier<InputStream> css = () -> getResource("main.css");
-        private Supplier<InputStream> customCss = MessagesToHtmlWriter::getEmptyResource;
-        private Supplier<InputStream> script = () -> getResource("main.js");
-        private Supplier<InputStream> customScript = MessagesToHtmlWriter::getEmptyResource;
+        private Supplier<InputStream> customCss = MessagesToHtmlWriter::createEmptyInputStream;
+        private Supplier<InputStream> customScript = MessagesToHtmlWriter::createEmptyInputStream;
 
         private Builder(Serializer serializer) {
             this.serializer = requireNonNull(serializer);
@@ -260,7 +252,7 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
          */
         public Builder title(String title) {
             requireNonNull(title);
-            this.title = () -> new ByteArrayInputStream(title.getBytes(UTF_8));
+            this.title = () -> createInputStream(title);
             return this;
         }
 
@@ -278,15 +270,16 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         }
 
         /**
-         * Sets default css for the report.
+         * Sets a custom icon for the report, default value the cucumber logo.
          * <p>
-         * The default script styles the cucumber report.
+         * The {@code icon} is any valid {@code href} value.
          *
-         * @param css the custom css.
+         * @param icon the custom icon.
          * @return this builder
          */
-        public Builder css(Supplier<InputStream> css) {
-            this.css = requireNonNull(css);
+        public Builder icon(String icon) {
+            requireNonNull(icon);
+            this.icon = () -> createInputStream(icon);
             return this;
         }
 
@@ -300,19 +293,6 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
          */
         public Builder customCss(Supplier<InputStream> customCss) {
             this.customCss = requireNonNull(customCss);
-            return this;
-        }
-
-        /**
-         * Replaces default script for the report.
-         * <p>
-         * The default script renders the cucumber messages into a report.
-         *
-         * @param script the custom script.
-         * @return this builder
-         */
-        public Builder script(Supplier<InputStream> script) {
-            this.script = requireNonNull(script);
             return this;
         }
 
@@ -337,7 +317,7 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
          * @return a new instance of the messages to html writer.
          */
         public MessagesToHtmlWriter build(OutputStream out) {
-            return new MessagesToHtmlWriter(createWriter(out), serializer, title, icon, css, customCss, script, customScript);
+            return new MessagesToHtmlWriter(createWriter(out), serializer, title, icon, customCss, customScript);
         }
     }
 
