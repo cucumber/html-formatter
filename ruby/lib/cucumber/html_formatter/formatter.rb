@@ -50,9 +50,8 @@ module Cucumber
           template_writer.write_between('{{icon}}', '{{css}}'),
           AssetsLoader.css,
           template_writer.write_between('{{css}}', '{{custom_css}}'),
-          '',
           template_writer.write_between('{{custom_css}}', '{{messages}}')
-        ].join("\n")
+        ].join("")
       end
 
       def post_message
@@ -60,9 +59,8 @@ module Cucumber
           template_writer.write_between('{{messages}}', '{{script}}'),
           AssetsLoader.script,
           template_writer.write_between('{{script}}', '{{custom_script}}'),
-          '',
           template_writer.write_between('{{custom_script}}', nil)
-        ].join("\n")
+        ].join("")
       end
 
       def template_writer
