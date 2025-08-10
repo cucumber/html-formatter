@@ -17,7 +17,7 @@ export class CucumberHtmlStream extends Transform {
   constructor(
     private readonly cssPath: string = path.join(__dirname, '..', 'main.css'),
     private readonly jsPath: string = path.join(__dirname, '..', 'main.js'),
-    private readonly iconPath: string = path.join(__dirname, '..', 'icon.url'),
+    private readonly iconPath: string = path.join(__dirname, '..', 'icon.url')
   ) {
     super({ objectMode: true })
   }
@@ -49,7 +49,7 @@ export class CucumberHtmlStream extends Transform {
     this.preMessageWritten = true
     this.writeTemplateBetween(null, '{{title}}', (err) => {
       if (err) return callback(err)
-      this.push("Cucumber")
+      this.push('Cucumber')
       this.writeTemplateBetween('{{title}}', '{{icon}}', (err) => {
         if (err) return callback(err)
         this.writeFile(this.iconPath, (err) => {
