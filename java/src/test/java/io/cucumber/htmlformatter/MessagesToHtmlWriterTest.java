@@ -19,6 +19,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.text.IsEqualCompressingWhiteSpace.equalToCompressingWhiteSpace;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -60,14 +61,14 @@ class MessagesToHtmlWriterTest {
     void it_writes_custom_css() throws IOException {
         String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer)
                 .customCss(() -> new ByteArrayInputStream(("p { color: red; }").getBytes(UTF_8))));
-        assertThat(html, containsString("\t<style>\np { color: red; }\n\t</style>"));
+        assertThat(html, equalToCompressingWhiteSpace("\t<style>\np { color: red; }\n\t</style>"));
     }
     
     @Test
     void it_writes_custom_script() throws IOException {
         String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer)
                 .customScript(() -> new ByteArrayInputStream(("console.log(\"Hello world\");").getBytes(UTF_8))));
-        assertThat(html, containsString("<script>\nconsole.log(\"Hello world\");\n</script>"));
+        assertThat(html, equalToCompressingWhiteSpace("<script>\nconsole.log(\"Hello world\");\n</script>"));
     }
 
     @Test
