@@ -4,18 +4,16 @@ import io.cucumber.htmlformatter.MessagesToHtmlWriter.Serializer;
 import io.cucumber.messages.Convertor;
 import io.cucumber.messages.types.Comment;
 import io.cucumber.messages.types.Envelope;
-import io.cucumber.messages.types.Feature;
 import io.cucumber.messages.types.GherkinDocument;
 import io.cucumber.messages.types.Location;
 import io.cucumber.messages.types.TestRunFinished;
 import io.cucumber.messages.types.TestRunStarted;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.Collections;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Collections.singletonList;
@@ -44,11 +42,38 @@ class MessagesToHtmlWriterTest {
         assertThat(html, containsString("window.CUCUMBER_MESSAGES = [];"));
     }
 
+    @Test
+    void it_writes_custom_title() throws IOException {
+        String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer).title("Custom Title"));
+        assertThat(html, containsString("<title>Custom Title</title>"));
+    }
+    
+    @Test
+    void it_writes_custom_icon() throws IOException {
+        String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer)
+                .icon(() -> new ByteArrayInputStream("https://example.com/logo.svg".getBytes(UTF_8))));
+        assertThat(html, containsString("<link rel=\"icon\" href=\"https://example.com/logo.svg\">"));
+    }
+
+    
+    @Test
+    void it_writes_custom_css() throws IOException {
+        String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer)
+                .customCss(() -> new ByteArrayInputStream(("p { color: red; }").getBytes(UTF_8))));
+        assertThat(html, containsString("\t<style>\np { color: red; }\n\t</style>"));
+    }
+    
+    @Test
+    void it_writes_custom_script() throws IOException {
+        String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer)
+                .customScript(() -> new ByteArrayInputStream(("console.log(\"Hello world\");").getBytes(UTF_8))));
+        assertThat(html, containsString("<script>\nconsole.log(\"Hello world\");\n</script>"));
+    }
 
     @Test
     void it_throws_when_writing_after_close() throws IOException {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        MessagesToHtmlWriter messagesToHtmlWriter = new MessagesToHtmlWriter(bytes, serializer);
+        MessagesToHtmlWriter messagesToHtmlWriter = MessagesToHtmlWriter.builder(serializer).build(bytes);
         messagesToHtmlWriter.close();
         assertThrows(IOException.class, () -> messagesToHtmlWriter.write(null));
     }
@@ -56,7 +81,7 @@ class MessagesToHtmlWriterTest {
     @Test
     void it_can_be_closed_twice() throws IOException {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        MessagesToHtmlWriter messagesToHtmlWriter = new MessagesToHtmlWriter(bytes, serializer);
+        MessagesToHtmlWriter messagesToHtmlWriter = MessagesToHtmlWriter.builder(serializer).build(bytes);
         messagesToHtmlWriter.close();
         assertDoesNotThrow(messagesToHtmlWriter::close);
     }
@@ -69,7 +94,7 @@ class MessagesToHtmlWriterTest {
                 throw new IOException("Can't close this");
             }
         };
-        MessagesToHtmlWriter messagesToHtmlWriter = new MessagesToHtmlWriter(bytes, serializer);
+        MessagesToHtmlWriter messagesToHtmlWriter = MessagesToHtmlWriter.builder(serializer).build(bytes);
         assertThrows(IOException.class, messagesToHtmlWriter::close);
         byte[] before = bytes.toByteArray();
         assertDoesNotThrow(messagesToHtmlWriter::close);
@@ -106,8 +131,12 @@ class MessagesToHtmlWriterTest {
     }
 
     private static String renderAsHtml(Envelope... messages) throws IOException {
+        return renderAsHtml(MessagesToHtmlWriter.builder(serializer), messages);
+    }
+
+    private static String renderAsHtml(MessagesToHtmlWriter.Builder builder, Envelope... messages) throws IOException {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        try (MessagesToHtmlWriter messagesToHtmlWriter = new MessagesToHtmlWriter(bytes, serializer)) {
+        try (MessagesToHtmlWriter messagesToHtmlWriter = builder.build(bytes)) {
             for (Envelope message : messages) {
                 messagesToHtmlWriter.write(message);
             }

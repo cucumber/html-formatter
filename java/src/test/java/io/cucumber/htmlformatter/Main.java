@@ -21,7 +21,8 @@ public final class Main {
             in = new FileInputStream(args[0]);
         }
         try (NdjsonToMessageIterable envelopes = new NdjsonToMessageIterable(in, deserializer)) {
-            try (MessagesToHtmlWriter htmlWriter = new MessagesToHtmlWriter(System.out, serializer)) {
+            MessagesToHtmlWriter.Builder builder = MessagesToHtmlWriter.builder(serializer);
+            try (MessagesToHtmlWriter htmlWriter = builder.build(System.out)) {
                 for (Envelope envelope : envelopes) {
                     htmlWriter.write(envelope);
                 }

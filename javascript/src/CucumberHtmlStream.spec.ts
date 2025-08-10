@@ -22,7 +22,8 @@ async function renderAsHtml(
     sink.on('finish', () => resolve(html))
     const cucumberHtmlStream = new CucumberHtmlStream(
       `${__dirname}/dummy.css`,
-      `${__dirname}/dummy.js`
+      `${__dirname}/dummy.js`,
+      `${__dirname}/icon.url`,
     )
     cucumberHtmlStream.on('error', reject)
     cucumberHtmlStream.pipe(sink)
