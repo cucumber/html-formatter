@@ -32,29 +32,29 @@ public sealed class JsonInHtmlWriterTests
     [TestMethod]
     public void EscapesSingle()
     {
-        _writer.Write("/");
-        Assert.AreEqual("\\/", Output());
+        _writer.Write("<");
+        Assert.AreEqual("\\x3C", Output());
     }
 
     [TestMethod]
     public async Task EscapesSingleAsync()
     {
-        await _writer.WriteAsync("/");
-        Assert.AreEqual("\\/", await OutputAsync());
+        await _writer.WriteAsync("<");
+        Assert.AreEqual("\\x3C", await OutputAsync());
     }
 
     [TestMethod]
     public void EscapesMultiple()
     {
         _writer.Write("</script><script></script>");
-        Assert.AreEqual("<\\/script><script><\\/script>", Output());
+        Assert.AreEqual("\\x3C/script>\\x3Cscript>\\x3C/script>", Output());
     }
 
     [TestMethod]
     public async Task EscapesMultipleAsync()
     {
         await _writer.WriteAsync("</script><script></script>");
-        Assert.AreEqual("<\\/script><script><\\/script>", await OutputAsync());
+        Assert.AreEqual("\\x3C/script>\\x3Cscript>\\x3C/script>", await OutputAsync());
     }
 
     [TestMethod]
@@ -72,7 +72,7 @@ public sealed class JsonInHtmlWriterTests
         text.CopyTo(17, buffer, 4, 9);
         _writer.Write(buffer, 4, 9);
 
-        Assert.AreEqual("<\\/script><script><\\/script>", Output());
+        Assert.AreEqual("\\x3C/script>\\x3Cscript>\\x3C/script>", Output());
     }
 
     [TestMethod]
@@ -90,7 +90,7 @@ public sealed class JsonInHtmlWriterTests
         text.CopyTo(17, buffer, 4, 9);
         await _writer.WriteAsync(buffer, 4, 9);
 
-        Assert.AreEqual("<\\/script><script><\\/script>", await OutputAsync());
+        Assert.AreEqual("\\x3C/script>\\x3Cscript>\\x3C/script>", await OutputAsync());
     }
     [TestMethod]
     public void LargeWritesWithOddBoundaries()
@@ -99,7 +99,7 @@ public sealed class JsonInHtmlWriterTests
         buffer[0] = 'a';
         for (int i = 1; i < buffer.Length; i++)
         {
-            buffer[i] = '/';
+            buffer[i] = '<';
         }
         _writer.Write(buffer);
 
@@ -107,7 +107,7 @@ public sealed class JsonInHtmlWriterTests
         expected.Append('a');
         for (int i = 1; i < buffer.Length; i++)
         {
-            expected.Append("\\/");
+            expected.Append("\\x3C");
         }
         Assert.AreEqual(expected.ToString(), Output());
     }
@@ -119,7 +119,7 @@ public sealed class JsonInHtmlWriterTests
         buffer[0] = 'a';
         for (int i = 1; i < buffer.Length; i++)
         {
-            buffer[i] = '/';
+            buffer[i] = '<';
         }
         await _writer.WriteAsync(buffer);
 
@@ -127,7 +127,7 @@ public sealed class JsonInHtmlWriterTests
         expected.Append('a');
         for (int i = 1; i < buffer.Length; i++)
         {
-            expected.Append("\\/");
+            expected.Append("\\x3C");
         }
         Assert.AreEqual(expected.ToString(), await OutputAsync());
     }
@@ -138,14 +138,14 @@ public sealed class JsonInHtmlWriterTests
         char[] buffer = new char[2048];
         for (int i = 0; i < buffer.Length; i++)
         {
-            buffer[i] = '/';
+            buffer[i] = '<';
         }
         _writer.Write(buffer);
 
         StringBuilder expected = new StringBuilder();
         for (int i = 0; i < buffer.Length; i++)
         {
-            expected.Append("\\/");
+            expected.Append("\\x3C");
         }
         Assert.AreEqual(expected.ToString(), Output());
     }
@@ -156,14 +156,14 @@ public sealed class JsonInHtmlWriterTests
         char[] buffer = new char[2048];
         for (int i = 0; i < buffer.Length; i++)
         {
-            buffer[i] = '/';
+            buffer[i] = '<';
         }
         await _writer.WriteAsync(buffer);
 
         StringBuilder expected = new StringBuilder();
         for (int i = 0; i < buffer.Length; i++)
         {
-            expected.Append("\\/");
+            expected.Append("\\x3C");
         }
         Assert.AreEqual(expected.ToString(), await OutputAsync());
     }

@@ -33,7 +33,8 @@ public class JsonInHtmlWriter : StreamWriter
             throw new ArgumentException("Cannot read past the end of the input source char array.");
 
         var destination = PrepareBuffer();
-        var flushAt = BUFFER_SIZE - 2;
+        // Largest write without boundary check is 4 bytes
+        var flushAt = BUFFER_SIZE - 4;
         var written = 0;
         for (var i = offset; i < offset + length; i++)
         {
@@ -46,12 +47,19 @@ public class JsonInHtmlWriter : StreamWriter
                 written = 0;
             }
 
-            // Write with escapes
-            if (c == '/')
+            // Replace < with \x3C
+            // https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements
+            if (c == '<')
             {
                 destination[written++] = '\\';
+                destination[written++] = 'x';
+                destination[written++] = '3';
+                destination[written++] = 'C';
+            } 
+            else
+            {
+                destination[written++] = c;
             }
-            destination[written++] = c;
         }
         // Flush any remaining
         if (written > 0)
@@ -66,7 +74,8 @@ public class JsonInHtmlWriter : StreamWriter
             throw new ArgumentException("Cannot read past the end of the input source char array.");
 
         var destination = PrepareBuffer();
-        var flushAt = BUFFER_SIZE - 2;
+        // Largest write without boundary check is 4 bytes
+        var flushAt = BUFFER_SIZE - 4;
         var written = 0;
         for (var i = offset; i < offset + length; i++)
         {
@@ -79,12 +88,19 @@ public class JsonInHtmlWriter : StreamWriter
                 written = 0;
             }
 
-            // Write with escapes
-            if (c == '/')
+            // Replace < with \x3C
+            // https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements
+            if (c == '<')
             {
                 destination[written++] = '\\';
+                destination[written++] = 'x';
+                destination[written++] = '3';
+                destination[written++] = 'C';
+            } 
+            else
+            {
+                destination[written++] = c;
             }
-            destination[written++] = c;
         }
         // Flush any remaining
         if (written > 0)

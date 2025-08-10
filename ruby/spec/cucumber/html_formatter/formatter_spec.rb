@@ -79,10 +79,10 @@ describe Cucumber::HTMLFormatter::Formatter do
         expect(out.string).to eq("#{message.to_json},\n#{message.to_json}")
       end
 
-      it 'escapes forward slashes' do
+      it 'escapes opening angle bracket' do
         formatter.write_message(message_with_slashes)
 
-        expect(out.string).to eq('{"gherkinDocument":{"comments":[{"location":{"line":0,"column":0},"text":"<\/script><script>alert(\'Hello\')<\/script>"}]}}')
+        expect(out.string).to eq('{"gherkinDocument":{"comments":[{"location":{"line":0,"column":0},"text":"\\x3C/script>\\x3Cscript>alert(\'Hello\')\\x3C/script>"}]}}')
       end
     end
 

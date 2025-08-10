@@ -91,7 +91,7 @@ describe('CucumberHtmlStream', () => {
     const html = await renderAsHtml(e1)
     assert(
       html.indexOf(
-        `window.CUCUMBER_MESSAGES = [{"gherkinDocument":{"comments":[{"location":{"line":0,"column":0},"text":"<\\/script><script>alert('Hello')<\\/script>"}]}}];`
+        `window.CUCUMBER_MESSAGES = [{"gherkinDocument":{"comments":[{"location":{"line":0,"column":0},"text":"\\x3C/script>\\x3Cscript>alert('Hello')\\x3C/script>"}]}}];`
       ) >= 0
     )
   })

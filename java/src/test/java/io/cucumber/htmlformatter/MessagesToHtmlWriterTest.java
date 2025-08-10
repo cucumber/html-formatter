@@ -4,7 +4,6 @@ import io.cucumber.htmlformatter.MessagesToHtmlWriter.Serializer;
 import io.cucumber.messages.Convertor;
 import io.cucumber.messages.types.Comment;
 import io.cucumber.messages.types.Envelope;
-import io.cucumber.messages.types.Feature;
 import io.cucumber.messages.types.GherkinDocument;
 import io.cucumber.messages.types.Location;
 import io.cucumber.messages.types.TestRunFinished;
@@ -14,8 +13,6 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.Collections;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Collections.singletonList;
@@ -91,7 +88,7 @@ class MessagesToHtmlWriterTest {
 
 
     @Test
-    void it_escapes_forward_slashes() throws IOException {
+    void it_escapes_opening_angle_bracket() throws IOException {
         Envelope envelope = Envelope.of(new GherkinDocument(
                 null,
                 null,
@@ -102,7 +99,7 @@ class MessagesToHtmlWriterTest {
         ));
         String html = renderAsHtml(envelope);
         assertThat(html, containsString(
-                "window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"<\\/script><script>alert('Hello')<\\/script>\"}]}}];"));
+                "window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"\\x3C/script>\\x3Cscript>alert('Hello')\\x3C/script>\"}]}}];"));
     }
 
     private static String renderAsHtml(Envelope... messages) throws IOException {
