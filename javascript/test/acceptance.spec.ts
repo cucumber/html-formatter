@@ -25,7 +25,7 @@ test.beforeAll(async () => {
       new CucumberHtmlStream(
         path.join(__dirname, '../dist/main.css'),
         path.join(__dirname, '../dist/main.js'),
-        path.join(__dirname, '../dist/icon.url')
+        path.join(__dirname, '../dist/src/icon.url')
       ),
       fs.createWriteStream(outputFile)
     )
