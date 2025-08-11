@@ -18,25 +18,16 @@ clean: ## Remove javascript built module and related artifacts from java and rub
 ruby/assets/index.mustache.html: javascript/src/index.mustache.html
 	cp $< $@
 
-ruby/assets/icon.url: javascript/src/icon.url
-	cp $< $@
-
 ruby/assets/%: javascript/dist/%
 	cp $< $@
 
 java/src/main/resources/io/cucumber/htmlformatter/index.mustache.html: javascript/src/index.mustache.html
 	cp $< $@
 
-java/src/main/resources/io/cucumber/htmlformatter/icon.url: javascript/src/icon.url
-	cp $< $@
-
 java/src/main/resources/io/cucumber/htmlformatter/%: javascript/dist/%
 	cp $< $@
 
 dotnet/Cucumber.HtmlFormatter/Resources/index.mustache.html: javascript/src/index.mustache.html
-	cp $< $@
-
-dotnet/Cucumber.HtmlFormatter/Resources/icon.url: javascript/src/icon.url
 	cp $< $@
 
 dotnet/Cucumber.HtmlFormatter/Resources/%: javascript/dist/%
