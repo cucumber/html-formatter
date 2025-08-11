@@ -116,6 +116,8 @@ export class CucumberHtmlStream extends Transform {
     } else {
       this.push(',')
     }
-    this.push(JSON.stringify(envelope).replace(/\//g, '\\/'))
+    // Replace < with \x3C
+    // https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements
+    this.push(JSON.stringify(envelope).replace(/</g, '\\x3C'))
   }
 }

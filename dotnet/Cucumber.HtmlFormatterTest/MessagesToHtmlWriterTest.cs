@@ -173,7 +173,7 @@ public class MessagesToHtmlWriterTest
     }
 
     [TestMethod]
-    public void ItEscapesForwardSlashes()
+    public void ItEscapesOpeningAngleBracket()
     {
         Envelope envelope = Envelope.Create(new GherkinDocument(
             null,
@@ -181,13 +181,13 @@ public class MessagesToHtmlWriterTest
             [new(new Location(0L, 0L), "</script><script>alert('Hello')</script>")]
         ));
         string html = RenderAsHtml(envelope);
-        Assert.IsTrue(html.Contains("window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"<\\/script><script>alert('Hello')<\\/script>\"}]}}];"),
-            $"Expected \"window.CUCUMBER_MESSAGES = [{{\\\"gherkinDocument\\\":{{\\\"comments\\\":[{{\\\"location\\\":{{\\\"line\\\":0,\\\"column\\\":0}},\\\"text\\\":\\\"<\\\\/script><script>alert('Hello')<\\\\/script>\\\"}}]}}];" +
+        Assert.IsTrue(html.Contains("window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"\\x3C/script>\\x3Cscript>alert('Hello')\\x3C/script>\"}]}}];"),
+            $"Expected \"window.CUCUMBER_MESSAGES = [{{\\\"gherkinDocument\\\":{{\\\"comments\\\":[{{\\\"location\\\":{{\\\"line\\\":0,\\\"column\\\":0}},\\\"text\\\":\\\"\\\\x3C/script>\\\\x3Cscript>alert('Hello')\\\\x3C/script>\\\"}}]}}];" +
             $"\nbut instead had: \n{html.Substring(html.IndexOf("window.CUCUMBER"))}");
     }
 
     [TestMethod]
-    public async Task ItEscapesForwardSlashesAsync()
+    public async Task ItEscapesOpeningAngleBracketAsync()
     {
         Envelope envelope = Envelope.Create(new GherkinDocument(
             null,
@@ -195,8 +195,8 @@ public class MessagesToHtmlWriterTest
             [new(new Location(0L, 0L), "</script><script>alert('Hello')</script>")]
         ));
         string html = await RenderAsHtmlAsync(envelope);
-        Assert.IsTrue(html.Contains("window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"<\\/script><script>alert('Hello')<\\/script>\"}]}}];"),
-            $"Expected \"window.CUCUMBER_MESSAGES = [{{\\\"gherkinDocument\\\":{{\\\"comments\\\":[{{\\\"location\\\":{{\\\"line\\\":0,\\\"column\\\":0}},\\\"text\\\":\\\"<\\\\/script><script>alert('Hello')<\\\\/script>\\\"}}]}}];" +
+        Assert.IsTrue(html.Contains("window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"\\x3C/script>\\x3Cscript>alert('Hello')\\x3C/script>\"}]}}];"),
+            $"Expected \"window.CUCUMBER_MESSAGES = [{{\\\"gherkinDocument\\\":{{\\\"comments\\\":[{{\\\"location\\\":{{\\\"line\\\":0,\\\"column\\\":0}},\\\"text\\\":\\\"\\\\x3C/script>\\\\x3Cscript>alert('Hello')\\\\x3C/script>\\\"}}]}}];" +
             $"\nbut instead had: \n{html.Substring(html.IndexOf("window.CUCUMBER"))}");
     }
 
