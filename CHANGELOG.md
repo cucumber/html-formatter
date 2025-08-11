@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [21.14.0] - 2025-08-11
 ### Added
 - [.Net] Support customizations ([#409](https://github.com/cucumber/html-formatter/pull/409))
 - [Java] Support customizations ([#409](https://github.com/cucumber/html-formatter/pull/409))
@@ -385,7 +387,8 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.13.0...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.14.0...HEAD
+[21.14.0]: https://github.com/cucumber/html-formatter/compare/v21.13.0...v21.14.0
 [21.13.0]: https://github.com/cucumber/html-formatter/compare/v21.12.0...v21.13.0
 [21.12.0]: https://github.com/cucumber/html-formatter/compare/v21.11.0...v21.12.0
 [21.11.0]: https://github.com/cucumber/html-formatter/compare/v21.10.1...v21.11.0
