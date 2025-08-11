@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Upgrade `react-components` to [23.2.0](https://github.com/cucumber/react-components/releases/tag/v23.2.0)
 
+### Fixed
+- Escape html comments in json ([#408](https://github.com/cucumber/html-formatter/pull/408))
+
 ## [21.13.0] - 2025-07-07
 ### Changed
 - Upgrade `cucumber-messages` to [28.0.0](https://github.com/cucumber/messages/releases/tag/v28.0.0)

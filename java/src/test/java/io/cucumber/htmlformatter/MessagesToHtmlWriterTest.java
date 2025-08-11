@@ -159,7 +159,7 @@ class MessagesToHtmlWriterTest {
     }
 
     @Test
-    void it_escapes_forward_slashes() throws IOException {
+    void it_escapes_opening_angle_bracket() throws IOException {
         Envelope envelope = Envelope.of(new GherkinDocument(
                 null,
                 null,
@@ -170,6 +170,6 @@ class MessagesToHtmlWriterTest {
         ));
         String html = renderAsHtml(envelope);
         assertThat(html, containsString(
-                "window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"<\\/script><script>alert('Hello')<\\/script>\"}]}}];"));
+                "window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"\\x3C/script>\\x3Cscript>alert('Hello')\\x3C/script>\"}]}}];"));
     }
 }

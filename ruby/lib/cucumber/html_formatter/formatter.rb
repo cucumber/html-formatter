@@ -23,7 +23,9 @@ module Cucumber
 
       def write_message(message)
         out.puts(',') unless @first_message
-        out.print(message.to_json.gsub('/', '\/'))
+        # Replace < with \x3C
+        # https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements
+        out.print(message.to_json.gsub('<', "\\x3C"))
 
         @first_message = false
       end
