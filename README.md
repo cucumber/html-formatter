@@ -20,7 +20,7 @@ The formatter can be configured with:
  * A custom page title and icon
  * Additional CSS to support [styling react components](https://github.com/cucumber/react-components?tab=readme-ov-file#styling).
  * Additional Javascript for other customisations.
- * Replacements for the default Javascript and CSS can be replaced if you are building your own react components. 
+ * The default Javascript and CSS can be replaced to support building custom react components. 
 
 ## Contributing
 
