@@ -83,10 +83,14 @@ export class CucumberHtmlStream extends Transform {
         if (err) return callback(err)
         this.writeFile(this.jsPath, (err) => {
           if (err) return callback(err)
-          this.writeTemplateBetween('{{script}}', '{{custom_script}}', (err) => {
-            if (err) return callback(err)
-            this.writeTemplateBetween('{{custom_script}}', null, callback)
-          })
+          this.writeTemplateBetween(
+            '{{script}}',
+            '{{custom_script}}',
+            (err) => {
+              if (err) return callback(err)
+              this.writeTemplateBetween('{{custom_script}}', null, callback)
+            }
+          )
         })
       })
     })
