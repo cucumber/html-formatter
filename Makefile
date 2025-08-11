@@ -33,12 +33,13 @@ dotnet/Cucumber.HtmlFormatter/Resources/%: javascript/dist/src/%
 dotnet/Cucumber.HtmlFormatter/Resources/%: javascript/dist/%
 	cp $< $@
 
+javascript/dist/index.mustache.html: javascript/dist/main.js
+
+javascript/dist/icon.url: javascript/dist/main.js
+
 javascript/dist/main.js.LICENSE.txt: javascript/dist/main.js
 
 javascript/dist/main.css: javascript/dist/main.js
 
 javascript/dist/main.js: javascript/package.json $(javascript_source)
 	cd javascript && npm install-ci-test && npm run build
-	cd ..
-	ls javascript/dist
-	ls javascript/dist/src
