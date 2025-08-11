@@ -182,16 +182,6 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         }
     }
 
-    /**
-     * Creates a builder to construct this writer.
-     *
-     * @param serializer used to convert messages into json.
-     * @return a new builder
-     */
-    public static Builder builder(Serializer serializer) {
-        return new Builder(serializer);
-    }
-
     private static void writeTemplateBetween(Writer writer, String template, String begin, String end)
             throws IOException {
         int beginIndex = begin == null ? 0 : template.indexOf(begin) + begin.length();
@@ -238,6 +228,16 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
 
     }
 
+    /**
+     * Creates a builder to construct this writer.
+     *
+     * @param serializer used to convert messages into json.
+     * @return a new builder
+     */
+    public static Builder builder(Serializer serializer) {
+        return new Builder(serializer);
+    }
+    
     public static final class Builder {
         private final Serializer serializer;
         private Supplier<InputStream> title = () -> createInputStream("Cucumber");
