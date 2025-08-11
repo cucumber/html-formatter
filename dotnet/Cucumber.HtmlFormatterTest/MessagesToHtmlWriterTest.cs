@@ -206,7 +206,7 @@ public class MessagesToHtmlWriterTest
     }
 
     [TestMethod]
-    public async Task ItEscapesOpeningAngleBracketAsync()
+    public async Task ItEscapesForwardSlashesAsync()
     {
         Envelope envelope = Envelope.Create(new GherkinDocument(
             null,
@@ -214,9 +214,9 @@ public class MessagesToHtmlWriterTest
             [new(new Location(0L, 0L), "</script><script>alert('Hello')</script>")]
         ));
         string html = await RenderAsHtmlAsync(envelope);
-        StringAssert.Contains(html, "window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"\\x3C/script>\\x3Cscript>alert('Hello')\\x3C/script>\"}]}}];"}]}}];",
-            "Expected \"window.CUCUMBER_MESSAGES = [{{\\\"gherkinDocument\\\":{{\\\"comments\\\":[{{\\\"location\\\":{{\\\"line\\\":0,\\\"column\\\":0}},\\\"text\\\":\\\"\\\\x3C/script>\\\\x3Cscript>alert('Hello')\\\\x3C/script>\\\"}}]}}];" +
-                        $"\nbut instead had: \n{html.Substring(html.IndexOf("window.CUCUMBER"))}");
+        StringAssert.Contains(html, "window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"\\x3C/script>\\x3Cscript>alert('Hello')\\x3C/script>\"}]}}];",
+            $"Expected \"window.CUCUMBER_MESSAGES = [{{\\\"gherkinDocument\\\":{{\\\"comments\\\":[{{\\\"location\\\":{{\\\"line\\\":0,\\\"column\\\":0}},\\\"text\\\":\\\"\\\\x3C/script>\\\\x3Cscript>alert('Hello')\\\\x3C/script>\\\"}}]}}];" +
+            $"\nbut instead had: \n{html.Substring(html.IndexOf("window.CUCUMBER"))}");
     }
 
     private static string RenderAsHtml(params Envelope[] messages)
