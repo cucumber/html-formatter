@@ -39,3 +39,5 @@ javascript/dist/main.css: javascript/dist/main.js
 
 javascript/dist/main.js: javascript/package.json $(javascript_source)
 	cd javascript && npm install-ci-test && npm run build
+	cd ..
+	tree . 
