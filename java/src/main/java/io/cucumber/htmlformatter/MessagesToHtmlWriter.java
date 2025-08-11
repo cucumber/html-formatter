@@ -269,7 +269,7 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
          * <p>
          * The {@code icon} is any valid {@code href} value.
          *
-         * @param icon the custom icon.
+         * @param icon a supplier for the custom icon.
          * @return this builder
          */
         public Builder icon(Supplier<InputStream> icon) {
@@ -293,9 +293,11 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         /**
          * Sets default css for the report.
          * <p>
-         * The default script styles the cucumber report.
+         * The default script styles the cucumber report. Unless you are
+         * building your own html report you should use
+         * {@link #customCss(Supplier)} instead.
          *
-         * @param css the custom css.
+         * @param css a supplier for the default css.
          * @return this builder
          */
         public Builder css(Supplier<InputStream> css) {
@@ -308,8 +310,9 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
          * <p>
          * The custom css is applied after the default css.
          *
-         * @param customCss the custom css.
+         * @param customCss a supplier for the custom css.
          * @return this builder
+         * @see <a href=https://github.com/cucumber/react-components?tab=readme-ov-file#styling>Cucumber - React Components - Styling</a>
          */
         public Builder customCss(Supplier<InputStream> customCss) {
             this.customCss = requireNonNull(customCss);
@@ -320,8 +323,10 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
          * Replaces default script for the report.
          * <p>
          * The default script renders the cucumber messages into a report.
+         * Unless you are building your own html report you should use
+         * {@link #customScript(Supplier)} instead.
          *
-         * @param script the custom script.
+         * @param script a supplier for the default script.
          * @return this builder
          */
         public Builder script(Supplier<InputStream> script) {
@@ -334,7 +339,7 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
          * <p>
          * The custom script is applied after the default script.
          *
-         * @param customScript the custom script.
+         * @param customScript a supplier for the custom script.
          * @return this builder
          */
         public Builder customScript(Supplier<InputStream> customScript) {
