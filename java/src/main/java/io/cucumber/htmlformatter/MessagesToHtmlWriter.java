@@ -75,6 +75,12 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         this.script = script;
     }
 
+    private static OutputStreamWriter createWriter(OutputStream outputStream) {
+        return new OutputStreamWriter(
+                requireNonNull(outputStream),
+                StandardCharsets.UTF_8);
+    }
+    
     private static String readTemplate() {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -87,11 +93,18 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
             throw new RuntimeException("Could not read resource index.mustache.html", e);
         }
     }
+    private static InputStream createInputStream(String text) {
+        return new ByteArrayInputStream(text.getBytes(UTF_8));
+    }
 
-    private static OutputStreamWriter createWriter(OutputStream outputStream) {
-        return new OutputStreamWriter(
-                requireNonNull(outputStream),
-                StandardCharsets.UTF_8);
+    private static InputStream createEmptyInputStream() {
+        return new ByteArrayInputStream(new byte[0]);
+    }
+
+    private static InputStream getResource(String name) {
+        InputStream resource = MessagesToHtmlWriter.class.getResourceAsStream(name);
+        requireNonNull(resource, name + " could not be loaded");
+        return resource;
     }
 
     /**
@@ -102,39 +115,6 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
      */
     public static Builder builder(Serializer serializer) {
         return new Builder(serializer);
-    }
-
-    private static InputStream createInputStream(String text) {
-        return new ByteArrayInputStream(text.getBytes(UTF_8));
-    }
-
-    private static InputStream createEmptyInputStream() {
-        return new ByteArrayInputStream(new byte[0]);
-    }
-
-    private static void writeTemplateBetween(Writer writer, String template, String begin, String end)
-            throws IOException {
-        int beginIndex = begin == null ? 0 : template.indexOf(begin) + begin.length();
-        int endIndex = end == null ? template.length() : template.indexOf(end);
-        writer.write(template.substring(beginIndex, endIndex));
-    }
-
-    private static void writeResource(Writer writer, Supplier<InputStream> resource) throws IOException {
-        writeResource(writer, resource.get());
-    }
-
-    private static void writeResource(Writer writer, InputStream resource) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(resource, UTF_8));
-        char[] buffer = new char[1024];
-        for (int read = reader.read(buffer); read != -1; read = reader.read(buffer)) {
-            writer.write(buffer, 0, read);
-        }
-    }
-
-    private static InputStream getResource(String name) {
-        InputStream resource = MessagesToHtmlWriter.class.getResourceAsStream(name);
-        requireNonNull(resource, name + " could not be loaded");
-        return resource;
     }
 
     private void writePreMessage() throws IOException {
@@ -155,6 +135,25 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         writeTemplateBetween(writer, template, "{{script}}", "{{custom_script}}");
         writeResource(writer, customScript);
         writeTemplateBetween(writer, template, "{{custom_script}}", null);
+    }
+
+    private static void writeTemplateBetween(Writer writer, String template, String begin, String end)
+            throws IOException {
+        int beginIndex = begin == null ? 0 : template.indexOf(begin) + begin.length();
+        int endIndex = end == null ? template.length() : template.indexOf(end);
+        writer.write(template.substring(beginIndex, endIndex));
+    }
+
+    private static void writeResource(Writer writer, Supplier<InputStream> resource) throws IOException {
+        writeResource(writer, resource.get());
+    }
+
+    private static void writeResource(Writer writer, InputStream resource) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(resource, UTF_8));
+        char[] buffer = new char[1024];
+        for (int read = reader.read(buffer); read != -1; read = reader.read(buffer)) {
+            writer.write(buffer, 0, read);
+        }
     }
 
     /**
