@@ -37,12 +37,34 @@ public class HtmlReportSettings
     public string CustomScript { get; set; } = string.Empty;
 
     /// <summary>
+    /// Gets or sets the function that loads the main Javascript resource for the HTML report.
+    /// This should only be customized if you use a custom node.js project to serve the HTML report,
+    /// for smaller customizations you can use the <see cref="CustomScript"/> and <see cref="CustomCss"/> property.
+    /// </summary>
+    public Func<string> JavascriptResourceLoader { get; set; }
+
+    /// <summary>
+    /// Gets or sets the function that loads the main CSS resource for the HTML report.
+    /// This should only be customized if you use a custom node.js project to serve the HTML report,
+    /// for smaller customizations you can use the <see cref="CustomScript"/> and <see cref="CustomCss"/> property.
+    /// </summary>
+    public Func<string> CssResourceLoader { get; set; }
+
+    /// <summary>
     /// Creates a new instance of HtmlReportSettings with default values.
     /// </summary>
     public HtmlReportSettings()
     {
+        JavascriptResourceLoader = LoadJavascriptResource;
+        CssResourceLoader = LoadCssResource;
     }
 
     private static string LoadDefaultIcon()
         => MessagesToHtmlWriter.GetResource("icon.url");
+
+    private static string LoadJavascriptResource()
+        => MessagesToHtmlWriter.GetResource("main.js");
+
+    private static string LoadCssResource()
+        => MessagesToHtmlWriter.GetResource("main.css");
 }

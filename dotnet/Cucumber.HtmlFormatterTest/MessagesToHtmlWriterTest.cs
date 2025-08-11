@@ -92,6 +92,43 @@ public class MessagesToHtmlWriterTest
     }
 
     [TestMethod]
+    public async Task ItWritesDefaultJavascriptResource()
+    {
+        var expectedJavascriptResource = MessagesToHtmlWriter.GetResource("main.js");
+
+        string html = await RenderAsHtmlAsync();
+        StringAssert.Contains(html, expectedJavascriptResource);
+    }
+
+    [TestMethod]
+    public async Task ItWritesCustomJavascriptResource()
+    {
+        string CustomJavascriptResourceLoader() => "console.log(\"Hello world\");";
+
+        string html = await RenderAsHtmlAsync(new HtmlReportSettings { JavascriptResourceLoader = CustomJavascriptResourceLoader });
+        StringAssert.Contains(html, "console.log(\"Hello world\");");
+    }
+
+    [TestMethod]
+    public async Task ItWritesDefaultCssResource()
+    {
+        var expectedCssResource = MessagesToHtmlWriter.GetResource("main.css");
+
+        string html = await RenderAsHtmlAsync();
+        StringAssert.Contains(html, expectedCssResource);
+    }
+
+    [TestMethod]
+    public async Task ItWritesCustomCssResource()
+    {
+        string CustomCssResourceLoader() => "p { color: red; }";
+
+        string html = await RenderAsHtmlAsync(new HtmlReportSettings { CssResourceLoader = CustomCssResourceLoader });
+        StringAssert.Contains(html, "p { color: red; }");
+    }
+
+
+    [TestMethod]
     public async Task ItWritesNoMessageToHtmlAsync()
     {
         string html = await RenderAsHtmlAsync();

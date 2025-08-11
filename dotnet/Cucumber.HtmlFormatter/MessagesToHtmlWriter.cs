@@ -35,7 +35,7 @@ public class MessagesToHtmlWriter : IDisposable
             streamSerializer(w, e);
             return Task.CompletedTask;
         };
-        _template = GetResource("index.mustache.html");
+        _template = LoadTemplateResource();
         _jsonInHtmlWriter = new JsonInHtmlWriter(writer);
         _isAsyncInitialized = false;
     }
@@ -47,7 +47,7 @@ public class MessagesToHtmlWriter : IDisposable
         _settings = settings ?? new();
         // Create sync wrapper for async serializer (will block)
         _streamSerializer = (w, e) => asyncStreamSerializer(w, e).GetAwaiter().GetResult();
-        _template = GetResource("index.mustache.html");
+        _template = LoadTemplateResource();
         _jsonInHtmlWriter = new JsonInHtmlWriter(writer);
         _isAsyncInitialized = true;
     }
@@ -59,7 +59,7 @@ public class MessagesToHtmlWriter : IDisposable
         WriteTemplateBetween(_writer, _template, "{{title}}", "{{icon}}");
         _writer.Write(_settings.Icon);
         WriteTemplateBetween(_writer, _template, "{{icon}}", "{{css}}");
-        WriteResource(_writer, "main.css");
+        _writer.Write(_settings.CssResourceLoader());
         WriteTemplateBetween(_writer, _template, "{{css}}", "{{custom_css}}");
         _writer.Write(_settings.CustomCss);
         WriteTemplateBetween(_writer, _template, "{{custom_css}}", "{{messages}}");
@@ -72,7 +72,7 @@ public class MessagesToHtmlWriter : IDisposable
         await WriteTemplateBetweenAsync(_writer, _template, "{{title}}", "{{icon}}");
         await _writer.WriteAsync(_settings.Icon);
         await WriteTemplateBetweenAsync(_writer, _template, "{{icon}}", "{{css}}");
-        await WriteResourceAsync(_writer, "main.css");
+        await _writer.WriteAsync(_settings.CssResourceLoader());
         await WriteTemplateBetweenAsync(_writer, _template, "{{css}}", "{{custom_css}}");
         await _writer.WriteAsync(_settings.CustomCss);
         await WriteTemplateBetweenAsync(_writer, _template, "{{custom_css}}", "{{messages}}");
@@ -81,7 +81,7 @@ public class MessagesToHtmlWriter : IDisposable
     private void WritePostMessage()
     {
         WriteTemplateBetween(_writer, _template, "{{messages}}", "{{script}}");
-        WriteResource(_writer, "main.js");
+        _writer.Write(_settings.JavascriptResourceLoader());
         WriteTemplateBetween(_writer, _template, "{{script}}", "{{custom_script}}");
         _writer.Write(_settings.CustomScript);
         WriteTemplateBetween(_writer, _template, "{{custom_script}}", null);
@@ -90,7 +90,7 @@ public class MessagesToHtmlWriter : IDisposable
     private async Task WritePostMessageAsync()
     {
         await WriteTemplateBetweenAsync(_writer, _template, "{{messages}}", "{{script}}");
-        await WriteResourceAsync(_writer, "main.js");
+        await _writer.WriteAsync(_settings.JavascriptResourceLoader());
         await WriteTemplateBetweenAsync(_writer, _template, "{{script}}", "{{custom_script}}");
         await _writer.WriteAsync(_settings.CustomScript);
         await WriteTemplateBetweenAsync(_writer, _template, "{{custom_script}}", null);
@@ -207,18 +207,6 @@ public class MessagesToHtmlWriter : IDisposable
         }
     }
 
-    private void WriteResource(StreamWriter writer, string v)
-    {
-        var resource = GetResource(v);
-        writer.Write(resource);
-    }
-
-    private async Task WriteResourceAsync(StreamWriter writer, string v)
-    {
-        var resource = GetResource(v);
-        await writer.WriteAsync(resource);
-    }
-
     private void WriteTemplateBetween(StreamWriter writer, string template, string? begin, string? end)
     {
         CalculateBeginAndLength(template, begin, end, out var beginIndex, out var lengthToWrite);
@@ -246,5 +234,10 @@ public class MessagesToHtmlWriter : IDisposable
             throw new InvalidOperationException($"Resource '{name}' not found in assembly '{assembly.FullName}'");
         var resource = new StreamReader(resourceStream).ReadToEnd();
         return resource;
+    }
+
+    private static string LoadTemplateResource()
+    {
+        return GetResource("index.mustache.html");
     }
 }

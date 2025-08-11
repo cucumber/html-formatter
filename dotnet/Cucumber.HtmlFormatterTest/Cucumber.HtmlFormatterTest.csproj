@@ -5,6 +5,8 @@
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\Cucumber.HtmlFormatter.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
