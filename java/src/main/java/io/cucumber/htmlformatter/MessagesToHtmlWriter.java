@@ -29,9 +29,9 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
     private final String template;
     private final Supplier<InputStream> title;
     private final Supplier<InputStream> icon;
-    private final Supplier<InputStream> css = () -> getResource("main.css");
+    private final Supplier<InputStream> css;
     private final Supplier<InputStream> customCss;
-    private final Supplier<InputStream> script = () -> getResource("main.js");
+    private final Supplier<InputStream> script;
     private final Supplier<InputStream> customScript;
 
     private boolean preMessageWritten = false;
@@ -46,7 +46,9 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
                 requireNonNull(serializer),
                 () -> createInputStream("Cucumber"),
                 () -> getResource("icon.url"),
+                () -> getResource("main.css"),
                 MessagesToHtmlWriter::createEmptyInputStream,
+                () -> getResource("main.js"),
                 MessagesToHtmlWriter::createEmptyInputStream
         );
     }
@@ -56,7 +58,9 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
             Serializer serializer,
             Supplier<InputStream> title,
             Supplier<InputStream> icon,
+            Supplier<InputStream> css,
             Supplier<InputStream> customCss,
+            Supplier<InputStream> script,
             Supplier<InputStream> customScript
     ) {
         this.writer = writer;
@@ -65,8 +69,10 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         this.template = readTemplate();
         this.title = title;
         this.icon = icon;
+        this.css = css;
         this.customCss = customCss;
         this.customScript = customScript;
+        this.script = script;
     }
 
     private static String readTemplate() {
@@ -97,11 +103,11 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
     public static Builder builder(Serializer serializer) {
         return new Builder(serializer);
     }
-    
+
     private static InputStream createInputStream(String text) {
         return new ByteArrayInputStream(text.getBytes(UTF_8));
     }
-    
+
     private static InputStream createEmptyInputStream() {
         return new ByteArrayInputStream(new byte[0]);
     }
@@ -237,7 +243,9 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         private final Serializer serializer;
         private Supplier<InputStream> title = () -> createInputStream("Cucumber");
         private Supplier<InputStream> icon = () -> getResource("icon.url");
+        private Supplier<InputStream> css = () -> getResource("main.css");
         private Supplier<InputStream> customCss = MessagesToHtmlWriter::createEmptyInputStream;
+        private Supplier<InputStream> script = () -> getResource("main.js");
         private Supplier<InputStream> customScript = MessagesToHtmlWriter::createEmptyInputStream;
 
         private Builder(Serializer serializer) {
@@ -279,7 +287,19 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
          */
         public Builder icon(String icon) {
             requireNonNull(icon);
-            this.icon = () -> createInputStream(icon);
+            return icon(() -> createInputStream(icon));
+        }
+
+        /**
+         * Sets default css for the report.
+         * <p>
+         * The default script styles the cucumber report.
+         *
+         * @param css the custom css.
+         * @return this builder
+         */
+        public Builder css(Supplier<InputStream> css) {
+            this.css = requireNonNull(css);
             return this;
         }
 
@@ -293,6 +313,19 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
          */
         public Builder customCss(Supplier<InputStream> customCss) {
             this.customCss = requireNonNull(customCss);
+            return this;
+        }
+
+        /**
+         * Replaces default script for the report.
+         * <p>
+         * The default script renders the cucumber messages into a report.
+         *
+         * @param script the custom script.
+         * @return this builder
+         */
+        public Builder script(Supplier<InputStream> script) {
+            this.script = requireNonNull(script);
             return this;
         }
 
@@ -317,7 +350,7 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
          * @return a new instance of the messages to html writer.
          */
         public MessagesToHtmlWriter build(OutputStream out) {
-            return new MessagesToHtmlWriter(createWriter(out), serializer, title, icon, customCss, customScript);
+            return new MessagesToHtmlWriter(createWriter(out), serializer, title, icon, css, customCss, script, customScript);
         }
     }
 

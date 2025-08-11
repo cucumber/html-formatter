@@ -27,6 +27,25 @@ class MessagesToHtmlWriterTest {
 
     static final Serializer serializer = Jackson.OBJECT_MAPPER::writeValue;
 
+    private static ByteArrayInputStream createInputStream(String s) {
+        return new ByteArrayInputStream(s.getBytes(UTF_8));
+    }
+
+    private static String renderAsHtml(Envelope... messages) throws IOException {
+        return renderAsHtml(MessagesToHtmlWriter.builder(serializer), messages);
+    }
+
+    private static String renderAsHtml(MessagesToHtmlWriter.Builder builder, Envelope... messages) throws IOException {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        try (MessagesToHtmlWriter messagesToHtmlWriter = builder.build(bytes)) {
+            for (Envelope message : messages) {
+                messagesToHtmlWriter.write(message);
+            }
+        }
+
+        return new String(bytes.toByteArray(), UTF_8);
+    }
+
     @Test
     void it_writes_one_message_to_html() throws IOException {
         Instant timestamp = Instant.ofEpochSecond(10);
@@ -53,32 +72,45 @@ class MessagesToHtmlWriterTest {
         String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer).title("Custom Title"));
         assertThat(html, containsString("<title>Custom Title</title>"));
     }
-    
+
     @Test
     void it_writes_default_icon() throws IOException {
         String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer));
         assertThat(html, containsString("<link rel=\"icon\" href=\"data:image/svg+xml;base64,"));
     }
-    
-    
+
     @Test
     void it_writes_custom_icon() throws IOException {
         String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer)
-                .icon(() -> new ByteArrayInputStream("https://example.com/logo.svg".getBytes(UTF_8))));
+                .icon("https://example.com/logo.svg"));
         assertThat(html, containsString("<link rel=\"icon\" href=\"https://example.com/logo.svg\">"));
     }
-    
+
+    @Test
+    void it_writes_default_css() throws IOException {
+        String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer)
+                .css(() -> createInputStream("p { color: red; }")));
+        assertThat(html, containsString("p { color: red; }"));
+    }
+
     @Test
     void it_writes_custom_css() throws IOException {
         String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer)
-                .customCss(() -> new ByteArrayInputStream(("p { color: red; }").getBytes(UTF_8))));
+                .customCss(() -> createInputStream(("p { color: red; }"))));
         assertThat(html, containsString("p { color: red; }"));
     }
-    
+
+    @Test
+    void it_writes_default_script() throws IOException {
+        String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer)
+                .script(() -> createInputStream(("console.log(\"Hello world\");"))));
+        assertThat(html, containsString("console.log(\"Hello world\");"));
+    }
+
     @Test
     void it_writes_custom_script() throws IOException {
         String html = renderAsHtml(MessagesToHtmlWriter.builder(serializer)
-                .customScript(() -> new ByteArrayInputStream(("console.log(\"Hello world\");").getBytes(UTF_8))));
+                .customScript(() -> createInputStream(("console.log(\"Hello world\");"))));
         assertThat(html, containsString("console.log(\"Hello world\");"));
     }
 
@@ -126,7 +158,6 @@ class MessagesToHtmlWriterTest {
                 "window.CUCUMBER_MESSAGES = [{\"testRunStarted\":{\"timestamp\":{\"seconds\":10,\"nanos\":0}}},{\"testRunFinished\":{\"success\":true,\"timestamp\":{\"seconds\":15,\"nanos\":0}}}];"));
     }
 
-
     @Test
     void it_escapes_forward_slashes() throws IOException {
         Envelope envelope = Envelope.of(new GherkinDocument(
@@ -140,20 +171,5 @@ class MessagesToHtmlWriterTest {
         String html = renderAsHtml(envelope);
         assertThat(html, containsString(
                 "window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"<\\/script><script>alert('Hello')<\\/script>\"}]}}];"));
-    }
-
-    private static String renderAsHtml(Envelope... messages) throws IOException {
-        return renderAsHtml(MessagesToHtmlWriter.builder(serializer), messages);
-    }
-
-    private static String renderAsHtml(MessagesToHtmlWriter.Builder builder, Envelope... messages) throws IOException {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        try (MessagesToHtmlWriter messagesToHtmlWriter = builder.build(bytes)) {
-            for (Envelope message : messages) {
-                messagesToHtmlWriter.write(message);
-            }
-        }
-
-        return new String(bytes.toByteArray(), UTF_8);
     }
 }
