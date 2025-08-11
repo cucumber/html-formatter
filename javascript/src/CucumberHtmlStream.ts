@@ -8,13 +8,16 @@ export class CucumberHtmlStream extends Transform {
   private preMessageWritten = false
   private postMessageWritten = false
   private firstMessageWritten = false
+
   /**
    * @param cssPath
    * @param jsPath
+   * @param iconPath
    */
   constructor(
     private readonly cssPath: string = path.join(__dirname, '..', 'main.css'),
-    private readonly jsPath: string = path.join(__dirname, '..', 'main.js')
+    private readonly jsPath: string = path.join(__dirname, '..', 'main.js'),
+    private readonly iconPath: string = path.join(__dirname, 'icon.url')
   ) {
     super({ objectMode: true })
   }
@@ -44,13 +47,30 @@ export class CucumberHtmlStream extends Transform {
       return callback()
     }
     this.preMessageWritten = true
-    this.writeTemplateBetween(null, '{{css}}', (err) => {
+    this.writeTemplateBetween(null, '{{title}}', (err) => {
       if (err) return callback(err)
-      this.writeFile(this.cssPath, (err) => {
+      this.push('Cucumber')
+      this.writeTemplateBetween('{{title}}', '{{icon}}', (err) => {
         if (err) return callback(err)
-        this.writeTemplateBetween('{{css}}', '{{messages}}', (err) => {
+        this.writeFile(this.iconPath, (err) => {
           if (err) return callback(err)
-          callback()
+          this.writeTemplateBetween('{{icon}}', '{{css}}', (err) => {
+            if (err) return callback(err)
+            this.writeFile(this.cssPath, (err) => {
+              if (err) return callback(err)
+              this.writeTemplateBetween('{{css}}', '{{custom_css}}', (err) => {
+                if (err) return callback(err)
+                this.writeTemplateBetween(
+                  '{{custom_css}}',
+                  '{{messages}}',
+                  (err) => {
+                    if (err) return callback(err)
+                    callback()
+                  }
+                )
+              })
+            })
+          })
         })
       })
     })
@@ -63,7 +83,14 @@ export class CucumberHtmlStream extends Transform {
         if (err) return callback(err)
         this.writeFile(this.jsPath, (err) => {
           if (err) return callback(err)
-          this.writeTemplateBetween('{{script}}', null, callback)
+          this.writeTemplateBetween(
+            '{{script}}',
+            '{{custom_script}}',
+            (err) => {
+              if (err) return callback(err)
+              this.writeTemplateBetween('{{custom_script}}', null, callback)
+            }
+          )
         })
       })
     })

@@ -24,7 +24,8 @@ test.beforeAll(async () => {
       new NdjsonToMessageStream(),
       new CucumberHtmlStream(
         path.join(__dirname, '../dist/main.css'),
-        path.join(__dirname, '../dist/main.js')
+        path.join(__dirname, '../dist/main.js'),
+        path.join(__dirname, '../dist/src/icon.url')
       ),
       fs.createWriteStream(outputFile)
     )

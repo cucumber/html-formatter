@@ -10,6 +10,17 @@ This formatter is built into the following Cucumber implementations:
 * [cucumber-ruby](https://github.com/cucumber/cucumber-ruby/blob/main/lib/cucumber/formatter/html.rb)
 * [cucumber-jvm](https://github.com/cucumber/cucumber-jvm/blob/main/core/src/main/java/io/cucumber/core/plugin/HtmlFormatter.java)
 * [cucumber-js](https://github.com/cucumber/cucumber-js/blob/main/src/formatter/html_formatter.ts)
+* [Reqnroll](https://github.com/reqnroll/Reqnroll/blob/main/Reqnroll/Formatters/Html/HtmlFormatter.cs)
+
+## Customizations
+
+_Supported by: Java and .Net_
+
+The formatter can be configured with:
+ * A custom page title and icon
+ * Additional CSS to support [styling react components](https://github.com/cucumber/react-components?tab=readme-ov-file#styling).
+ * Additional Javascript for other customisations.
+ * The default Javascript and CSS can be replaced to support building custom react components. 
 
 ## Contributing
 

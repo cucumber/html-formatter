@@ -9,6 +9,7 @@ public class MessagesToHtmlWriter : IDisposable
     private readonly Action<StreamWriter, Envelope> _streamSerializer;
     private readonly string _template;
     private readonly JsonInHtmlWriter _jsonInHtmlWriter;
+    private readonly HtmlReportSettings _settings;
     private bool _streamClosed = false;
     private bool _preMessageWritten = false;
     private bool _firstMessageWritten = false;
@@ -16,63 +17,83 @@ public class MessagesToHtmlWriter : IDisposable
     private readonly bool _isAsyncInitialized = false;
 
     [Obsolete("Cucumber.HtmlFormatter moving to async only operations. Please use the MessagesToHtmlWriter(Stream, Func<StreamWriter, Envelope, Task>) constructor", false)]
-    public MessagesToHtmlWriter(Stream stream, Action<StreamWriter, Envelope> streamSerializer) : this(new StreamWriter(stream), streamSerializer)
-    {
-    }
-    public MessagesToHtmlWriter(Stream stream, Func<StreamWriter, Envelope, Task> asyncStreamSerializer) : this(new StreamWriter(stream), asyncStreamSerializer) { }
+    public MessagesToHtmlWriter(Stream stream, Action<StreamWriter, Envelope> streamSerializer) 
+        : this(new StreamWriter(stream), streamSerializer) { }
+
+    public MessagesToHtmlWriter(Stream stream, Func<StreamWriter, Envelope, Task> asyncStreamSerializer, HtmlReportSettings? settings = null) 
+        : this(new StreamWriter(stream), asyncStreamSerializer, settings) { }
 
     [Obsolete("Cucumber.HtmlFormatter moving to async only operations. Please use the MessagesToHtmlWriter(StreamWriter, Func<StreamWriter, Envelope, Task>) constructor", false)]
     public MessagesToHtmlWriter(StreamWriter writer, Action<StreamWriter, Envelope> streamSerializer)
     {
-        this._writer = writer;
-        this._streamSerializer = streamSerializer;
+        _writer = writer;
+        _streamSerializer = streamSerializer;
+        _settings = new HtmlReportSettings();
         // Create async wrapper for sync serializer
-        this._asyncStreamSerializer = (w, e) =>
+        _asyncStreamSerializer = (w, e) =>
         {
             streamSerializer(w, e);
             return Task.CompletedTask;
         };
-        _template = GetResource("index.mustache.html");
+        _template = LoadTemplateResource();
         _jsonInHtmlWriter = new JsonInHtmlWriter(writer);
         _isAsyncInitialized = false;
     }
-    public MessagesToHtmlWriter(StreamWriter writer, Func<StreamWriter, Envelope, Task> asyncStreamSerializer)
+
+    public MessagesToHtmlWriter(StreamWriter writer, Func<StreamWriter, Envelope, Task> asyncStreamSerializer, HtmlReportSettings? settings = null)
     {
-        this._writer = writer;
-        this._asyncStreamSerializer = asyncStreamSerializer;
+        _writer = writer;
+        _asyncStreamSerializer = asyncStreamSerializer;
+        _settings = settings ?? new();
         // Create sync wrapper for async serializer (will block)
-        this._streamSerializer = (w, e) => asyncStreamSerializer(w, e).GetAwaiter().GetResult();
-        _template = GetResource("index.mustache.html");
+        _streamSerializer = (w, e) => asyncStreamSerializer(w, e).GetAwaiter().GetResult();
+        _template = LoadTemplateResource();
         _jsonInHtmlWriter = new JsonInHtmlWriter(writer);
         _isAsyncInitialized = true;
     }
 
     private void WritePreMessage()
     {
-        WriteTemplateBetween(_writer, _template, null, "{{css}}");
-        WriteResource(_writer, "main.css");
-        WriteTemplateBetween(_writer, _template, "{{css}}", "{{messages}}");
+        WriteTemplateBetween(_writer, _template, null, "{{title}}");
+        _writer.Write(_settings.Title);
+        WriteTemplateBetween(_writer, _template, "{{title}}", "{{icon}}");
+        _writer.Write(_settings.Icon);
+        WriteTemplateBetween(_writer, _template, "{{icon}}", "{{css}}");
+        _writer.Write(_settings.CssResourceLoader());
+        WriteTemplateBetween(_writer, _template, "{{css}}", "{{custom_css}}");
+        _writer.Write(_settings.CustomCss);
+        WriteTemplateBetween(_writer, _template, "{{custom_css}}", "{{messages}}");
     }
 
     private async Task WritePreMessageAsync()
     {
-        await WriteTemplateBetweenAsync(_writer, _template, null, "{{css}}");
-        await WriteResourceAsync(_writer, "main.css");
-        await WriteTemplateBetweenAsync(_writer, _template, "{{css}}", "{{messages}}");
+        await WriteTemplateBetweenAsync(_writer, _template, null, "{{title}}");
+        await _writer.WriteAsync(_settings.Title);
+        await WriteTemplateBetweenAsync(_writer, _template, "{{title}}", "{{icon}}");
+        await _writer.WriteAsync(_settings.Icon);
+        await WriteTemplateBetweenAsync(_writer, _template, "{{icon}}", "{{css}}");
+        await _writer.WriteAsync(_settings.CssResourceLoader());
+        await WriteTemplateBetweenAsync(_writer, _template, "{{css}}", "{{custom_css}}");
+        await _writer.WriteAsync(_settings.CustomCss);
+        await WriteTemplateBetweenAsync(_writer, _template, "{{custom_css}}", "{{messages}}");
     }
 
     private void WritePostMessage()
     {
         WriteTemplateBetween(_writer, _template, "{{messages}}", "{{script}}");
-        WriteResource(_writer, "main.js");
-        WriteTemplateBetween(_writer, _template, "{{script}}", null);
+        _writer.Write(_settings.JavascriptResourceLoader());
+        WriteTemplateBetween(_writer, _template, "{{script}}", "{{custom_script}}");
+        _writer.Write(_settings.CustomScript);
+        WriteTemplateBetween(_writer, _template, "{{custom_script}}", null);
     }
 
     private async Task WritePostMessageAsync()
     {
         await WriteTemplateBetweenAsync(_writer, _template, "{{messages}}", "{{script}}");
-        await WriteResourceAsync(_writer, "main.js");
-        await WriteTemplateBetweenAsync(_writer, _template, "{{script}}", null);
+        await _writer.WriteAsync(_settings.JavascriptResourceLoader());
+        await WriteTemplateBetweenAsync(_writer, _template, "{{script}}", "{{custom_script}}");
+        await _writer.WriteAsync(_settings.CustomScript);
+        await WriteTemplateBetweenAsync(_writer, _template, "{{custom_script}}", null);
     }
 
     public void Write(Envelope envelope)
@@ -186,18 +207,6 @@ public class MessagesToHtmlWriter : IDisposable
         }
     }
 
-    private void WriteResource(StreamWriter writer, string v)
-    {
-        var resource = GetResource(v);
-        writer.Write(resource);
-    }
-
-    private async Task WriteResourceAsync(StreamWriter writer, string v)
-    {
-        var resource = GetResource(v);
-        await writer.WriteAsync(resource);
-    }
-
     private void WriteTemplateBetween(StreamWriter writer, string template, string? begin, string? end)
     {
         CalculateBeginAndLength(template, begin, end, out var beginIndex, out var lengthToWrite);
@@ -217,7 +226,7 @@ public class MessagesToHtmlWriter : IDisposable
         await writer.WriteAsync(template.Substring(beginIndex, lengthToWrite));
     }
 
-    private string GetResource(string name)
+    internal static string GetResource(string name)
     {
         var assembly = typeof(MessagesToHtmlWriter).Assembly;
         var resourceStream = assembly.GetManifestResourceStream("Cucumber.HtmlFormatter.Resources." + name);
@@ -225,5 +234,10 @@ public class MessagesToHtmlWriter : IDisposable
             throw new InvalidOperationException($"Resource '{name}' not found in assembly '{assembly.FullName}'");
         var resource = new StreamReader(resourceStream).ReadToEnd();
         return resource;
+    }
+
+    private static string LoadTemplateResource()
+    {
+        return GetResource("index.mustache.html");
     }
 }

@@ -45,18 +45,24 @@ module Cucumber
 
       def pre_message
         [
-          template_writer.write_between(nil, '{{css}}'),
+          template_writer.write_between(nil, '{{title}}'),
+          'Cucumber',
+          template_writer.write_between('{{title}}', '{{icon}}'),
+          AssetsLoader.icon,
+          template_writer.write_between('{{icon}}', '{{css}}'),
           AssetsLoader.css,
-          template_writer.write_between('{{css}}', '{{messages}}')
-        ].join("\n")
+          template_writer.write_between('{{css}}', '{{custom_css}}'),
+          template_writer.write_between('{{custom_css}}', '{{messages}}')
+        ].join("")
       end
 
       def post_message
         [
           template_writer.write_between('{{messages}}', '{{script}}'),
           AssetsLoader.script,
-          template_writer.write_between('{{script}}', nil)
-        ].join("\n")
+          template_writer.write_between('{{script}}', '{{custom_script}}'),
+          template_writer.write_between('{{custom_script}}', nil)
+        ].join("")
       end
 
       def template_writer

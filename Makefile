@@ -1,5 +1,5 @@
 javascript_source = $(wildcard javascript/src/*)
-assets = main.css main.js main.js.LICENSE.txt index.mustache.html
+assets = main.css main.js main.js.LICENSE.txt index.mustache.html icon.url
 ruby_assets = $(addprefix ruby/assets/,$(assets))
 java_assets = $(addprefix java/src/main/resources/io/cucumber/htmlformatter/,$(assets))
 dotnet_assets = $(addprefix dotnet/Cucumber.HtmlFormatter/Resources/,$(assets))
@@ -15,23 +15,27 @@ clean: ## Remove javascript built module and related artifacts from java and rub
 	rm -rf $(ruby_assets) $(java_assets) $(dotnet_assets) javascript/dist
 .PHONY: .clean
 
-ruby/assets/index.mustache.html: javascript/src/index.mustache.html
+ruby/assets/%: javascript/dist/src/%
 	cp $< $@
 
 ruby/assets/%: javascript/dist/%
 	cp $< $@
 
-java/src/main/resources/io/cucumber/htmlformatter/index.mustache.html: javascript/src/index.mustache.html
+java/src/main/resources/io/cucumber/htmlformatter/%: javascript/dist/src/%
 	cp $< $@
 
 java/src/main/resources/io/cucumber/htmlformatter/%: javascript/dist/%
 	cp $< $@
 
-dotnet/Cucumber.HtmlFormatter/Resources/index.mustache.html: javascript/src/index.mustache.html
+dotnet/Cucumber.HtmlFormatter/Resources/%: javascript/dist/src/%
 	cp $< $@
 
 dotnet/Cucumber.HtmlFormatter/Resources/%: javascript/dist/%
 	cp $< $@
+
+javascript/dist/src/index.mustache.html: javascript/dist/main.js
+
+javascript/dist/src/icon.url: javascript/dist/main.js
 
 javascript/dist/main.js.LICENSE.txt: javascript/dist/main.js
 

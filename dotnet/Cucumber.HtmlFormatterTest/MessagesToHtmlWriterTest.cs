@@ -20,15 +20,16 @@ public class MessagesToHtmlWriterTest
         await sw.WriteAsync(s);
     };
 
-
     [TestMethod]
-    public void ItWritesOneMessageToHtml()
+    public async Task LegacySyncApiRendersTheSameAsAsync()
     {
-        DateTime timestamp = DateTime.UnixEpoch.AddSeconds(10).ToUniversalTime();
-        Envelope envelope = Envelope.Create(new TestRunStarted(Converters.ToTimestamp(timestamp), null));
-        string html = RenderAsHtml(envelope);
-        Assert.IsTrue(html.Contains("window.CUCUMBER_MESSAGES = [{\"testRunStarted\":{\"timestamp\":{\"seconds\":10,\"nanos\":0}}}];"),
-            $"Expected html to contain a testRunStarted message, but instead html contained: {html}");
+        Envelope sampleEnvelope = Envelope.Create(new TestRunStarted(Converters.ToTimestamp(DateTime.UnixEpoch.AddSeconds(10).ToUniversalTime()), null));
+        string expectedHtml = await RenderAsHtmlAsync(sampleEnvelope);
+
+        // ReSharper disable once MethodHasAsyncOverload
+        string html = RenderAsHtml(sampleEnvelope);
+
+        Assert.AreEqual(expectedHtml, html, "Expected legacy sync API to render the same HTML as the async API.");
     }
 
     [TestMethod]
@@ -37,22 +38,101 @@ public class MessagesToHtmlWriterTest
         DateTime timestamp = DateTime.UnixEpoch.AddSeconds(10).ToUniversalTime();
         Envelope envelope = Envelope.Create(new TestRunStarted(Converters.ToTimestamp(timestamp), null));
         string html = await RenderAsHtmlAsync(envelope);
-        Assert.IsTrue(html.Contains("window.CUCUMBER_MESSAGES = [{\"testRunStarted\":{\"timestamp\":{\"seconds\":10,\"nanos\":0}}}];"),
+        StringAssert.Contains(html, "window.CUCUMBER_MESSAGES = [{\"testRunStarted\":{\"timestamp\":{\"seconds\":10,\"nanos\":0}}}];",
             $"Expected html to contain a testRunStarted message, but instead html contained: {html}");
     }
 
     [TestMethod]
-    public void ItWritesNoMessageToHtml()
+    public async Task ItWritesNoMessageToHtml()
     {
-        string html = RenderAsHtml();
-        Assert.IsTrue(html.Contains("window.CUCUMBER_MESSAGES = [];"));
+        string html = await RenderAsHtmlAsync();
+        StringAssert.Contains(html, "window.CUCUMBER_MESSAGES = [];");
     }
+
+    [TestMethod]
+    public async Task ItWritesDefaultTitle() 
+    {
+        string html = await RenderAsHtmlAsync();
+        StringAssert.Contains(html, "<title>Cucumber</title>");
+    }
+
+    [TestMethod]
+    public async Task ItWritesCustomTitle()
+    {
+        string html = await RenderAsHtmlAsync(new HtmlReportSettings { Title = "Custom Title" });
+        StringAssert.Contains(html, "<title>Custom Title</title>");
+    }
+
+    [TestMethod]
+    public async Task ItWritesDefaultIcon()
+    {
+        string html = await RenderAsHtmlAsync();
+        StringAssert.Contains(html, "<link rel=\"icon\" href=\"data:image/svg+xml;base64,");
+    }
+
+    [TestMethod]
+    public async Task ItWritesCustomIcon()
+    {
+        string html = await RenderAsHtmlAsync(new HtmlReportSettings { Icon = "<link rel=\"icon\" href=\"https://example.com/logo.svg\">" });
+        StringAssert.Contains(html, "<link rel=\"icon\" href=\"https://example.com/logo.svg\">");
+    }
+
+    [TestMethod]
+    public async Task ItWritesCustomCss()
+    {
+        string html = await RenderAsHtmlAsync(new HtmlReportSettings { CustomCss = "p { color: red; }" });
+        StringAssert.Contains(html, "p { color: red; }");
+    }
+
+    [TestMethod]
+    public async Task ItWritesCustomScript()
+    {
+        string html = await RenderAsHtmlAsync(new HtmlReportSettings() { CustomScript = "console.log(\"Hello world\");" });
+        StringAssert.Contains(html, "console.log(\"Hello world\");");
+    }
+
+    [TestMethod]
+    public async Task ItWritesDefaultJavascriptResource()
+    {
+        var expectedJavascriptResource = MessagesToHtmlWriter.GetResource("main.js");
+
+        string html = await RenderAsHtmlAsync();
+        StringAssert.Contains(html, expectedJavascriptResource);
+    }
+
+    [TestMethod]
+    public async Task ItWritesCustomJavascriptResource()
+    {
+        string CustomJavascriptResourceLoader() => "console.log(\"Hello world\");";
+
+        string html = await RenderAsHtmlAsync(new HtmlReportSettings { JavascriptResourceLoader = CustomJavascriptResourceLoader });
+        StringAssert.Contains(html, "console.log(\"Hello world\");");
+    }
+
+    [TestMethod]
+    public async Task ItWritesDefaultCssResource()
+    {
+        var expectedCssResource = MessagesToHtmlWriter.GetResource("main.css");
+
+        string html = await RenderAsHtmlAsync();
+        StringAssert.Contains(html, expectedCssResource);
+    }
+
+    [TestMethod]
+    public async Task ItWritesCustomCssResource()
+    {
+        string CustomCssResourceLoader() => "p { color: red; }";
+
+        string html = await RenderAsHtmlAsync(new HtmlReportSettings { CssResourceLoader = CustomCssResourceLoader });
+        StringAssert.Contains(html, "p { color: red; }");
+    }
+
 
     [TestMethod]
     public async Task ItWritesNoMessageToHtmlAsync()
     {
         string html = await RenderAsHtmlAsync();
-        Assert.IsTrue(html.Contains("window.CUCUMBER_MESSAGES = [];"));
+        StringAssert.Contains(html, "window.CUCUMBER_MESSAGES = [];");
     }
 
     [TestMethod]
@@ -153,41 +233,17 @@ public class MessagesToHtmlWriterTest
         CollectionAssert.AreEqual(before, after);
     }
 
-
-    [TestMethod]
-    public void ItWritesTwoMessagesSeparatedByAComma()
-    {
-        Envelope testRunStarted = Envelope.Create(new TestRunStarted(Converters.ToTimestamp(DateTime.UnixEpoch.AddSeconds(10).ToUniversalTime()), null));
-        Envelope envelope = Envelope.Create(new TestRunFinished(null, true, Converters.ToTimestamp(DateTime.UnixEpoch.AddSeconds(15).ToUniversalTime()), null, null));
-        string html = RenderAsHtml(testRunStarted, envelope);
-        Assert.IsTrue(html.Contains("window.CUCUMBER_MESSAGES = [{\"testRunStarted\":{\"timestamp\":{\"seconds\":10,\"nanos\":0}}},{\"testRunFinished\":{\"success\":true,\"timestamp\":{\"seconds\":15,\"nanos\":0}}}];"));
-    }
-
     [TestMethod]
     public async Task ItWritesTwoMessagesSeparatedByACommaAsync()
     {
         Envelope testRunStarted = Envelope.Create(new TestRunStarted(Converters.ToTimestamp(DateTime.UnixEpoch.AddSeconds(10).ToUniversalTime()), null));
         Envelope envelope = Envelope.Create(new TestRunFinished(null, true, Converters.ToTimestamp(DateTime.UnixEpoch.AddSeconds(15).ToUniversalTime()), null, null));
         string html = await RenderAsHtmlAsync(testRunStarted, envelope);
-        Assert.IsTrue(html.Contains("window.CUCUMBER_MESSAGES = [{\"testRunStarted\":{\"timestamp\":{\"seconds\":10,\"nanos\":0}}},{\"testRunFinished\":{\"success\":true,\"timestamp\":{\"seconds\":15,\"nanos\":0}}}];"));
+        StringAssert.Contains(html, "window.CUCUMBER_MESSAGES = [{\"testRunStarted\":{\"timestamp\":{\"seconds\":10,\"nanos\":0}}},{\"testRunFinished\":{\"success\":true,\"timestamp\":{\"seconds\":15,\"nanos\":0}}}];");
     }
 
     [TestMethod]
-    public void ItEscapesOpeningAngleBracket()
-    {
-        Envelope envelope = Envelope.Create(new GherkinDocument(
-            null,
-            null,
-            [new(new Location(0L, 0L), "</script><script>alert('Hello')</script>")]
-        ));
-        string html = RenderAsHtml(envelope);
-        Assert.IsTrue(html.Contains("window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"\\x3C/script>\\x3Cscript>alert('Hello')\\x3C/script>\"}]}}];"),
-            $"Expected \"window.CUCUMBER_MESSAGES = [{{\\\"gherkinDocument\\\":{{\\\"comments\\\":[{{\\\"location\\\":{{\\\"line\\\":0,\\\"column\\\":0}},\\\"text\\\":\\\"\\\\x3C/script>\\\\x3Cscript>alert('Hello')\\\\x3C/script>\\\"}}]}}];" +
-            $"\nbut instead had: \n{html.Substring(html.IndexOf("window.CUCUMBER"))}");
-    }
-
-    [TestMethod]
-    public async Task ItEscapesOpeningAngleBracketAsync()
+    public async Task ItEscapesForwardSlashesAsync()
     {
         Envelope envelope = Envelope.Create(new GherkinDocument(
             null,
@@ -195,7 +251,7 @@ public class MessagesToHtmlWriterTest
             [new(new Location(0L, 0L), "</script><script>alert('Hello')</script>")]
         ));
         string html = await RenderAsHtmlAsync(envelope);
-        Assert.IsTrue(html.Contains("window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"\\x3C/script>\\x3Cscript>alert('Hello')\\x3C/script>\"}]}}];"),
+        StringAssert.Contains(html, "window.CUCUMBER_MESSAGES = [{\"gherkinDocument\":{\"comments\":[{\"location\":{\"line\":0,\"column\":0},\"text\":\"\\x3C/script>\\x3Cscript>alert('Hello')\\x3C/script>\"}]}}];",
             $"Expected \"window.CUCUMBER_MESSAGES = [{{\\\"gherkinDocument\\\":{{\\\"comments\\\":[{{\\\"location\\\":{{\\\"line\\\":0,\\\"column\\\":0}},\\\"text\\\":\\\"\\\\x3C/script>\\\\x3Cscript>alert('Hello')\\\\x3C/script>\\\"}}]}}];" +
             $"\nbut instead had: \n{html.Substring(html.IndexOf("window.CUCUMBER"))}");
     }
@@ -217,8 +273,13 @@ public class MessagesToHtmlWriterTest
 
     private static async Task<string> RenderAsHtmlAsync(params Envelope[] messages)
     {
+        return await RenderAsHtmlAsync(null, messages);
+    }
+
+    private static async Task<string> RenderAsHtmlAsync(HtmlReportSettings? settings, params Envelope[] messages)
+    {
         MemoryStream bytes = new MemoryStream();
-        await using (MessagesToHtmlWriter messagesToHtmlWriter = new MessagesToHtmlWriter(bytes, AsyncSerializer))
+        await using (MessagesToHtmlWriter messagesToHtmlWriter = new MessagesToHtmlWriter(bytes, AsyncSerializer, settings))
         {
             foreach (Envelope message in messages)
             {
