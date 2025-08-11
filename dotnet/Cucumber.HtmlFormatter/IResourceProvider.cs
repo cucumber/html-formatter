@@ -1,11 +1,8 @@
-using System;
-using System.Threading.Tasks;
-using System.IO;
-
 namespace Cucumber.HtmlFormatter;
 
 /// <summary>
-/// Interface for providing resources to the HTML formatter
+/// Interface for providing resources to the HTML formatter.
+/// This is an experimental API for allowing customizations, will be replaced by a more flexible solution in an upcoming release.
 /// </summary>
 public interface IResourceProvider
 {

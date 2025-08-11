@@ -53,7 +53,7 @@ public class DefaultResourceProvider : IResourceProvider
     /// </summary>
     /// <param name="name">The resource name</param>
     /// <returns>The resource content</returns>
-    protected string GetResource(string name)
+    private string GetResource(string name)
     {
         var resourceStream = _assembly.GetManifestResourceStream(_resourceNamespace + name);
         if (resourceStream == null)
