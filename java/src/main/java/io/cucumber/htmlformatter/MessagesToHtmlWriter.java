@@ -137,25 +137,6 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         writeTemplateBetween(writer, template, "{{custom_script}}", null);
     }
 
-    private static void writeTemplateBetween(Writer writer, String template, String begin, String end)
-            throws IOException {
-        int beginIndex = begin == null ? 0 : template.indexOf(begin) + begin.length();
-        int endIndex = end == null ? template.length() : template.indexOf(end);
-        writer.write(template.substring(beginIndex, endIndex));
-    }
-
-    private static void writeResource(Writer writer, Supplier<InputStream> resource) throws IOException {
-        writeResource(writer, resource.get());
-    }
-
-    private static void writeResource(Writer writer, InputStream resource) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(resource, UTF_8));
-        char[] buffer = new char[1024];
-        for (int read = reader.read(buffer); read != -1; read = reader.read(buffer)) {
-            writer.write(buffer, 0, read);
-        }
-    }
-
     /**
      * Writes a cucumber message to the html output.
      *
@@ -208,6 +189,26 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
             writer.close();
         } finally {
             streamClosed = true;
+        }
+    }
+
+
+    private static void writeTemplateBetween(Writer writer, String template, String begin, String end)
+            throws IOException {
+        int beginIndex = begin == null ? 0 : template.indexOf(begin) + begin.length();
+        int endIndex = end == null ? template.length() : template.indexOf(end);
+        writer.write(template.substring(beginIndex, endIndex));
+    }
+
+    private static void writeResource(Writer writer, Supplier<InputStream> resource) throws IOException {
+        writeResource(writer, resource.get());
+    }
+
+    private static void writeResource(Writer writer, InputStream resource) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(resource, UTF_8));
+        char[] buffer = new char[1024];
+        for (int read = reader.read(buffer); read != -1; read = reader.read(buffer)) {
+            writer.write(buffer, 0, read);
         }
     }
 
