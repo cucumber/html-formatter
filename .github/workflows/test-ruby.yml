@@ -31,7 +31,7 @@ jobs:
           - os: macos-latest
             ruby: '3.3'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: ./.github/actions/prepare
       - uses: ruby/setup-ruby@v1
         with:
