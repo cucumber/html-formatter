@@ -107,16 +107,6 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         return resource;
     }
 
-    /**
-     * Creates a builder to construct this writer.
-     *
-     * @param serializer used to convert messages into json.
-     * @return a new builder
-     */
-    public static Builder builder(Serializer serializer) {
-        return new Builder(serializer);
-    }
-
     private void writePreMessage() throws IOException {
         writeTemplateBetween(writer, template, null, "{{title}}");
         writeResource(writer, title);
@@ -192,6 +182,15 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         }
     }
 
+    /**
+     * Creates a builder to construct this writer.
+     *
+     * @param serializer used to convert messages into json.
+     * @return a new builder
+     */
+    public static Builder builder(Serializer serializer) {
+        return new Builder(serializer);
+    }
 
     private static void writeTemplateBetween(Writer writer, String template, String begin, String end)
             throws IOException {
