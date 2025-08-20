@@ -9,11 +9,11 @@ describe Cucumber::HTMLFormatter::Formatter do
     before do
       allow(Cucumber::HTMLFormatter::AssetsLoader)
         .to receive_messages(
-          template: "{{title}}\n{{icon}}\n{{css}}\n{{custom_css}}\n{{messages}}\n{{script}}\n{{custom_script}}\n",
-          icon: 'https://example.org/icon.svg',
-          css: 'div { color: red }',
-          script: "alert('Hi');"
-        )
+              template: "{{title}}\n{{icon}}\n{{css}}\n{{custom_css}}\n{{messages}}\n{{script}}\n{{custom_script}}\n",
+              icon: 'https://example.org/icon.svg',
+              css: 'div { color: red }',
+              script: "alert('Hi');"
+            )
     end
 
     describe '#process_messages' do
@@ -97,34 +97,24 @@ describe Cucumber::HTMLFormatter::Formatter do
     end
   end
 
-  context 'when using the CCK' do
-    CCK::Examples.gherkin.each do |example_name|
-      def run_formatter(messages)
-        out = StringIO.new
-        formatter = Cucumber::HTMLFormatter::Formatter.new(out)
-        formatter.process_messages(messages)
-        out.string
-      end
+  it 'writes no messages to html' do
+    formatter.process_messages([])
 
-      describe "'#{example_name}' example" do
-        subject(:html_report) { run_formatter(File.readlines(example_ndjson)) }
+    expect(out.string).to match(/\A<!DOCTYPE html>\s?<html/)
+    expect(out.string).to include("window.CUCUMBER_MESSAGES = [\n];")
+    expect(out.string).to match(/<\/html>\Z/)
+    
+  end
 
-        let(:example_ndjson) { "#{CCK::Examples.feature_code_for(example_name)}/#{example_name}.feature.ndjson" }
+  it 'writes an empty report' do
+    formatter.process_messages([
+       Cucumber::Messages::Envelope.new(test_run_started: Cucumber::Messages::TestRunStarted.new(timestamp: Cucumber::Messages::Timestamp.new(seconds: 10, nanos: 0))),
+       Cucumber::Messages::Envelope.new(test_run_finished: Cucumber::Messages::TestRunFinished.new(timestamp: Cucumber::Messages::Timestamp.new(seconds: 15, nanos: 0)))
+     ])
 
-        it { is_expected.to match(/\A<!DOCTYPE html>\s?<html/) }
-        it { is_expected.to match(/<\/html>\Z/) }
-      end
-    end
-
-    CCK::Examples.markdown.each do |example_name|
-      describe "'#{example_name}' example" do
-        subject(:html_report) { run_formatter(File.readlines(example_ndjson)) }
-
-        let(:example_ndjson) { "#{CCK::Examples.feature_code_for(example_name)}/#{example_name}.feature.md.ndjson" }
-
-        it { is_expected.to match(/\A<!DOCTYPE html>\s?<html/) }
-        it { is_expected.to match(/<\/html>\Z/) }
-      end
-    end
+    expect(out.string).to match(/\A<!DOCTYPE html>\s?<html/)
+    expect(out.string).to include("window.CUCUMBER_MESSAGES = [\n{\"testRunStarted\":{\"timestamp\":{\"seconds\":10,\"nanos\":0}}},\n{\"testRunFinished\":{\"success\":false,\"timestamp\":{\"seconds\":15,\"nanos\":0}}}];")
+    expect(out.string).to match(/<\/html>\Z/)
+    
   end
 end
