@@ -49,8 +49,28 @@ jobs:
         working-directory: javascript
       - run: npm test
         working-directory: javascript
-      - name: Setup browsers
-        run: npx playwright install --with-deps
+
+  test-acceptance:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.54.2-jammy
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [22.x, 24.x]
+
+    steps:
+      - name: set git core.autocrlf to 'input'
+        run: git config --global core.autocrlf input
+      - uses: actions/checkout@v5
+      - name: with Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+        working-directory: javascript
+      - run: npm run build
+        working-directory: javascript
       - name: Acceptance tests
         working-directory: javascript
         run: npm run acceptance
