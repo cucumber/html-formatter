@@ -138,6 +138,10 @@ export class CucumberHtmlStream extends Transform {
   }
 
   private writeMessage(envelope: messages.Envelope) {
+    if (envelope.stepDefinition || envelope.hook || envelope.parameterType) {
+      return;
+    }
+    
     if (!this.firstMessageWritten) {
       this.firstMessageWritten = true
     } else {
