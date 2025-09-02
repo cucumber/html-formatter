@@ -143,6 +143,12 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
             preMessageWritten = true;
         }
 
+        if (envelope.getStepDefinition().isPresent() 
+                || envelope.getHook().isPresent()
+                || envelope.getParameterType().isPresent()) {
+            return;
+        }
+
         if (!firstMessageWritten) {
             firstMessageWritten = true;
         } else {
