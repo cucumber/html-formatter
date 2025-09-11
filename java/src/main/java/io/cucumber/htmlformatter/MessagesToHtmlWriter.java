@@ -80,7 +80,7 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
                 requireNonNull(outputStream),
                 StandardCharsets.UTF_8);
     }
-    
+
     private static String readTemplate() {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -93,6 +93,7 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
             throw new RuntimeException("Could not read resource index.mustache.html", e);
         }
     }
+
     private static InputStream createInputStream(String text) {
         return new ByteArrayInputStream(text.getBytes(UTF_8));
     }
@@ -237,7 +238,7 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
     public static Builder builder(Serializer serializer) {
         return new Builder(serializer);
     }
-    
+
     public static final class Builder {
         private final Serializer serializer;
         private Supplier<InputStream> title = () -> createInputStream("Cucumber");
@@ -311,7 +312,7 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
          *
          * @param customCss a supplier for the custom css.
          * @return this builder
-         * @see <a href=https://github.com/cucumber/react-components?tab=readme-ov-file#styling>Cucumber - React Components - Styling</a>
+         * @see <a href="https://github.com/cucumber/react-components?tab=readme-ov-file#styling">Cucumber - React Components - Styling</a>
          */
         public Builder customCss(Supplier<InputStream> customCss) {
             this.customCss = requireNonNull(customCss);
@@ -322,7 +323,7 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
          * Replaces default script for the report.
          * <p>
          * The default script renders the cucumber messages into a report.
-         * Unless you are building your own html report you should use
+         * Unless you are building yourMessagesToHtmlWriter own html report you should use
          * {@link #customScript(Supplier)} instead.
          *
          * @param script a supplier for the default script.
