@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [21.15.0] - 2025-09-11
 ### Changed
 - Upgrade `cucumber-messages` to [29.0.1](https://github.com/cucumber/messages/releases/tag/v29.0.1)
 
@@ -390,7 +391,8 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.14.0...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.15.0...HEAD
+[21.15.0]: https://github.com/cucumber/html-formatter/compare/v21.14.0...v21.15.0
 [21.14.0]: https://github.com/cucumber/html-formatter/compare/v21.13.0...v21.14.0
 [21.13.0]: https://github.com/cucumber/html-formatter/compare/v21.12.0...v21.13.0
 [21.12.0]: https://github.com/cucumber/html-formatter/compare/v21.11.0...v21.12.0
