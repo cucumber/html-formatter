@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cucumber.Messages" Version="[27.0, 29.0)"/>
+    <PackageReference Include="Cucumber.Messages" Version="29.0.1"/>
   </ItemGroup>
 
   <PropertyGroup Label="Package Properties">
