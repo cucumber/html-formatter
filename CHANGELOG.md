@@ -6,8 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [21.15.1] - 2025-09-11
 ### Fixed
-- [Java] Fix invalid Javadoc 
+- [Java] Fix invalid Javadoc
 
 ## [21.15.0] - 2025-09-11
 ### Changed
@@ -393,7 +395,8 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.15.0...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.15.1...HEAD
+[21.15.1]: https://github.com/cucumber/html-formatter/compare/v21.15.0...v21.15.1
 [21.15.0]: https://github.com/cucumber/html-formatter/compare/v21.14.0...v21.15.0
 [21.14.0]: https://github.com/cucumber/html-formatter/compare/v21.13.0...v21.14.0
 [21.13.0]: https://github.com/cucumber/html-formatter/compare/v21.12.0...v21.13.0
