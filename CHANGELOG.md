@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- Upgrade `cucumber-messages` to [29.0.1](https://github.com/cucumber/messages/releases/tag/v29.0.1)
+
 ## [21.14.0] - 2025-08-11
 ### Added
 - [.Net] Support customizations ([#409](https://github.com/cucumber/html-formatter/pull/409))
