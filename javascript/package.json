@@ -30,7 +30,7 @@
     "@cucumber/compatibility-kit": "^22.0.0",
     "@cucumber/gherkin": "35.0.0",
     "@cucumber/gherkin-streams": "^6.0.0",
-    "@cucumber/gherkin-utils": "^9.0.0",
+    "@cucumber/gherkin-utils": "^10.0.0",
     "@cucumber/message-streams": "4.0.1",
     "@cucumber/messages": "29.0.1",
     "@cucumber/query": "14.0.1",
