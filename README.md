@@ -43,5 +43,7 @@ If the tests fail, you can see actual vs expected screenshots plus a visual diff
 If fixtures are added or changed in the CCK, the screenshots will have to be updated accordingly. To do that, run:
 
 ```shell
+cd javascript
+npm install
 npx playwright test --update-snapshots
 ```
