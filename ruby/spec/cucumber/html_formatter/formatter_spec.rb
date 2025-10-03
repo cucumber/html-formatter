@@ -103,7 +103,7 @@ describe Cucumber::HTMLFormatter::Formatter do
     expect(out.string).to match(/\A<!DOCTYPE html>\s?<html/)
     expect(out.string).to include("window.CUCUMBER_MESSAGES = [\n];")
     expect(out.string).to match(/<\/html>\Z/)
-    
+
   end
 
   it 'writes an empty report' do
@@ -115,6 +115,6 @@ describe Cucumber::HTMLFormatter::Formatter do
     expect(out.string).to match(/\A<!DOCTYPE html>\s?<html/)
     expect(out.string).to include("window.CUCUMBER_MESSAGES = [\n{\"testRunStarted\":{\"timestamp\":{\"seconds\":10,\"nanos\":0}}},\n{\"testRunFinished\":{\"success\":false,\"timestamp\":{\"seconds\":15,\"nanos\":0}}}];")
     expect(out.string).to match(/<\/html>\Z/)
-    
+
   end
 end
