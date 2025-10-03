@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Changed
-- [Ruby] Minimum ruby version is now 3.1+ ([#268](https://github.com/cucumber/html-formatter/pull/268))
+- [Ruby] Minimum ruby version is now 3.1+ (Bumped CI workflows also) ([#441](https://github.com/cucumber/html-formatter/pull/441))
 
 ## [21.15.1] - 2025-09-11
 ### Fixed
