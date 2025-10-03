@@ -12,8 +12,8 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/cucumber/html-formatter'
   s.platform    = Gem::Platform::RUBY
   s.license     = 'MIT'
-  s.required_ruby_version = '>= 2.6'
-  s.required_rubygems_version = '>= 3.0.3'
+  s.required_ruby_version = '>= 3.1'
+  s.required_rubygems_version = '>= 3.2.8'
 
   s.metadata = {
     'bug_tracker_uri' => 'https://github.com/cucumber/html-formatter/issues',
@@ -26,11 +26,11 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'cucumber-messages', '> 19', '< 28'
 
-  s.add_development_dependency 'rake', '~> 13.2'
+  s.add_development_dependency 'rake', '~> 13.3'
   s.add_development_dependency 'rspec', '~> 3.13'
-  s.add_development_dependency 'rubocop', '~> 1.71.0'
+  s.add_development_dependency 'rubocop', '~> 1.81.0'
   s.add_development_dependency 'rubocop-rake', '~> 0.6.0'
-  s.add_development_dependency 'rubocop-rspec', '~> 2.31.0'
+  s.add_development_dependency 'rubocop-rspec', '~> 3.7.0'
 
   s.executables      = ['cucumber-html-formatter']
   s.files            = Dir['README.md', 'LICENSE', 'lib/**/*', 'assets/*']

@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- [Ruby] Minimum ruby version is now 3.1+ ([#268](https://github.com/cucumber/html-formatter/pull/268))
 
 ## [21.15.1] - 2025-09-11
 ### Fixed
