@@ -25,7 +25,7 @@ module Cucumber
         out.puts(',') unless @first_message
         # Replace < with \x3C
         # https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements
-        out.print(message.to_json.gsub('<', "\\x3C"))
+        out.print(message.to_json.gsub('<', '\\x3C'))
 
         @first_message = false
       end
@@ -53,7 +53,7 @@ module Cucumber
           AssetsLoader.css,
           template_writer.write_between('{{css}}', '{{custom_css}}'),
           template_writer.write_between('{{custom_css}}', '{{messages}}')
-        ].join("")
+        ].join('')
       end
 
       def post_message
@@ -62,7 +62,7 @@ module Cucumber
           AssetsLoader.script,
           template_writer.write_between('{{script}}', '{{custom_script}}'),
           template_writer.write_between('{{custom_script}}', nil)
-        ].join("")
+        ].join('')
       end
 
       def template_writer
