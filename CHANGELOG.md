@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [22.0.0] - 2025-10-03
 ### Changed
 - [Ruby] Minimum ruby version is now 3.1+ (Bumped CI workflows also) ([#441](https://github.com/cucumber/html-formatter/pull/441))
 - Upgrade `cucumber-messages` to [30.0.0](https://github.com/cucumber/messages/releases/tag/v30.0.0)
@@ -398,7 +400,8 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v21.15.1...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v22.0.0...HEAD
+[22.0.0]: https://github.com/cucumber/html-formatter/compare/v21.15.1...v22.0.0
 [21.15.1]: https://github.com/cucumber/html-formatter/compare/v21.15.0...v21.15.1
 [21.15.0]: https://github.com/cucumber/html-formatter/compare/v21.14.0...v21.15.0
 [21.14.0]: https://github.com/cucumber/html-formatter/compare/v21.13.0...v21.14.0
