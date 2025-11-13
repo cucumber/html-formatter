@@ -13,6 +13,7 @@ export default defineConfig({
   use: {
     headless: true,
     baseURL: 'http://localhost:3000',
+    colorScheme: 'light'
   },
   projects: [
     {
@@ -26,7 +27,6 @@ export default defineConfig({
   expect: {
     toHaveScreenshot: {
       stylePath: './test/screenshot.css',
-      maxDiffPixelRatio: 0.05,
     },
   },
 })

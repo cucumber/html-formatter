@@ -73,4 +73,4 @@ jobs:
         working-directory: javascript
       - name: Acceptance tests
         working-directory: javascript
-        run: npm run acceptance
+        run: npx playwright test
