@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Upgrade `react-components` to [24.0.0](https://github.com/cucumber/react-components/releases/tag/v24.0.0)
 
 ## [22.0.0] - 2025-10-03
 ### Changed
