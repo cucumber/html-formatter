@@ -27,7 +27,7 @@ export default defineConfig({
   expect: {
     toHaveScreenshot: {
       stylePath: './test/screenshot.css',
-      maxDiffPixelRatio: 0.05,
+      maxDiffPixelRatio: 0.01,
     },
   },
 })
