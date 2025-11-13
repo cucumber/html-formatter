@@ -20,7 +20,8 @@
     "prepublishOnly": "npm run build",
     "fix": "eslint --max-warnings 0 --fix src test && prettier --write src test",
     "lint": "eslint --max-warnings 0 src test && prettier --check src test",
-    "acceptance": "playwright test"
+    "acceptance:local": "docker compose run --rm playwright",
+    "acceptance:update": "docker compose run --rm playwright npx playwright test --update-snapshots"
   },
   "peerDependencies": {
     "@cucumber/messages": ">=18"
