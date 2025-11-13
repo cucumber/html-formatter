@@ -59,12 +59,8 @@ class JsonInHtmlWriterTest {
         Arrays.fill(buffer, 1, buffer.length, '<');
         writer.write(buffer);
 
-        StringBuilder expected = new StringBuilder();
-        expected.append("a");
-        for (int i = 1; i < buffer.length; i++) {
-            expected.append("\\x3C");
-        }
-        assertEquals(expected.toString(), output());
+        String expected = "a" + "\\x3C".repeat(buffer.length - 1);
+        assertEquals(expected, output());
     }
 
 
@@ -74,11 +70,7 @@ class JsonInHtmlWriterTest {
         Arrays.fill(buffer, '<');
         writer.write(buffer);
 
-        StringBuilder expected = new StringBuilder();
-        for (int i = 0; i < buffer.length; i++) {
-            expected.append("\\x3C");
-        }
-        assertEquals(expected.toString(), output());
+        assertEquals("\\x3C".repeat(buffer.length), output());
     }
 
     @Test
@@ -90,6 +82,6 @@ class JsonInHtmlWriterTest {
 
     private String output() throws IOException {
         writer.flush();
-        return new String(out.toByteArray(), UTF_8);
+        return out.toString(UTF_8);
     }
 }
