@@ -1,7 +1,10 @@
 package io.cucumber.htmlformatter;
 
+import org.jspecify.annotations.Nullable;
+
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Objects;
 
 /**
  * Writes json with the forward slash ({@code /}) escaped. Assumes
@@ -10,10 +13,10 @@ import java.io.Writer;
 class JsonInHtmlWriter extends Writer {
     private static final int BUFFER_SIZE = 1024;
     private final Writer delegate;
-    private char[] escapeBuffer;
+    private char @Nullable[] escapeBuffer;
 
     JsonInHtmlWriter(Writer delegate) {
-        this.delegate = delegate;
+        this.delegate = Objects.requireNonNull(delegate);
     }
 
     @Override

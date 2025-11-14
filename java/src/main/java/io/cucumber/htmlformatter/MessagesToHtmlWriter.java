@@ -1,6 +1,7 @@
 package io.cucumber.htmlformatter;
 
 import io.cucumber.messages.types.Envelope;
+import org.jspecify.annotations.Nullable;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -39,20 +40,6 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
     private boolean firstMessageWritten = false;
     private boolean streamClosed = false;
 
-    @Deprecated
-    public MessagesToHtmlWriter(OutputStream outputStream, Serializer serializer) throws IOException {
-        this(
-                createWriter(outputStream),
-                requireNonNull(serializer),
-                () -> createInputStream("Cucumber"),
-                () -> getResource("icon.url"),
-                () -> getResource("main.css"),
-                MessagesToHtmlWriter::createEmptyInputStream,
-                () -> getResource("main.js"),
-                MessagesToHtmlWriter::createEmptyInputStream
-        );
-    }
-
     private MessagesToHtmlWriter(
             OutputStreamWriter writer,
             Serializer serializer,
@@ -88,7 +75,7 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
                 InputStream resource = getResource("index.mustache.html");
                 writeResource(writer, resource);
             }
-            return new String(baos.toByteArray(), UTF_8);
+            return baos.toString(UTF_8);
         } catch (IOException e) {
             throw new RuntimeException("Could not read resource index.mustache.html", e);
         }
@@ -108,24 +95,14 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         return resource;
     }
 
-    private void writePreMessage() throws IOException {
-        writeTemplateBetween(writer, template, null, "{{title}}");
-        writeResource(writer, title);
-        writeTemplateBetween(writer, template, "{{title}}", "{{icon}}");
-        writeResource(writer, icon);
-        writeTemplateBetween(writer, template, "{{icon}}", "{{css}}");
-        writeResource(writer, css);
-        writeTemplateBetween(writer, template, "{{css}}", "{{custom_css}}");
-        writeResource(writer, customCss);
-        writeTemplateBetween(writer, template, "{{custom_css}}", "{{messages}}");
-    }
-
-    private void writePostMessage() throws IOException {
-        writeTemplateBetween(writer, template, "{{messages}}", "{{script}}");
-        writeResource(writer, script);
-        writeTemplateBetween(writer, template, "{{script}}", "{{custom_script}}");
-        writeResource(writer, customScript);
-        writeTemplateBetween(writer, template, "{{custom_script}}", null);
+    /**
+     * Creates a builder to construct this writer.
+     *
+     * @param serializer used to convert messages into json.
+     * @return a new builder
+     */
+    public static Builder builder(Serializer serializer) {
+        return new Builder(serializer);
     }
 
     /**
@@ -151,6 +128,18 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         }
 
         serializer.writeValue(jsonInHtmlWriter, envelope);
+    }
+
+    private void writePreMessage() throws IOException {
+        writeTemplateBetween(writer, template, null, "{{title}}");
+        writeResource(writer, title);
+        writeTemplateBetween(writer, template, "{{title}}", "{{icon}}");
+        writeResource(writer, icon);
+        writeTemplateBetween(writer, template, "{{icon}}", "{{css}}");
+        writeResource(writer, css);
+        writeTemplateBetween(writer, template, "{{css}}", "{{custom_css}}");
+        writeResource(writer, customCss);
+        writeTemplateBetween(writer, template, "{{custom_css}}", "{{messages}}");
     }
 
     /**
@@ -183,7 +172,15 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         }
     }
 
-    private static void writeTemplateBetween(Writer writer, String template, String begin, String end)
+    private void writePostMessage() throws IOException {
+        writeTemplateBetween(writer, template, "{{messages}}", "{{script}}");
+        writeResource(writer, script);
+        writeTemplateBetween(writer, template, "{{script}}", "{{custom_script}}");
+        writeResource(writer, customScript);
+        writeTemplateBetween(writer, template, "{{custom_script}}", null);
+    }
+
+    private static void writeTemplateBetween(Writer writer, String template, @Nullable String begin, @Nullable String end)
             throws IOException {
         int beginIndex = begin == null ? 0 : template.indexOf(begin) + begin.length();
         int endIndex = end == null ? template.length() : template.indexOf(end);
@@ -227,16 +224,6 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
          */
         void writeValue(Writer writer, Envelope value) throws IOException;
 
-    }
-
-    /**
-     * Creates a builder to construct this writer.
-     *
-     * @param serializer used to convert messages into json.
-     * @return a new builder
-     */
-    public static Builder builder(Serializer serializer) {
-        return new Builder(serializer);
     }
 
     public static final class Builder {
