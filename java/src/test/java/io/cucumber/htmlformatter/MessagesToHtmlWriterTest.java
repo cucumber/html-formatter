@@ -7,6 +7,7 @@ import io.cucumber.messages.types.GherkinDocument;
 import io.cucumber.messages.types.Location;
 import io.cucumber.messages.types.TestRunFinished;
 import io.cucumber.messages.types.TestRunStarted;
+import io.cucumber.messages.types.Timestamp;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -117,7 +118,9 @@ class MessagesToHtmlWriterTest {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         MessagesToHtmlWriter messagesToHtmlWriter = MessagesToHtmlWriter.builder(serializer).build(bytes);
         messagesToHtmlWriter.close();
-        assertThrows(IOException.class, () -> messagesToHtmlWriter.write(Envelope.of(new TestRunStarted(toMessage(Instant.now()),"some-id"))));
+        assertThrows(IOException.class, () -> messagesToHtmlWriter.write(
+                Envelope.of(new TestRunStarted(new Timestamp(0L, 0), ""))
+        ));
     }
 
     @Test
