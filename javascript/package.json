@@ -35,7 +35,7 @@
     "@cucumber/message-streams": "4.0.1",
     "@cucumber/messages": "30.1.0",
     "@cucumber/query": "14.6.0",
-    "@cucumber/react-components": "24.0.0",
+    "@cucumber/react-components": "24.0.1",
     "@eslint/compat": "^2.0.0",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.32.0",
