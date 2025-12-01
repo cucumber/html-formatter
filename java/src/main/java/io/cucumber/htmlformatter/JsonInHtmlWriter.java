@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * Writes json with the forward slash ({@code /}) escaped. Assumes
- * JSON has not been escaped yet.
+ * Writes json with the opening angle bracket ({@code <}) escaped.
  */
 class JsonInHtmlWriter extends Writer {
     private static final int BUFFER_SIZE = 1024;
