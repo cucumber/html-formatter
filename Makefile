@@ -15,22 +15,22 @@ clean: ## Remove javascript built module and related artifacts from java and rub
 	rm -rf $(ruby_assets) $(java_assets) $(dotnet_assets) javascript/dist
 .PHONY: .clean
 
-ruby/assets/%: javascript/dist/src/%
-	cp $< $@
-
 ruby/assets/%: javascript/dist/%
 	cp $< $@
 
-java/src/main/resources/io/cucumber/htmlformatter/%: javascript/dist/src/%
+ruby/assets/%: javascript/dist/src/%
 	cp $< $@
 
 java/src/main/resources/io/cucumber/htmlformatter/%: javascript/dist/%
 	cp $< $@
 
-dotnet/Cucumber.HtmlFormatter/Resources/%: javascript/dist/src/%
+java/src/main/resources/io/cucumber/htmlformatter/%: javascript/dist/src/%
 	cp $< $@
 
 dotnet/Cucumber.HtmlFormatter/Resources/%: javascript/dist/%
+	cp $< $@
+
+dotnet/Cucumber.HtmlFormatter/Resources/%: javascript/dist/src/%
 	cp $< $@
 
 javascript/dist/src/index.mustache.html: javascript/dist/main.js
