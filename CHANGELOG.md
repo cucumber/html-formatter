@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [22.3.0] - 2025-12-22
 ### Changed
 - [Ruby] Increase lower and upper bounds of permissible `cucumber-messages` versions
 
@@ -410,7 +412,8 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v22.2.0...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v22.3.0...HEAD
+[22.3.0]: https://github.com/cucumber/html-formatter/compare/v22.2.0...v22.3.0
 [22.2.0]: https://github.com/cucumber/html-formatter/compare/v22.1.0...v22.2.0
 [22.1.0]: https://github.com/cucumber/html-formatter/compare/v22.0.0...v22.1.0
 [22.0.0]: https://github.com/cucumber/html-formatter/compare/v21.15.1...v22.0.0
