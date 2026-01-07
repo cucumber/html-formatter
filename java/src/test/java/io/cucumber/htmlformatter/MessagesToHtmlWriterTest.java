@@ -6,6 +6,12 @@ import io.cucumber.messages.types.Comment;
 import io.cucumber.messages.types.Envelope;
 import io.cucumber.messages.types.GherkinDocument;
 import io.cucumber.messages.types.Location;
+import io.cucumber.messages.types.Source;
+import io.cucumber.messages.types.SourceMediaType;
+import io.cucumber.messages.types.SourceReference;
+import io.cucumber.messages.types.StepDefinition;
+import io.cucumber.messages.types.StepDefinitionPattern;
+import io.cucumber.messages.types.StepDefinitionPatternType;
 import io.cucumber.messages.types.TestRunFinished;
 import io.cucumber.messages.types.TestRunStarted;
 import org.junit.jupiter.api.Test;
@@ -15,6 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.Instant;
 
+import static io.cucumber.messages.types.SourceMediaType.TEXT_X_CUCUMBER_GHERKIN_PLAIN;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -58,6 +65,14 @@ class MessagesToHtmlWriterTest {
     @Test
     void it_writes_no_message_to_html() throws IOException {
         String html = renderAsHtml();
+        assertThat(html, containsString("window.CUCUMBER_MESSAGES = [];"));
+    }
+
+    @Test
+    void it_ignores_step_definition_messages() throws IOException {
+        StepDefinitionPattern pattern = new StepDefinitionPattern("hello {int} cucumber(s)", StepDefinitionPatternType.CUCUMBER_EXPRESSION);
+        Envelope envelope = Envelope.of(new StepDefinition("123", pattern, SourceReference.of("path/to/StepDefinition.java")));
+        String html = renderAsHtml(envelope);
         assertThat(html, containsString("window.CUCUMBER_MESSAGES = [];"));
     }
 

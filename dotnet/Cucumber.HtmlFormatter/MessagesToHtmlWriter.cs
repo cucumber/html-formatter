@@ -112,6 +112,10 @@ public class MessagesToHtmlWriter : IDisposable
             _preMessageWritten = true;
             _writer.Flush();
         }
+        if(envelope.StepDefinition != null || envelope.Hook != null || envelope.ParameterType != null)
+        {
+            return;
+        }
         if (!_firstMessageWritten)
         {
             _firstMessageWritten = true;
@@ -141,6 +145,10 @@ public class MessagesToHtmlWriter : IDisposable
             await WritePreMessageAsync();
             _preMessageWritten = true;
             await _writer.FlushAsync();
+        }
+        if(envelope.Source != null || envelope.StepDefinition != null)
+        {
+            return;
         }
         if (!_firstMessageWritten)
         {

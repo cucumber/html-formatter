@@ -22,6 +22,10 @@ module Cucumber
       end
 
       def write_message(message)
+        if message.step_definition != nil || message.hook != nil  || message.parameter_type != nil
+          return
+        end
+                
         out.puts(',') unless @first_message
         # Replace < with \x3C
         # https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements
