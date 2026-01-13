@@ -16,7 +16,7 @@
     <url>https://github.com/cucumber/html-formatter</url>
 
     <properties>
-        <osgi.bundle-symbolic-name>io.cucumber.htmlformatter</osgi.bundle-symbolic-name>
+        <project.Automatic-Module-Name>io.cucumber.htmlformatter</project.Automatic-Module-Name>
         <project.build.outputTimestamp>1759510323</project.build.outputTimestamp>
     </properties>
 
