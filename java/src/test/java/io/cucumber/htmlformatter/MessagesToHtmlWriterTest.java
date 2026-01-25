@@ -1,6 +1,6 @@
 package io.cucumber.htmlformatter;
 
-import io.cucumber.htmlformatter.MessagesToHtmlWriter.Serializer;
+import io.cucumber.messages.ndjson.Serializer;
 import io.cucumber.messages.types.Comment;
 import io.cucumber.messages.types.Envelope;
 import io.cucumber.messages.types.GherkinDocument;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MessagesToHtmlWriterTest {
 
-    static final Serializer serializer = Jackson.OBJECT_MAPPER::writeValue;
+    public static final MessagesToHtmlWriter.Serializer serializer = new Serializer()::writeValue;
 
     private static ByteArrayInputStream createInputStream(String s) {
         return new ByteArrayInputStream(s.getBytes(UTF_8));

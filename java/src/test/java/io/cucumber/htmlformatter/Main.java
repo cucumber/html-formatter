@@ -1,8 +1,8 @@
 package io.cucumber.htmlformatter;
 
-import io.cucumber.htmlformatter.MessagesToHtmlWriter.Serializer;
-import io.cucumber.messages.NdjsonToMessageIterable;
-import io.cucumber.messages.NdjsonToMessageIterable.Deserializer;
+import io.cucumber.messages.NdjsonToMessageReader;
+import io.cucumber.messages.ndjson.Deserializer;
+import io.cucumber.messages.ndjson.Serializer;
 import io.cucumber.messages.types.Envelope;
 import org.jspecify.annotations.NullMarked;
 
@@ -11,11 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static io.cucumber.htmlformatter.Jackson.OBJECT_MAPPER;
-
 public final class Main {
-    private static final Deserializer deserializer = json -> OBJECT_MAPPER.readValue(json, Envelope.class);
-    private static final Serializer serializer = OBJECT_MAPPER::writeValue;
 
     private Main() {
         // main class
@@ -28,11 +24,11 @@ public final class Main {
         } else {
             in = new FileInputStream(args[0]);
         }
-        try (NdjsonToMessageIterable envelopes = new NdjsonToMessageIterable(in, deserializer)) {
-            MessagesToHtmlWriter.Builder builder = MessagesToHtmlWriter.builder(serializer);
+        try (NdjsonToMessageReader reader = new NdjsonToMessageReader(in, new Deserializer())) {
+            MessagesToHtmlWriter.Builder builder = MessagesToHtmlWriter.builder(new Serializer()::writeValue);
             OutputStream out = new NonClosableOutputStream(System.out);
             try (MessagesToHtmlWriter htmlWriter = builder.build(out)) {
-                for (Envelope envelope : envelopes) {
+                for (Envelope envelope : reader.lines().toList()) {
                     htmlWriter.write(envelope);
                 }
             }
