@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Set release version to 17 ([#455](https://github.com/cucumber/html-formatter/pull/455))
 
 ## [22.3.0] - 2025-12-22
 ### Changed
