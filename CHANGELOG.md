@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [23.0.0] - 2026-01-25
 ### Changed
 - [Java] Set release version to 17 ([#455](https://github.com/cucumber/html-formatter/pull/455))
 
@@ -414,7 +416,8 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v22.3.0...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v23.0.0...HEAD
+[23.0.0]: https://github.com/cucumber/html-formatter/compare/v22.3.0...v23.0.0
 [22.3.0]: https://github.com/cucumber/html-formatter/compare/v22.2.0...v22.3.0
 [22.2.0]: https://github.com/cucumber/html-formatter/compare/v22.1.0...v22.2.0
 [22.1.0]: https://github.com/cucumber/html-formatter/compare/v22.0.0...v22.1.0
