@@ -5,18 +5,17 @@
     <parent>
         <groupId>io.cucumber</groupId>
         <artifactId>cucumber-parent</artifactId>
-        <version>4.5.0</version>
+        <version>5.0.0</version>
     </parent>
 
     <artifactId>html-formatter</artifactId>
-    <version>22.3.1-SNAPSHOT</version>
+    <version>23.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Cucumber HTML Formatter</name>
     <description>Renders Cucumber Messages as HTML</description>
     <url>https://github.com/cucumber/html-formatter</url>
 
     <properties>
-        <project.Automatic-Module-Name>io.cucumber.htmlformatter</project.Automatic-Module-Name>
         <project.build.outputTimestamp>1766436539</project.build.outputTimestamp>
     </properties>
 
@@ -38,9 +37,9 @@
             </dependency>
 
             <dependency>
-                <groupId>com.fasterxml.jackson</groupId>
-                <artifactId>jackson-bom</artifactId>
-                <version>2.20.1</version>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-bom</artifactId>
+                <version>3.27.6</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -51,31 +50,19 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>messages</artifactId>
-            <version>[18.0.0,31.0.0)</version>
+            <version>[32.0.0,33.0.0)</version>
         </dependency>
 
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
+            <groupId>io.cucumber</groupId>
+            <artifactId>messages-ndjson</artifactId>
+            <version>0.4.0</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jdk8</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-parameter-names</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <version>3.0</version>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -85,4 +72,22 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
