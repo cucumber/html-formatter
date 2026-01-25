@@ -38,10 +38,6 @@ code {
   max-width: 1600px;
   min-height: 100vh;
   margin: 0 auto;
-
-  &__header {
-    margin-bottom: 1.5rem;
-  }
 }
 
 @media all and (prefers-color-scheme: dark) {

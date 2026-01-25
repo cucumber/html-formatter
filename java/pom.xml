@@ -16,7 +16,7 @@
     <url>https://github.com/cucumber/html-formatter</url>
 
     <properties>
-        <project.build.outputTimestamp>1759510323</project.build.outputTimestamp>
+        <project.build.outputTimestamp>1766436539</project.build.outputTimestamp>
     </properties>
 
     <scm>
@@ -91,7 +91,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    
+
     <build>
         <plugins>
             <plugin>

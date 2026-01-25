@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [22.3.0] - 2025-12-22
+### Changed
+- [Ruby] Increase lower and upper bounds of permissible `cucumber-messages` versions
+
+## [22.2.0] - 2025-11-30
+### Added
+- Use new report with better hooks support ([#453](https://github.com/cucumber/html-formatter/pull/453))
+
+## [22.1.0] - 2025-11-13
+### Changed
+- Upgrade `react-components` to [24.0.0](https://github.com/cucumber/react-components/releases/tag/v24.0.0)
+
 ## [22.0.0] - 2025-10-03
 ### Changed
 - [Ruby] Minimum ruby version is now 3.1+ (Bumped CI workflows also) ([#441](https://github.com/cucumber/html-formatter/pull/441))
@@ -400,7 +412,10 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v22.0.0...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v22.3.0...HEAD
+[22.3.0]: https://github.com/cucumber/html-formatter/compare/v22.2.0...v22.3.0
+[22.2.0]: https://github.com/cucumber/html-formatter/compare/v22.1.0...v22.2.0
+[22.1.0]: https://github.com/cucumber/html-formatter/compare/v22.0.0...v22.1.0
 [22.0.0]: https://github.com/cucumber/html-formatter/compare/v21.15.1...v22.0.0
 [21.15.1]: https://github.com/cucumber/html-formatter/compare/v21.15.0...v21.15.1
 [21.15.0]: https://github.com/cucumber/html-formatter/compare/v21.14.0...v21.15.0
