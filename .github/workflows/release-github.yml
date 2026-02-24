@@ -18,7 +18,7 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v5
-      - uses: cucumber/action-create-github-release@v1.1.1
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+      - uses: cucumber/action-create-github-release@cf2c6f77ba35d2424362e83393a1c4c004cf2ddb # v1.1.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
