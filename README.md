@@ -12,6 +12,8 @@ This formatter is built into the following Cucumber implementations:
 * [cucumber-js](https://github.com/cucumber/cucumber-js/blob/main/src/formatter/html_formatter.ts)
 * [Reqnroll](https://github.com/reqnroll/Reqnroll/blob/main/Reqnroll/Formatters/Html/HtmlFormatter.cs)
 
+![Example Report](./javascript/test/__screenshots__/examples-tables.png)
+
 ## Customizations
 
 _Supported by: Java and .Net_
