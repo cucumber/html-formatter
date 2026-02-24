@@ -19,7 +19,7 @@ jobs:
           bundler-cache: true
           working-directory: ruby
       - name: Publish ruby gem
-        uses: cucumber/action-publish-rubygem@v1.0.0
+        uses: cucumber/action-publish-rubygem@d8918cbdee789cfc78f346a96a59596b87795be1 # v1.0.0
         with:
           working_directory: ruby
           rubygems_api_key: ${{ secrets.RUBYGEMS_API_KEY }}
