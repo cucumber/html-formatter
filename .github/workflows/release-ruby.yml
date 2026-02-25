@@ -15,7 +15,7 @@ jobs:
       - uses: ./.github/actions/prepare
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.4.7'
+          ruby-version: '3.4.8'
           bundler-cache: true
           working-directory: ruby
       - name: Publish ruby gem
