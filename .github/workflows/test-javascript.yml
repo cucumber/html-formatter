@@ -52,7 +52,7 @@ jobs:
   test-acceptance:
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.56.1-jammy
+      image: mcr.microsoft.com/playwright:v1.58.2-jammy
     strategy:
       fail-fast: false
       matrix:
