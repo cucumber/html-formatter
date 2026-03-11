@@ -1,5 +1,7 @@
 name: Release maven package
 
+permissions: {}
+
 on:
   push:
     branches:
