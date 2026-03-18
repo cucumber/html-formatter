@@ -19,7 +19,7 @@ jobs:
       - uses: ./.github/actions/prepare
       - uses: ruby/setup-ruby@319994f95fa847cf3fb3cd3dbe89f6dcde9f178f # v1.295.0
         with:
-          ruby-version: '3.4.9'
+          ruby-version: '4.0.2'
           working-directory: ruby
       - name: Publish ruby gem
         uses: cucumber/action-publish-rubygem@d8918cbdee789cfc78f346a96a59596b87795be1 # v1.0.0
