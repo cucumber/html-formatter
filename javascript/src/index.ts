@@ -1,5 +1,6 @@
 import { CucumberHtmlStream } from './CucumberHtmlStream'
 
+export * from './AttachmentExternalisingStream'
 export * from './CucumberHtmlStream'
 
 /**
