@@ -2,8 +2,8 @@
 
 describe Cucumber::HTMLFormatter::AssetsLoader do
   describe '#template' do
-    it 'reads the content of assets/index.mustache.html' do
-      expect(File).to receive(:read).with(a_string_ending_with('assets/index.mustache.html'))
+    it 'reads the content of assets/index.mustache' do
+      expect(File).to receive(:read).with(a_string_ending_with('assets/index.mustache'))
 
       described_class.template
     end

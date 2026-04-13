@@ -238,6 +238,6 @@ public class MessagesToHtmlWriter : IDisposable
 
     private static string LoadTemplateResource()
     {
-        return GetResource("index.mustache.html");
+        return GetResource("index.mustache");
     }
 }

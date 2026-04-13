@@ -5,7 +5,7 @@ module Cucumber
     class AssetsLoader
       class << self
         def template
-          read_asset('index.mustache.html')
+          read_asset('index.mustache')
         end
 
         def icon

@@ -1,7 +1,7 @@
-import * as messages from '@cucumber/messages'
-import fs from 'fs'
-import path from 'path'
-import { Readable, Transform, TransformCallback } from 'stream'
+import fs from 'node:fs'
+import path from 'node:path'
+import { type Readable, Transform, type TransformCallback } from 'node:stream'
+import type { Envelope } from '@cucumber/messages'
 
 export class CucumberHtmlStream extends Transform {
   private template: string | null = null
@@ -22,17 +22,17 @@ export class CucumberHtmlStream extends Transform {
     super({ objectMode: true })
   }
 
-  public _transform(
-    envelope: messages.Envelope,
-    encoding: string,
-    callback: TransformCallback
-  ): void {
+  public _transform(envelope: Envelope, _encoding: string, callback: TransformCallback): void {
     if (this.postMessageWritten) {
-      return callback(new Error('Stream closed'))
+      callback(new Error('Stream closed'))
+      return
     }
 
     this.writePreMessageUnlessAlreadyWritten((err) => {
-      if (err) return callback(err)
+      if (err) {
+        callback(err)
+        return
+      }
       this.writeMessage(envelope)
       callback()
     })
@@ -60,14 +60,10 @@ export class CucumberHtmlStream extends Transform {
               if (err) return callback(err)
               this.writeTemplateBetween('{{css}}', '{{custom_css}}', (err) => {
                 if (err) return callback(err)
-                this.writeTemplateBetween(
-                  '{{custom_css}}',
-                  '{{messages}}',
-                  (err) => {
-                    if (err) return callback(err)
-                    callback()
-                  }
-                )
+                this.writeTemplateBetween('{{custom_css}}', '{{messages}}', (err) => {
+                  if (err) return callback(err)
+                  callback()
+                })
               })
             })
           })
@@ -83,14 +79,10 @@ export class CucumberHtmlStream extends Transform {
         if (err) return callback(err)
         this.writeFile(this.jsPath, (err) => {
           if (err) return callback(err)
-          this.writeTemplateBetween(
-            '{{script}}',
-            '{{custom_script}}',
-            (err) => {
-              if (err) return callback(err)
-              this.writeTemplateBetween('{{custom_script}}', null, callback)
-            }
-          )
+          this.writeTemplateBetween('{{script}}', '{{custom_script}}', (err) => {
+            if (err) return callback(err)
+            this.writeTemplateBetween('{{custom_script}}', null, callback)
+          })
         })
       })
     })
@@ -110,34 +102,26 @@ export class CucumberHtmlStream extends Transform {
   ) {
     this.readTemplate((err, template) => {
       if (err) return callback(err)
-      if (!template)
-        return callback(new Error('template is required if error is missing'))
-      const beginIndex =
-        begin == null ? 0 : template.indexOf(begin) + begin.length
+      if (!template) return callback(new Error('template is required if error is missing'))
+      const beginIndex = begin == null ? 0 : template.indexOf(begin) + begin.length
       const endIndex = end == null ? template.length : template.indexOf(end)
       this.push(template.substring(beginIndex, endIndex))
       callback()
     })
   }
 
-  private readTemplate(
-    callback: (error?: Error | null, data?: string) => void
-  ) {
+  private readTemplate(callback: (error?: Error | null, data?: string) => void) {
     if (this.template !== null) {
       return callback(null, this.template)
     }
-    fs.readFile(
-      __dirname + '/index.mustache.html',
-      { encoding: 'utf-8' },
-      (err, template) => {
-        if (err) return callback(err)
-        this.template = template
-        return callback(null, template)
-      }
-    )
+    fs.readFile(`${__dirname}/index.mustache`, { encoding: 'utf-8' }, (err, template) => {
+      if (err) return callback(err)
+      this.template = template
+      return callback(null, template)
+    })
   }
 
-  private writeMessage(envelope: messages.Envelope) {
+  private writeMessage(envelope: Envelope) {
     if (!this.firstMessageWritten) {
       this.firstMessageWritten = true
     } else {

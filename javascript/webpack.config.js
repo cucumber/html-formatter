@@ -1,4 +1,4 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   entry: './dist/src/main.js',
@@ -13,18 +13,18 @@ module.exports = {
             options: {
               modules: {
                 auto: true,
-                namedExport: false
-              }
-            }
+                namedExport: false,
+              },
+            },
           },
-          'sass-loader'
+          'sass-loader',
         ],
-      }
+      },
     ],
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'main.css'
-    })
-  ]
-};
+      filename: 'main.css',
+    }),
+  ],
+}

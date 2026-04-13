@@ -12,14 +12,11 @@
     "strictNullChecks": true,
     "experimentalDecorators": true,
     "module": "CommonJS",
-    "lib": [
-      "ES6",
-      "dom"
-    ],
+    "lib": ["ES6", "dom"],
     "target": "ES6",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react-jsx"
   }
 }

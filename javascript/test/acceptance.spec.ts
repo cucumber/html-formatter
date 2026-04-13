@@ -8,16 +8,14 @@ import { sync } from 'glob'
 
 import { CucumberHtmlStream } from '../src'
 
-const fixtures = sync(
-  `./node_modules/@cucumber/compatibility-kit/features/**/*.ndjson`
-)
+const fixtures = sync(`./node_modules/@cucumber/compatibility-kit/features/**/*.ndjson`)
 
 test.beforeAll(async () => {
   const outputDir = path.join(__dirname, './__output__')
 
   for (const fixture of fixtures) {
     const name = path.basename(fixture, '.ndjson')
-    const outputFile = path.join(outputDir, name + '.html')
+    const outputFile = path.join(outputDir, `${name}.html`)
 
     await pipeline(
       fs.createReadStream(fixture, { encoding: 'utf-8' }),
