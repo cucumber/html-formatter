@@ -1,10 +1,10 @@
 import assert from 'node:assert'
 import { Writable } from 'node:stream'
-import type * as messages from '@cucumber/messages'
+import type { Envelope } from '@cucumber/messages'
 
 import { CucumberHtmlStream } from './CucumberHtmlStream'
 
-async function renderAsHtml(...envelopes: messages.Envelope[]): Promise<string> {
+async function renderAsHtml(...envelopes: Envelope[]): Promise<string> {
   return new Promise((resolve, reject) => {
     let html = ''
     const sink: Writable = new Writable({
@@ -35,7 +35,7 @@ describe('CucumberHtmlStream', () => {
   })
 
   it('writes one message to html', async () => {
-    const e1: messages.Envelope = {
+    const e1: Envelope = {
       testRunStarted: {
         timestamp: { seconds: 0, nanos: 0 },
       },
@@ -45,12 +45,12 @@ describe('CucumberHtmlStream', () => {
   })
 
   it('writes two messages to html', async () => {
-    const e1: messages.Envelope = {
+    const e1: Envelope = {
       testRunStarted: {
         timestamp: { seconds: 0, nanos: 0 },
       },
     }
-    const e2: messages.Envelope = {
+    const e2: Envelope = {
       testRunFinished: {
         timestamp: { seconds: 0, nanos: 0 },
         success: true,
@@ -63,7 +63,7 @@ describe('CucumberHtmlStream', () => {
   })
 
   it('escapes forward slashes', async () => {
-    const e1: messages.Envelope = {
+    const e1: Envelope = {
       gherkinDocument: {
         comments: [
           {

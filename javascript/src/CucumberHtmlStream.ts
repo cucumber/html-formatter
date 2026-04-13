@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { type Readable, Transform, type TransformCallback } from 'node:stream'
-import type * as messages from '@cucumber/messages'
+import type { Envelope } from '@cucumber/messages'
 
 export class CucumberHtmlStream extends Transform {
   private template: string | null = null
@@ -22,11 +22,7 @@ export class CucumberHtmlStream extends Transform {
     super({ objectMode: true })
   }
 
-  public _transform(
-    envelope: messages.Envelope,
-    _encoding: string,
-    callback: TransformCallback
-  ): void {
+  public _transform(envelope: Envelope, _encoding: string, callback: TransformCallback): void {
     if (this.postMessageWritten) {
       callback(new Error('Stream closed'))
       return
@@ -125,7 +121,7 @@ export class CucumberHtmlStream extends Transform {
     })
   }
 
-  private writeMessage(envelope: messages.Envelope) {
+  private writeMessage(envelope: Envelope) {
     if (!this.firstMessageWritten) {
       this.firstMessageWritten = true
     } else {
