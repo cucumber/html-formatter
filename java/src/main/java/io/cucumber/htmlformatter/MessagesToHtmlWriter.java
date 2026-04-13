@@ -72,12 +72,12 @@ public final class MessagesToHtmlWriter implements AutoCloseable {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(baos, UTF_8))) {
-                InputStream resource = getResource("index.mustache.html");
+                InputStream resource = getResource("index.mustache");
                 writeResource(writer, resource);
             }
             return baos.toString(UTF_8);
         } catch (IOException e) {
-            throw new RuntimeException("Could not read resource index.mustache.html", e);
+            throw new RuntimeException("Could not read resource index.mustache", e);
         }
     }
 

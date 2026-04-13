@@ -1,12 +1,7 @@
 import './styles.scss'
 
-import { Envelope } from '@cucumber/messages'
-import {
-  EnvelopesProvider,
-  Report,
-  UrlSearchProvider,
-} from '@cucumber/react-components'
-import React from 'react'
+import type { Envelope } from '@cucumber/messages'
+import { EnvelopesProvider, Report, UrlSearchProvider } from '@cucumber/react-components'
 import { createRoot } from 'react-dom/client'
 
 declare global {

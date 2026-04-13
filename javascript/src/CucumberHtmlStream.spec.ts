@@ -1,20 +1,14 @@
-import * as messages from '@cucumber/messages'
-import assert from 'assert'
-import { Writable } from 'stream'
+import assert from 'node:assert'
+import { Writable } from 'node:stream'
+import type * as messages from '@cucumber/messages'
 
 import { CucumberHtmlStream } from './CucumberHtmlStream'
 
-async function renderAsHtml(
-  ...envelopes: messages.Envelope[]
-): Promise<string> {
+async function renderAsHtml(...envelopes: messages.Envelope[]): Promise<string> {
   return new Promise((resolve, reject) => {
     let html = ''
     const sink: Writable = new Writable({
-      write(
-        chunk: string,
-        _: string,
-        callback: (error?: Error | null) => void
-      ): void {
+      write(chunk: string, _: string, callback: (error?: Error | null) => void): void {
         html += chunk
         callback()
       },
@@ -47,9 +41,7 @@ describe('CucumberHtmlStream', () => {
       },
     }
     const html = await renderAsHtml(e1)
-    assert(
-      html.indexOf(`window.CUCUMBER_MESSAGES = [${JSON.stringify(e1)}]`) >= 0
-    )
+    assert(html.indexOf(`window.CUCUMBER_MESSAGES = [${JSON.stringify(e1)}]`) >= 0)
   })
 
   it('writes two messages to html', async () => {
@@ -66,11 +58,7 @@ describe('CucumberHtmlStream', () => {
     }
     const html = await renderAsHtml(e1, e2)
     assert(
-      html.indexOf(
-        `window.CUCUMBER_MESSAGES = [${JSON.stringify(e1)},${JSON.stringify(
-          e2
-        )}]`
-      ) >= 0
+      html.indexOf(`window.CUCUMBER_MESSAGES = [${JSON.stringify(e1)},${JSON.stringify(e2)}]`) >= 0
     )
   })
 

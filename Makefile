@@ -1,5 +1,5 @@
 javascript_source = $(wildcard javascript/src/*)
-assets = main.css main.js main.js.LICENSE.txt index.mustache.html icon.url
+assets = main.css main.js main.js.LICENSE.txt index.mustache icon.url
 ruby_assets = $(addprefix ruby/assets/,$(assets))
 java_assets = $(addprefix java/src/main/resources/io/cucumber/htmlformatter/,$(assets))
 dotnet_assets = $(addprefix dotnet/Cucumber.HtmlFormatter/Resources/,$(assets))
@@ -33,7 +33,7 @@ dotnet/Cucumber.HtmlFormatter/Resources/%: javascript/dist/%
 dotnet/Cucumber.HtmlFormatter/Resources/%: javascript/dist/src/%
 	cp $< $@
 
-javascript/dist/src/index.mustache.html: javascript/dist/main.js
+javascript/dist/src/index.mustache: javascript/dist/main.js
 
 javascript/dist/src/icon.url: javascript/dist/main.js
 

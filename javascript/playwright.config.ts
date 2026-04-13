@@ -13,13 +13,13 @@ export default defineConfig({
   use: {
     headless: true,
     baseURL: 'http://localhost:3000',
-    colorScheme: 'light'
+    colorScheme: 'light',
   },
   projects: [
     {
       name: 'chromium',
-      use: { 
-        ...devices['Desktop Chrome']
+      use: {
+        ...devices['Desktop Chrome'],
       },
     },
   ],
