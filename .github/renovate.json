@@ -14,8 +14,7 @@
         "@playwright/test",
         "mcr.microsoft.com/playwright"
       ],
-      "groupName": "playwright-monorepo",
-      "groupSlug": "playwright-monorepo"
+      "groupName": "playwright-monorepo"
     }
   ]
 }
