@@ -27,7 +27,7 @@
     "@cucumber/messages": ">=18"
   },
   "devDependencies": {
-    "@babel/core": "7.29.0",
+    "@babel/core": "7.29.7",
     "@biomejs/biome": "^2.4.11",
     "@cucumber/biome-config": "github:cucumber/biome-config#v0.1.0",
     "@cucumber/compatibility-kit": "^29.1.4",
