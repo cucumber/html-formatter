@@ -1,22 +1,16 @@
 {
+  "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "lib": ["es2024", "dom"],
+    "target": "es2024",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "jsx": "react-jsx",
+    "types": ["node", "mocha"],
     "declaration": true,
-    "sourceMap": true,
-    "allowJs": false,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "noImplicitAny": true,
-    "downlevelIteration": true,
-    "skipLibCheck": true,
-    "strictNullChecks": true,
-    "experimentalDecorators": true,
-    "module": "CommonJS",
-    "lib": ["ES6", "dom"],
-    "target": "ES6",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
-  }
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "noEmit": true
+  },
+  "include": ["src", "test"]
 }

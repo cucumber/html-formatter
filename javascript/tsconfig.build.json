@@ -7,5 +7,6 @@
     "declarationMap": true,
     "noEmit": false
   },
-  "include": ["src", "test", "package.json"]
+  "include": ["src"],
+  "exclude": ["src/**/*.spec.*"]
 }
