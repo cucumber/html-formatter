@@ -48,20 +48,34 @@ export class CucumberHtmlStream extends Transform {
     }
     this.preMessageWritten = true
     this.writeTemplateBetween(null, '{{title}}', (err) => {
-      if (err) return callback(err)
+      if (err) {
+        return callback(err)
+      }
       this.push('Cucumber')
       this.writeTemplateBetween('{{title}}', '{{icon}}', (err) => {
-        if (err) return callback(err)
+        if (err) {
+          return callback(err)
+        }
         this.writeFile(this.iconPath, (err) => {
-          if (err) return callback(err)
+          if (err) {
+            return callback(err)
+          }
           this.writeTemplateBetween('{{icon}}', '{{css}}', (err) => {
-            if (err) return callback(err)
+            if (err) {
+              return callback(err)
+            }
             this.writeFile(this.cssPath, (err) => {
-              if (err) return callback(err)
+              if (err) {
+                return callback(err)
+              }
               this.writeTemplateBetween('{{css}}', '{{custom_css}}', (err) => {
-                if (err) return callback(err)
+                if (err) {
+                  return callback(err)
+                }
                 this.writeTemplateBetween('{{custom_css}}', '{{messages}}', (err) => {
-                  if (err) return callback(err)
+                  if (err) {
+                    return callback(err)
+                  }
                   callback()
                 })
               })
@@ -74,13 +88,21 @@ export class CucumberHtmlStream extends Transform {
 
   private writePostMessage(callback: TransformCallback) {
     this.writePreMessageUnlessAlreadyWritten((err) => {
-      if (err) return callback(err)
+      if (err) {
+        return callback(err)
+      }
       this.writeTemplateBetween('{{messages}}', '{{script}}', (err) => {
-        if (err) return callback(err)
+        if (err) {
+          return callback(err)
+        }
         this.writeFile(this.jsPath, (err) => {
-          if (err) return callback(err)
+          if (err) {
+            return callback(err)
+          }
           this.writeTemplateBetween('{{script}}', '{{custom_script}}', (err) => {
-            if (err) return callback(err)
+            if (err) {
+              return callback(err)
+            }
             this.writeTemplateBetween('{{custom_script}}', null, callback)
           })
         })
@@ -101,8 +123,12 @@ export class CucumberHtmlStream extends Transform {
     callback: (err?: Error | null) => void
   ) {
     this.readTemplate((err, template) => {
-      if (err) return callback(err)
-      if (!template) return callback(new Error('template is required if error is missing'))
+      if (err) {
+        return callback(err)
+      }
+      if (!template) {
+        return callback(new Error('template is required if error is missing'))
+      }
       const beginIndex = begin == null ? 0 : template.indexOf(begin) + begin.length
       const endIndex = end == null ? template.length : template.indexOf(end)
       this.push(template.substring(beginIndex, endIndex))
@@ -115,7 +141,9 @@ export class CucumberHtmlStream extends Transform {
       return callback(null, this.template)
     }
     fs.readFile(`${__dirname}/index.mustache`, { encoding: 'utf-8' }, (err, template) => {
-      if (err) return callback(err)
+      if (err) {
+        return callback(err)
+      }
       this.template = template
       return callback(null, template)
     })
