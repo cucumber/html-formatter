@@ -2,7 +2,7 @@ import assert from 'node:assert'
 import { Writable } from 'node:stream'
 import type { Envelope } from '@cucumber/messages'
 
-import { CucumberHtmlStream } from './CucumberHtmlStream'
+import { CucumberHtmlStream } from './CucumberHtmlStream.js'
 
 async function renderAsHtml(...envelopes: Envelope[]): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -15,8 +15,8 @@ async function renderAsHtml(...envelopes: Envelope[]): Promise<string> {
     })
     sink.on('finish', () => resolve(html))
     const cucumberHtmlStream = new CucumberHtmlStream(
-      `${__dirname}/dummy.css`,
-      `${__dirname}/dummy.js`
+      `${import.meta.dirname}/dummy.css`,
+      `${import.meta.dirname}/dummy.js`
     )
     cucumberHtmlStream.on('error', reject)
     cucumberHtmlStream.pipe(sink)

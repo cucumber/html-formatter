@@ -1,6 +1,6 @@
-import { CucumberHtmlStream } from './CucumberHtmlStream'
+import { CucumberHtmlStream } from './CucumberHtmlStream.js'
 
-export * from './CucumberHtmlStream'
+export * from './CucumberHtmlStream.js'
 
 /**
  * @deprecated use the named export `CucumberHtmlStream` instead
