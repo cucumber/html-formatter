@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- BREAKING CHANGE: [JavaScript] Switch to ESM ([#513](https://github.com/cucumber/html-formatter/pull/513))
 
 ## [23.1.0] - 2026-04-13
 ### Changed
