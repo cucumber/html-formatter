@@ -15,9 +15,9 @@ export class CucumberHtmlStream extends Transform {
    * @param iconPath
    */
   constructor(
-    private readonly cssPath: string = path.join(__dirname, '..', 'main.css'),
-    private readonly jsPath: string = path.join(__dirname, '..', 'main.js'),
-    private readonly iconPath: string = path.join(__dirname, 'icon.url')
+    private readonly cssPath: string = path.join(import.meta.dirname, '..', 'main.css'),
+    private readonly jsPath: string = path.join(import.meta.dirname, '..', 'main.js'),
+    private readonly iconPath: string = path.join(import.meta.dirname, 'icon.url')
   ) {
     super({ objectMode: true })
   }
@@ -140,7 +140,7 @@ export class CucumberHtmlStream extends Transform {
     if (this.template !== null) {
       return callback(null, this.template)
     }
-    fs.readFile(`${__dirname}/index.mustache`, { encoding: 'utf-8' }, (err, template) => {
+    fs.readFile(`${import.meta.dirname}/index.mustache`, { encoding: 'utf-8' }, (err, template) => {
       if (err) {
         return callback(err)
       }

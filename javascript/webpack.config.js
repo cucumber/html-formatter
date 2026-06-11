@@ -1,6 +1,6 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
-module.exports = {
+export default {
   entry: './dist/src/main.js',
   module: {
     rules: [
