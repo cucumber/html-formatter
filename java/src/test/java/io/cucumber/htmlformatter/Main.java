@@ -1,8 +1,7 @@
 package io.cucumber.htmlformatter;
 
 import io.cucumber.messages.NdjsonToMessageReader;
-import io.cucumber.messages.ndjson.Deserializer;
-import io.cucumber.messages.ndjson.Serializer;
+import io.cucumber.messages.ndjson.Json;
 import io.cucumber.messages.types.Envelope;
 import org.jspecify.annotations.NullMarked;
 
@@ -24,8 +23,16 @@ public final class Main {
         } else {
             in = new FileInputStream(args[0]);
         }
-        try (NdjsonToMessageReader reader = new NdjsonToMessageReader(in, new Deserializer())) {
-            MessagesToHtmlWriter.Builder builder = MessagesToHtmlWriter.builder(new Serializer()::writeValue);
+        var instance = Json.instance();
+        var serializer = instance
+                .map(json -> json.serializer(Envelope.class))
+                .orElseThrow();
+        var deserializer = instance
+                .map(json -> json.deserializer(Envelope.class))
+                .orElseThrow();
+
+        try (NdjsonToMessageReader reader = new NdjsonToMessageReader(in, deserializer::readValue)) {
+            MessagesToHtmlWriter.Builder builder = MessagesToHtmlWriter.builder(serializer::writeValue);
             OutputStream out = new NonClosableOutputStream(System.out);
             try (MessagesToHtmlWriter htmlWriter = builder.build(out)) {
                 for (Envelope envelope : reader.lines().toList()) {
