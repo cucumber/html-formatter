@@ -31,7 +31,7 @@
   "devDependencies": {
     "@babel/core": "8.0.1",
     "@biomejs/biome": "^2.4.11",
-    "@cucumber/biome-config": "github:cucumber/biome-config#v0.3.0",
+    "@cucumber/biome-config": "github:cucumber/biome-config#v0.6.0",
     "@cucumber/compatibility-kit": "^29.1.4",
     "@cucumber/gherkin": "41.0.0",
     "@cucumber/gherkin-streams": "^7.0.0",
