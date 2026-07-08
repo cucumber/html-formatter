@@ -37,7 +37,7 @@
     "@cucumber/gherkin-streams": "^7.0.0",
     "@cucumber/gherkin-utils": "^12.0.0",
     "@cucumber/message-streams": "5.0.1",
-    "@cucumber/messages": "33.0.4",
+    "@cucumber/messages": "34.0.1",
     "@cucumber/query": "16.0.1",
     "@cucumber/react-components": "24.3.0",
     "@playwright/test": "1.61.1",
