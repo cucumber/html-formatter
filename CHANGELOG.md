@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [24.1.0] - 2026-07-13
 ### Changed
 - [Ruby] Permit `cucumber-messages` v34
 
@@ -426,7 +428,8 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v24.0.0...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v24.1.0...HEAD
+[24.1.0]: https://github.com/cucumber/html-formatter/compare/v24.0.0...v24.1.0
 [24.0.0]: https://github.com/cucumber/html-formatter/compare/v23.1.0...v24.0.0
 [23.1.0]: https://github.com/cucumber/html-formatter/compare/v23.0.0...v23.1.0
 [23.0.0]: https://github.com/cucumber/html-formatter/compare/v22.3.0...v23.0.0
