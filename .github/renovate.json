@@ -9,7 +9,7 @@
       "matchFileNames": [
         "javascript/package.json",
         "javascript/docker-compose.yml",
-        ".github/workflows/test-javascript.yml"
+        ".github/workflows/test-javascript.yaml"
       ],
       "matchPackageNames": [
         "@playwright/test",
