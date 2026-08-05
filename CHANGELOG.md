@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [24.1.1] - 2026-08-05
 ### Fixed
 - [Java] Use version range for `org.jspecify:jspecify`
 
@@ -430,7 +432,8 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v24.1.0...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v24.1.1...HEAD
+[24.1.1]: https://github.com/cucumber/html-formatter/compare/v24.1.0...v24.1.1
 [24.1.0]: https://github.com/cucumber/html-formatter/compare/v24.0.0...v24.1.0
 [24.0.0]: https://github.com/cucumber/html-formatter/compare/v23.1.0...v24.0.0
 [23.1.0]: https://github.com/cucumber/html-formatter/compare/v23.0.0...v23.1.0
