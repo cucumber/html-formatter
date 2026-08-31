@@ -48,7 +48,7 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.5",
     "babel-loader": "10.1.1",
-    "css-loader": "7.1.4",
+    "css-loader": "7.1.5",
     "glob": "^13.0.0",
     "mini-css-extract-plugin": "2.10.2",
     "mocha": "11.8.0",
