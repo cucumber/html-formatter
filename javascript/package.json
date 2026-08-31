@@ -63,7 +63,7 @@
     "tsx": "^4.23.5",
     "typescript": "7.0.2",
     "webpack": "5.109.2",
-    "webpack-cli": "7.2.2"
+    "webpack-cli": "7.2.3"
   },
   "bugs": {
     "url": "https://github.com/cucumber/html-formatter/issues"
