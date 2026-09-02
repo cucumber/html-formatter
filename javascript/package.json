@@ -39,7 +39,7 @@
     "@cucumber/message-streams": "5.0.1",
     "@cucumber/messages": "34.2.1",
     "@cucumber/query": "16.1.1",
-    "@cucumber/react-components": "24.3.0",
+    "@cucumber/react-components": "24.4.0",
     "@playwright/test": "1.62.1",
     "@tsconfig/recommended": "^1.0.13",
     "@types/glob": "^9.0.0",
