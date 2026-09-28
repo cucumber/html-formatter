@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Upgrade react-components and compatibility-kit ([#552](https://github.com/cucumber/html-formatter/pull/552))
 
 ## [24.1.1] - 2026-08-05
 ### Fixed
