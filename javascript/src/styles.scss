@@ -1,22 +1,28 @@
 $sansFamily:
-  'Inter var',
+  "Inter var",
   ui-sans-serif,
   system-ui,
   -apple-system,
   BlinkMacSystemFont,
-  'Segoe UI',
+  "Segoe UI",
   Roboto,
-  'Helvetica Neue',
+  "Helvetica Neue",
   Arial,
-  'Noto Sans',
+  "Noto Sans",
   sans-serif,
-  'Apple Color Emoji',
-  'Segoe UI Emoji',
-  'Segoe UI Symbol',
-  'Noto Color Emoji';
+  "Apple Color Emoji",
+  "Segoe UI Emoji",
+  "Segoe UI Symbol",
+  "Noto Color Emoji";
 $monoFamily:
-  ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-  'Courier New', monospace;
+  ui-monospace,
+  SFMono-Regular,
+  Menlo,
+  Monaco,
+  Consolas,
+  "Liberation Mono",
+  "Courier New",
+  monospace;
 
 :root {
   background-color: white;
