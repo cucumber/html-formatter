@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-### Added 
+
+## [24.4.0] - 2026-11-15
+### Added
 - [Java] Add OSGI Bundle name ([#571](https://github.com/cucumber/html-formatter/pull/571))
 
 ## [24.3.0] - 2026-11-13
@@ -442,7 +444,8 @@ even if there were no errors.
 ### Added
 - First release
 
-[Unreleased]: https://github.com/cucumber/html-formatter/compare/v24.3.0...HEAD
+[Unreleased]: https://github.com/cucumber/html-formatter/compare/v24.4.0...HEAD
+[24.4.0]: https://github.com/cucumber/html-formatter/compare/v24.3.0...v24.4.0
 [24.3.0]: https://github.com/cucumber/html-formatter/compare/v24.2.0...v24.3.0
 [24.2.0]: https://github.com/cucumber/html-formatter/compare/v24.1.1...v24.2.0
 [24.1.1]: https://github.com/cucumber/html-formatter/compare/v24.1.0...v24.1.1
