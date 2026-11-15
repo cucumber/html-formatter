@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added 
+- [Java] Add OSGI Bundle name ([#571](https://github.com/cucumber/html-formatter/pull/571))
 
 ## [24.3.0] - 2026-11-13
 ### Changed
