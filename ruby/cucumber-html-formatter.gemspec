@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-version = File.read(File.expand_path('VERSION', __dir__)).strip
+require_relative 'lib/cucumber/html_formatter/version'
 
 Gem::Specification.new do |s|
   s.name        = 'cucumber-html-formatter'
-  s.version     = version
+  s.version     = Cucumber::HTMLFormatter::VERSION
   s.authors     = ['Vincent Prêtre', 'Luke Hill']
   s.description = 'HTML formatter for Cucumber'
   s.summary     = "#{s.name}-#{s.version}"
