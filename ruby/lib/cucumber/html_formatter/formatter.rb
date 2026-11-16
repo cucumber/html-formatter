@@ -11,7 +11,6 @@ module Cucumber
 
       def initialize(out)
         @out = out
-        @pre_message_written = false
         @first_message = true
       end
 
@@ -26,6 +25,7 @@ module Cucumber
         # Replace < with \x3C
         # https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements
         out.print(message.to_json.gsub('<', '\\x3C'))
+        write_post_message if message.test_run_finished
 
         @first_message = false
       end
@@ -38,7 +38,10 @@ module Cucumber
       end
 
       def write_post_message
+        return if @post_message_written
+
         out.print(post_message)
+        @post_message_written = true
       end
 
       private
