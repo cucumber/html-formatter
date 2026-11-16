@@ -4,16 +4,36 @@ describe Cucumber::HTMLFormatter::Formatter do
   subject(:formatter) { described_class.new(out) }
 
   let(:out) { StringIO.new }
+  let(:empty_report_messages) do
+    [
+      Cucumber::Messages::Envelope.new(
+        test_run_started: Cucumber::Messages::TestRunStarted.new(
+          timestamp: Cucumber::Messages::Timestamp.new(seconds: 10, nanos: 0)
+        )
+      ),
+      Cucumber::Messages::Envelope.new(
+        test_run_finished: Cucumber::Messages::TestRunFinished.new(
+          timestamp: Cucumber::Messages::Timestamp.new(seconds: 15, nanos: 0)
+        )
+      )
+    ]
+  end
+  let(:empty_report_json) do
+    {
+      testRunStarted: { timestamp: { seconds: 10, nanos: 0 } },
+      testRunFinished: { success: false, timestamp: { seconds: 15, nanos: 0 } }
+    }
+  end
 
   context 'when using a simple set of assets' do
     before do
       allow(Cucumber::HTMLFormatter::AssetsLoader)
         .to receive_messages(
-              template: "{{title}}\n{{icon}}\n{{css}}\n{{custom_css}}\n{{messages}}\n{{script}}\n{{custom_script}}\n",
-              icon: 'https://example.org/icon.svg',
-              css: 'div { color: red }',
-              script: "alert('Hi');"
-            )
+          template: "{{title}}\n{{icon}}\n{{css}}\n{{custom_css}}\n{{messages}}\n{{script}}\n{{custom_script}}\n",
+          icon: 'https://example.org/icon.svg',
+          css: 'div { color: red }',
+          script: "alert('Hi');"
+        )
     end
 
     describe '#process_messages' do
@@ -97,24 +117,25 @@ describe Cucumber::HTMLFormatter::Formatter do
     end
   end
 
-  it 'writes no messages to html' do
-    formatter.process_messages([])
+  context 'when using the real assets' do
+    describe '#process_messages' do
+      it 'writes no messages to html' do
+        formatter.process_messages([])
 
-    expect(out.string).to match(/\A<!DOCTYPE html>\s?<html/)
-    expect(out.string).to include("window.CUCUMBER_MESSAGES = [\n];")
-    expect(out.string).to match(/<\/html>\Z/)
+        expect(out.string)
+          .to start_with('<!DOCTYPE html>')
+          .and include("window.CUCUMBER_MESSAGES = [\n];")
+          .and end_with("</html>\n")
+      end
 
-  end
+      it 'writes an empty report' do
+        formatter.process_messages(empty_report_messages)
 
-  it 'writes an empty report' do
-    formatter.process_messages([
-       Cucumber::Messages::Envelope.new(test_run_started: Cucumber::Messages::TestRunStarted.new(timestamp: Cucumber::Messages::Timestamp.new(seconds: 10, nanos: 0))),
-       Cucumber::Messages::Envelope.new(test_run_finished: Cucumber::Messages::TestRunFinished.new(timestamp: Cucumber::Messages::Timestamp.new(seconds: 15, nanos: 0)))
-     ])
-
-    expect(out.string).to match(/\A<!DOCTYPE html>\s?<html/)
-    expect(out.string).to include("window.CUCUMBER_MESSAGES = [\n{\"testRunStarted\":{\"timestamp\":{\"seconds\":10,\"nanos\":0}}},\n{\"testRunFinished\":{\"success\":false,\"timestamp\":{\"seconds\":15,\"nanos\":0}}}];")
-    expect(out.string).to match(/<\/html>\Z/)
-
+        expect(out.string)
+          .to start_with('<!DOCTYPE html>')
+          .and include("window.CUCUMBER_MESSAGES = [\n#{empty_report_json.map { |type, body| { type => body }.to_json }.join(",\n")}];")
+          .and end_with("</html>\n")
+      end
+    end
   end
 end

@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-version = File.read(File.expand_path('VERSION', __dir__)).strip
+require_relative 'lib/cucumber/html_formatter/version'
 
 Gem::Specification.new do |s|
   s.name        = 'cucumber-html-formatter'
-  s.version     = version
-  s.authors     = ['Vincent Prêtre']
+  s.version     = Cucumber::HTMLFormatter::VERSION
+  s.authors     = ['Vincent Prêtre', 'Luke Hill']
   s.description = 'HTML formatter for Cucumber'
   s.summary     = "#{s.name}-#{s.version}"
   s.email       = 'cukes@googlegroups.com'
   s.homepage    = 'https://github.com/cucumber/html-formatter'
   s.platform    = Gem::Platform::RUBY
   s.license     = 'MIT'
-  s.required_ruby_version = '>= 3.1'
+  s.required_ruby_version = '>= 3.4'
   s.required_rubygems_version = '>= 3.2.8'
 
   s.metadata = {
@@ -24,11 +24,12 @@ Gem::Specification.new do |s|
     'source_code_uri' => 'https://github.com/cucumber/html-formatter'
   }
 
-  s.add_runtime_dependency 'cucumber-messages', '> 23', '< 36'
+  s.add_dependency 'cucumber-messages', '> 23', '< 36'
 
   s.add_development_dependency 'rake', '~> 13.3'
   s.add_development_dependency 'rspec', '~> 3.13'
   s.add_development_dependency 'rubocop', '~> 1.92.0'
+  s.add_development_dependency 'rubocop-performance', '~> 1.27.0'
   s.add_development_dependency 'rubocop-rake', '~> 0.7.0'
   s.add_development_dependency 'rubocop-rspec', '~> 3.10.0'
 

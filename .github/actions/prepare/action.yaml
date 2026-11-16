@@ -3,7 +3,7 @@ description: Builds and copies the assets into the Java and Ruby package folders
 runs:
   using: "composite"
   steps:
-    - name: with Node.js 16 on ubuntu-latest
+    - name: with Node.js 26 on ubuntu-latest
       uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
       with:
         node-version: 26.x

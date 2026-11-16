@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 require 'cucumber/messages'
-require 'cucumber/html_formatter/template_writer'
-require 'cucumber/html_formatter/assets_loader'
+
+require_relative 'template_writer'
+require_relative 'assets_loader'
 
 module Cucumber
   module HTMLFormatter
@@ -11,7 +12,6 @@ module Cucumber
 
       def initialize(out)
         @out = out
-        @pre_message_written = false
         @first_message = true
       end
 
@@ -26,6 +26,7 @@ module Cucumber
         # Replace < with \x3C
         # https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements
         out.print(message.to_json.gsub('<', '\\x3C'))
+        write_post_message if message.test_run_finished
 
         @first_message = false
       end
@@ -38,7 +39,10 @@ module Cucumber
       end
 
       def write_post_message
+        return if @post_message_written
+
         out.print(post_message)
+        @post_message_written = true
       end
 
       private
@@ -53,7 +57,7 @@ module Cucumber
           AssetsLoader.css,
           template_writer.write_between('{{css}}', '{{custom_css}}'),
           template_writer.write_between('{{custom_css}}', '{{messages}}')
-        ].join('')
+        ].join
       end
 
       def post_message
@@ -62,7 +66,7 @@ module Cucumber
           AssetsLoader.script,
           template_writer.write_between('{{script}}', '{{custom_script}}'),
           template_writer.write_between('{{custom_script}}', nil)
-        ].join('')
+        ].join
       end
 
       def template_writer
