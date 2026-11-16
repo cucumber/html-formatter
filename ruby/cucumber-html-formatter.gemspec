@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubocop', '~> 1.81.0'
   s.add_development_dependency 'rubocop-rake', '~> 0.6.0'
   s.add_development_dependency 'rubocop-rspec', '~> 3.8.0'
+  s.add_development_dependency 'rubocop-performance', '~> 1.27.0'
 
   s.executables      = ['cucumber-html-formatter']
   s.files            = Dir['README.md', 'LICENSE', 'lib/**/*', 'assets/*']
