@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- BREAKING CHANGE: [Ruby] Require Ruby 3.4 or newer
+
+### Fixed
+- [Ruby] Automatically write the closing HTML code when the `test_run_finished` message is processed
 
 ## [24.4.0] - 2026-11-15
 ### Added
