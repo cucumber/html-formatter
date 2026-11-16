@@ -53,7 +53,7 @@ module Cucumber
           AssetsLoader.css,
           template_writer.write_between('{{css}}', '{{custom_css}}'),
           template_writer.write_between('{{custom_css}}', '{{messages}}')
-        ].join('')
+        ].join
       end
 
       def post_message
@@ -62,7 +62,7 @@ module Cucumber
           AssetsLoader.script,
           template_writer.write_between('{{script}}', '{{custom_script}}'),
           template_writer.write_between('{{custom_script}}', nil)
-        ].join('')
+        ].join
       end
 
       def template_writer
