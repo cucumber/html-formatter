@@ -27,4 +27,11 @@ export default {
       filename: 'main.css',
     }),
   ],
+  optimization: {
+    // webpack's built-in CSS minifier (on by default from 5.110) downlevels our
+    // oklch() colours to hex, which changes how reports render, so leave it off.
+    minimize: {
+      css: false,
+    },
+  },
 }

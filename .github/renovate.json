@@ -9,13 +9,15 @@
       "matchFileNames": [
         "javascript/package.json",
         "javascript/docker-compose.yml",
-        ".github/workflows/test-javascript.yml"
+        ".github/workflows/test-javascript.yaml"
       ],
       "matchPackageNames": [
         "@playwright/test",
         "mcr.microsoft.com/playwright"
       ],
-      "groupName": "playwright-monorepo"
+      "groupName": "playwright-monorepo",
+      "minimumReleaseAge": "3 days",
+      "minimumReleaseAgeBuffer": "1 day"
     }
   ]
 }
