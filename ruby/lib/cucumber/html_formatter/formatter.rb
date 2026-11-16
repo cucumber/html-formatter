@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 require 'cucumber/messages'
-require 'cucumber/html_formatter/template_writer'
-require 'cucumber/html_formatter/assets_loader'
+
+require_relative 'template_writer'
+require_relative 'assets_loader'
 
 module Cucumber
   module HTMLFormatter
