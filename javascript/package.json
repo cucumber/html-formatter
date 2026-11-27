@@ -40,7 +40,7 @@
     "@cucumber/messages": "35.0.0",
     "@cucumber/query": "16.4.0",
     "@cucumber/react-components": "24.5.0",
-    "@playwright/test": "1.65.0",
+    "@playwright/test": "1.65.1",
     "@tsconfig/recommended": "^1.0.13",
     "@types/glob": "^9.0.0",
     "@types/mocha": "10.0.10",
