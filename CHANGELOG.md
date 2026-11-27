@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - BREAKING CHANGE: [Ruby] Require Ruby 3.4 or newer
 - [Ruby] Moved the version definition to `lib/cucumber/html_formatter/version.rb` and updated the gemspec to use `Cucumber::HTMLFormatter::VERSION`
+- Upgrade `react-components` to [24.5.2](https://github.com/cucumber/react-components/releases/tag/v24.5.2)
 
 ### Fixed
 - [Ruby] Automatically write the closing HTML code when the `test_run_finished` message is processed
